@@ -1,10 +1,16 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Register } from "../Auth/Register";
+import { Login } from "../Auth/Login";
 import { Home } from "../../pages/Home";
 
 /** Массив роутов приложения */
-const routes = [{ path: "/app/home", element: <Home /> }];
+const routes = [
+    { path: "/home", element: <Home /> },
+    { path: "/", element: <Navigate to="register" /> },
+    { path: "/login", element: <Login /> },
+    { path: "/register", element: <Register /> },
+];
 
 /**
  * Рекурсивно отображает роуты и дочерние роуты.
@@ -17,8 +23,4 @@ const renderRoute = ({ path, element, children }) => (
 );
 
 /** Корневой компонент приложения с роутами */
-export const AppRoutes = () => (
-    <Routes>
-        <Route path="/" element={<Register />}></Route>
-    </Routes>
-);
+export const AppRoutes = () => <Routes>{routes.map(renderRoute)}</Routes>;
