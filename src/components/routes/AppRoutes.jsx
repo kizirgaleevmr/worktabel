@@ -7,7 +7,7 @@ import { Home } from "../../pages/Home";
 /** Массив роутов приложения */
 const routes = [
     { path: "/home", element: <Home /> },
-    { path: "/", element: <Navigate to="register" /> },
+    { path: "/", element: <Navigate to="login" /> },
     { path: "/login", element: <Login /> },
     { path: "/register", element: <Register /> },
 ];
