@@ -8,12 +8,12 @@ export const Register = () => {
                 <div>
                     <img
                         src="src/assets/header/logo1.png"
-                        className="w-60 mx-auto"
+                        className="w- mx-auto"
                         alt="Logo"
                     />
                 </div>
                 <div className="mt-12 flex flex-col items-center">
-                    <h1 className="text-3xl font-bold">Sign up</h1>
+                    <h1 className="text-3xl font-bold">Вход</h1>
                     <div className="w-full flex-1 mt-8">
                         <div className="flex flex-col items-center">
                             <button className="w-full max-w-xs font-medium shadow-sm rounded-lg text-sm px-5 py-2.5 cursor-pointer bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed">
@@ -70,7 +70,7 @@ export const Register = () => {
             </div>
             <div className="flex-1 bg-indigo-100 text-center hidden lg:flex">
                 <div className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat">
-                    <img src="src/assets/auth/bg.svg" alt="Image" />
+                    <img src="/src/assets/image_right.png" alt="Image" />
                 </div>
             </div>
         </section>
