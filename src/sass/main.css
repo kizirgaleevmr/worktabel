@@ -1,2 +1,5 @@
-
-/*# sourceMappingURL=main.css.map */
+body {
+  background-image: url("/src/assets/image.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
