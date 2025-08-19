@@ -3,6 +3,10 @@ import { Routes, Route, Navigate, Outlet, replace } from "react-router-dom";
 import { Register } from "../Auth/Register";
 import { Login } from "../Auth/Login";
 import { Home } from "../../pages/Home";
+import { Tabel } from "../../pages/Tabel";
+import { Users } from "../../pages/Users";
+import { Message } from "../../pages/Messaeg";
+import { Profile } from "../../pages/Profile";
 
 /** Массив роутов приложения */
 const routes = [
@@ -11,16 +15,6 @@ const routes = [
     { path: "/login", element: <Login /> },
     { path: "/register", element: <Register /> },
 ];
-
-/**
- * Рекурсивно отображает роуты и дочерние роуты.
- * @param {RouteItem} route - Объект роута.
- */
-const renderRoute = ({ path, element, children }) => (
-    <Route key={path} path={path} element={element}>
-        {children && children.map(renderRoute)}
-    </Route>
-);
 
 /**Приватный роутинг */
 function PrivateRoute() {
@@ -33,7 +27,12 @@ export const AppRoutes = () => {
     return (
         <Routes>
             <Route element={<PrivateRoute />}>
-                <Route path="/home" element={<Home />} />
+                <Route path="/home" element={<Home />}>
+                    <Route path="tabel" element={<Tabel />} />
+                    <Route path="sotrudniki" element={<Users />} />
+                    <Route path="profile" element={<Profile />} />
+                    <Route path="message" element={<Message />} />
+                </Route>
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Login />} />
