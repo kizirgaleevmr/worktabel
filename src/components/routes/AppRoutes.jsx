@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet, replace } from "react-router-dom";
 import { Register } from "../Auth/Register";
 import { Login } from "../Auth/Login";
 import { Home } from "../../pages/Home";
@@ -22,5 +22,20 @@ const renderRoute = ({ path, element, children }) => (
     </Route>
 );
 
+/**Приватный роутинг */
+function PrivateRoute() {
+    const token = sessionStorage.accessToken;
+    return token ? <Outlet /> : <Navigate to="login" />;
+}
+
 /** Корневой компонент приложения с роутами */
-export const AppRoutes = () => <Routes>{routes.map(renderRoute)}</Routes>;
+export const AppRoutes = () => {
+    return (
+        <Routes>
+            <Route element={<PrivateRoute />}>
+                <Route path="/home" element={<Home />} />
+            </Route>
+            <Route path="*" element={<Login />} />
+        </Routes>
+    );
+};
