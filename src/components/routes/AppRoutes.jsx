@@ -35,7 +35,9 @@ export const AppRoutes = () => {
             <Route element={<PrivateRoute />}>
                 <Route path="/home" element={<Home />} />
             </Route>
-            <Route path="*" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
         </Routes>
     );
 };
