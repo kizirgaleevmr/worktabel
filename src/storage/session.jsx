@@ -1,7 +1,6 @@
 export const startSession = (user) => {
     sessionStorage.setItem("email", user.email);
     sessionStorage.setItem("accessToken", user.accessToken);
-    console.log(sessionStorage);
 };
 
 export const getSession = () => {
