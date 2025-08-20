@@ -20,7 +20,6 @@ import {
     UserIcon,
 } from "@heroicons/react/24/solid";
 import { Link, Outlet, Navigate, useNavigate } from "react-router-dom";
-import { handleLogout } from "../../firebase";
 import { useEffect, useState } from "react";
 import { AlertWithList } from "./Alert";
 
@@ -42,9 +41,36 @@ export function DefaultSidebar() {
         setState(true);
     };
 
+    //Показываем алерт при входе в систему что какой пользовател вошел
+    function MyAlert() {
+        const [show, setShow] = useState(true);
+        //Убирам alert через 3 секунды
+        if (show) {
+            setTimeout(() => {
+                setShow(false);
+            }, 3000);
+        }
+        if (state) {
+            return (
+                <AlertWithList
+                    title="Сообщение"
+                    text={`Пользователь ${window.sessionStorage.email} вышел`}
+                    showAlert={state}
+                />
+            );
+        }
+        return (
+            <AlertWithList
+                title="Сообщение"
+                text={`Пользователь ${window.sessionStorage.email} вошел`}
+                showAlert={show}
+            />
+        );
+    }
+
     return (
         <div className="flex">
-            <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 text-2xl mr-6">
+            <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 text-2xl mr-6 border-t-amber-500 border-t-4">
                 <div className="mb-2 p-4">
                     <Typography variant="h5" color="blue-gray">
                         Меню
@@ -103,11 +129,7 @@ export function DefaultSidebar() {
                     </ListItem>
                 </List>
             </Card>
-            <AlertWithList
-                title="Сообщение"
-                text={`Пользователь ${window.sessionStorage.email} вышел`}
-                showAlert={state}
-            />
+            {MyAlert()}
             <div>
                 <Outlet />
             </div>
