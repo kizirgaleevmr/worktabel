@@ -27,10 +27,15 @@ import { AlertWithList } from "./Alert";
 export function DefaultSidebar() {
     const navigate = useNavigate();
     const [state, setState] = useState(false);
+
+    //Проверяем состояние и показываем alert что пользователь вышел
     useEffect(() => {
-        if (state) {
-            navigate("/");
-        }
+        setTimeout(() => {
+            if (state) {
+                navigate("/");
+            }
+            setState(false);
+        }, 3000);
     }, [state]);
 
     const handClick = () => {
@@ -98,6 +103,11 @@ export function DefaultSidebar() {
                     </ListItem>
                 </List>
             </Card>
+            <AlertWithList
+                title="Сообщение"
+                text={`Пользователь ${window.sessionStorage.email} вышел`}
+                showAlert={state}
+            />
             <div>
                 <Outlet />
             </div>
