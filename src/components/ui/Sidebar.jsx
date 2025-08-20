@@ -19,11 +19,24 @@ import {
     PhoneArrowDownLeftIcon,
     UserIcon,
 } from "@heroicons/react/24/solid";
-import { Link, Outlet, Route, Routes } from "react-router-dom";
-import { Tabel } from "../../pages/Tabel";
-import { Users } from "../../pages/Users";
+import { Link, Outlet, Navigate, useNavigate } from "react-router-dom";
+import { handleLogout } from "../../firebase";
+import { useEffect, useState } from "react";
+import { AlertWithList } from "./Alert";
 
 export function DefaultSidebar() {
+    const navigate = useNavigate();
+    const [state, setState] = useState(false);
+    useEffect(() => {
+        if (state) {
+            navigate("/");
+        }
+    }, [state]);
+
+    const handClick = () => {
+        setState(true);
+    };
+
     return (
         <div className="flex">
             <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 text-2xl mr-6">
@@ -74,11 +87,14 @@ export function DefaultSidebar() {
                             Профиль
                         </ListItem>
                     </Link>
-                    <ListItem className="mb-3 cursor-pointer">
+                    <ListItem
+                        className="mb-3 cursor-pointer"
+                        onClick={handClick}
+                    >
                         <ListItemPrefix>
                             <PowerIcon className="h-5 w-5 mr-4" />
                         </ListItemPrefix>
-                        Выйти
+                        Выход
                     </ListItem>
                 </List>
             </Card>
