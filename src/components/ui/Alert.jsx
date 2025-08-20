@@ -36,15 +36,19 @@ function IconSolid() {
     );
 }
 
-export function AlertWithList(props) {
+export function AlertWithList({ showAlert, text, title }) {
     return (
-        <div className="flex w-full flex-col gap-2">
-            <Alert variant="gradient" icon={<IconOutlined />}>
-                <Typography className="font-medium">{props.title}</Typography>
-                <ul className="mt-2 ml-2 list-inside list-disc">
-                    <li>{props.text}</li>
-                </ul>
-            </Alert>
-        </div>
+        <Alert
+            variant="gradient"
+            icon={<IconOutlined />}
+            className={`bg-neutral-700 p-6 text-left h-30 w-120 absolute bottom-4 ${
+                showAlert ? "alert__active" : "alert"
+            }`}
+        >
+            <Typography className="font-medium ml-5">{title}</Typography>
+            <ul className="mt-2 ml-2 list-inside list-disc">
+                <li>{text}</li>
+            </ul>
+        </Alert>
     );
 }
