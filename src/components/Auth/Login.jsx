@@ -27,7 +27,6 @@ export const Login = () => {
             let loginResponse = await signInUser(email, password);
             startSession(loginResponse.user);
             navigate("/home", { replace: true });
-            console.log("Logging in...");
         } catch (error) {
             console.error(error.message);
             setError(error.message);
