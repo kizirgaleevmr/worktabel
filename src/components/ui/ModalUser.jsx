@@ -14,19 +14,48 @@ import {
     DialogFooter,
 } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { handleSubmitToDB, uploadImage } from "../config/firebase";
 
 export function AddProductDialog({ open, setOpen }) {
-    const [formState, setFormState] = useState({
+    const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
         surname: "",
         file: null,
-        position: "",
         useDate: "",
         note: "",
     });
+
+    //Закрытие модального окна
     const handleOpen = () => {
         setOpen(!open);
+    };
+
+    //Формирвание объекта с данными из формы
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+
+        console.log(formData);
+    };
+
+    //Добавляем в в объект изображение file
+    const urlImage = (e) => {
+        const { name, files } = e.target;
+        setFormData({
+            ...formData,
+            [name]: files[0],
+        });
+        return e.target.files;
+    };
+
+    //для отправки данных на firebase
+    const addUsers = () => {
+        handleSubmitToDB(formData, formData.file);
     };
 
     return (
@@ -66,6 +95,8 @@ export function AddProductDialog({ open, setOpen }) {
                                     name="lastName"
                                     className="border-cyan-800 border-b-2 outline-0 w-full mb-4"
                                     placeholder="Иванов"
+                                    onChange={handleChange}
+                                    value={formData.lastName}
                                 />
                                 <label
                                     htmlFor="firstName"
@@ -78,6 +109,8 @@ export function AddProductDialog({ open, setOpen }) {
                                     name="firstName"
                                     className="border-cyan-800 border-b-2 outline-0 w-full mb-4"
                                     placeholder="Иван"
+                                    onChange={handleChange}
+                                    value={formData.firstName}
                                 />
                                 <label
                                     htmlFor="surname"
@@ -90,19 +123,23 @@ export function AddProductDialog({ open, setOpen }) {
                                     name="surname"
                                     className="border-cyan-800 border-b-2 outline-0 w-full mb-4"
                                     placeholder="Иванович"
+                                    onChange={handleChange}
+                                    value={formData.surname}
                                 />
                             </div>
                             <div>
                                 <label
                                     className="block mb-2 text-sm font-medium text-gray-500"
-                                    htmlFor="file_input"
+                                    htmlFor="file"
                                 >
                                     Загрузить файл
                                 </label>
                                 <input
                                     className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 p-3 mb-2"
-                                    id="file_input"
+                                    id="file"
+                                    name="file"
                                     type="file"
+                                    onChange={urlImage}
                                 />
                             </div>
                         </div>
@@ -114,6 +151,7 @@ export function AddProductDialog({ open, setOpen }) {
                                     value="Мужской"
                                     name="default-radio"
                                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-600  dark:bg-gray-700 dark:border-gray-600 outline-0"
+                                    onChange={handleChange}
                                 />
                                 <label
                                     htmlFor="default-radio-1"
@@ -127,6 +165,7 @@ export function AddProductDialog({ open, setOpen }) {
                                     value="Женский"
                                     name="default-radio"
                                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-600  dark:bg-gray-700 dark:border-gray-600 outline-0"
+                                    onChange={handleChange}
                                 />
                                 <label
                                     htmlFor="default-radio-2"
@@ -144,8 +183,10 @@ export function AddProductDialog({ open, setOpen }) {
                             <select
                                 id="underline_select"
                                 className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                onChange={handleChange}
+                                name="dolzhnost"
                             >
-                                <option selected>Выбирете должность</option>
+                                <option>Выбирете должность</option>
                                 <option value="инженер">Инженер</option>
                                 <option value="техник">Техник</option>
                                 <option value="водитель">Водитель</option>
@@ -158,7 +199,6 @@ export function AddProductDialog({ open, setOpen }) {
                             >
                                 Дата устройства:
                             </label>
-                            <input type="date" name="useDate" id="useDate" />
                         </div>
                         <div>
                             <Typography
@@ -175,6 +215,9 @@ export function AddProductDialog({ open, setOpen }) {
                                 labelProps={{
                                     className: "hidden",
                                 }}
+                                onChange={handleChange}
+                                name="note"
+                                value={formData.note}
                             />
                         </div>
                     </form>
@@ -188,8 +231,9 @@ export function AddProductDialog({ open, setOpen }) {
                         Отмена
                     </button>
                     <button
-                        type="button"
+                        type="submit"
                         className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                        onClick={addUsers}
                     >
                         Добавить
                     </button>
