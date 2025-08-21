@@ -7,9 +7,8 @@ const route = [{ path: "/home/tabel", element: <Tabel /> }];
 
 export const Home = () => {
     const location = useLocation();
-    console.log(location);
     return (
-        <section id="home" className="max-w-7xl px-2">
+        <section id="home" className="max-w-full px-2">
             <DefaultSidebar />
         </section>
     );
