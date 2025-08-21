@@ -22,7 +22,7 @@ export function AddProductDialog({ open, setOpen }) {
         lastName: "",
         surname: "",
         file: null,
-        useDate: "",
+        userDate: "",
         note: "",
     });
 
@@ -127,6 +127,38 @@ export function AddProductDialog({ open, setOpen }) {
                                     value={formData.surname}
                                 />
                             </div>
+                            <div className="flex justify-between flex-row">
+                                <div>
+                                    <label
+                                        htmlFor="emil"
+                                        className="block text-gray-500 mb-2"
+                                    >
+                                        email
+                                    </label>
+                                    <input
+                                        name="email"
+                                        type="text"
+                                        placeholder="email"
+                                        className="border-cyan-800 border-b-2 outline-0 w-full mb-4"
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="phone"
+                                        className="block text-gray-500 mb-2"
+                                    >
+                                        Телефон
+                                    </label>
+                                    <input
+                                        name="phone"
+                                        type="text"
+                                        placeholder="phone"
+                                        className="border-cyan-800 border-b-2 outline-0 w-full mb-4"
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
                             <div>
                                 <label
                                     className="block mb-2 text-sm font-medium text-gray-500"
@@ -199,6 +231,12 @@ export function AddProductDialog({ open, setOpen }) {
                             >
                                 Дата устройства:
                             </label>
+                            <input
+                                type="date"
+                                name="userDate"
+                                id="userDate"
+                                onChange={handleChange}
+                            />
                         </div>
                         <div>
                             <Typography
