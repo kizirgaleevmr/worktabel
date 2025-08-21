@@ -15,8 +15,10 @@ import {
 } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { handleSubmitToDB, uploadImage } from "../config/firebase";
+import { AlertWithList } from "../ui/Alert";
 
 export function AddProductDialog({ open, setOpen }) {
+    //для данных из формы
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -26,6 +28,8 @@ export function AddProductDialog({ open, setOpen }) {
         note: "",
     });
 
+    //для показа алерта
+    const [alertUserState, setAlertUserState] = useState(false);
     //Закрытие модального окна
     const handleOpen = () => {
         setOpen(!open);
@@ -56,7 +60,29 @@ export function AddProductDialog({ open, setOpen }) {
     //для отправки данных на firebase
     const addUsers = () => {
         handleSubmitToDB(formData, formData.file);
+        //Закрываем модалку
+        handleOpen();
+        setAlertUserState(true);
     };
+
+    //функция для показа алерта
+    function showAlert() {
+        //Убирам alert через 3 секунды
+        if (alertUserState) {
+            setTimeout(() => {
+                setAlertUserState(false);
+            }, 3000);
+        }
+        if (alertUserState) {
+            return (
+                <AlertWithList
+                    title="Данные сохранены"
+                    text={`${formData?.lastName} ${formData?.firstName} `}
+                    showAlert={alertUserState}
+                />
+            );
+        }
+    }
 
     return (
         <>
@@ -277,6 +303,7 @@ export function AddProductDialog({ open, setOpen }) {
                     </button>
                 </DialogFooter>
             </Dialog>
+            {showAlert()}
         </>
     );
 }
