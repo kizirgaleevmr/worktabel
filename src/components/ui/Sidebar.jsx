@@ -130,7 +130,7 @@ export function DefaultSidebar() {
                 </List>
             </Card>
             {MyAlert()}
-            <div>
+            <div className="max-w-full">
                 <Outlet />
             </div>
         </div>
