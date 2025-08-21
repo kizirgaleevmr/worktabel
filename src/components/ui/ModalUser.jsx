@@ -17,7 +17,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { handleSubmitToDB, uploadImage } from "../config/firebase";
 import { AlertWithList } from "../ui/Alert";
 
-export function AddProductDialog({ open, setOpen }) {
+export function AddUserDialog({ open, setOpen }) {
     //для данных из формы
     const [formData, setFormData] = useState({
         firstName: "",
