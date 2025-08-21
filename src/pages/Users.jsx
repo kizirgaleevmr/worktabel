@@ -5,8 +5,7 @@ export const Users = () => {
         <>
             <ButtonGroupColors
                 title1={"Добавить сотрудника"}
-                title2={"Удалить сотрудника"}
-                title3={"Посмотреть всех"}
+                title2={"Посмотреть всех"}
             />
         </>
     );
