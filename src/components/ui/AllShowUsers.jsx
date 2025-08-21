@@ -1,7 +1,7 @@
 import { Button } from "@material-tailwind/react";
 import { HorizontalCard } from "./Cards";
-import firebase from "firebase/compat/app";
-export const AllShowUsers = ({ show = "true", setShow }) => {
+
+export const AllShowUsers = ({ show = "true", setShow, data }) => {
     const firstName = "bob",
         lastName = "ggg",
         surname = "wew",
@@ -10,20 +10,45 @@ export const AllShowUsers = ({ show = "true", setShow }) => {
         otdel = "ДКИС",
         email = "mkr@mail.ru",
         jobDate = "12213213";
+    const Cards = () => {
+        if (data) {
+            console.log(data);
+            return (
+                <>
+                    {data.map(
+                        ({
+                            id,
+                            otdel,
+                            firstName,
+                            lastName,
+                            surname,
+                            phone,
+                            email,
+                            dolzhnost,
+                        }) => {
+                            return (
+                                <HorizontalCard
+                                    otdel={otdel}
+                                    firstName={firstName}
+                                    lastName={lastName}
+                                    surname={surname}
+                                    phone={phone}
+                                    dolzhnost={dolzhnost}
+                                    email={email}
+                                    jobDate={jobDate}
+                                />
+                            );
+                        }
+                    )}
+                </>
+            );
+        }
+    };
 
     return (
         <div className={` ${show ? "active__show_users" : "none__show_users"}`}>
-            <section className="content__users flex flex-row">
-                <HorizontalCard
-                    otdel={otdel}
-                    firstName={firstName}
-                    lastName={lastName}
-                    surname={surname}
-                    phone={phone}
-                    dolzhnost={dolzhnost}
-                    email={email}
-                    jobDate={jobDate}
-                />
+            <section className="content__users flex flex-row gap-8 flex-wrap">
+                <Cards />
             </section>
             <Button
                 variant="outlined"
