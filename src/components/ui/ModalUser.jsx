@@ -16,7 +16,7 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { handleSubmitToDB, uploadImage } from "../config/firebase";
 import { AlertWithList } from "../ui/Alert";
-
+import { base64Coding } from "../utils/base64";
 export function AddUserDialog({ open, setOpen }) {
     //для данных из формы
     const [formData, setFormData] = useState({
@@ -43,17 +43,18 @@ export function AddUserDialog({ open, setOpen }) {
             ...formData,
             [name]: value,
         });
-
         console.log(formData);
     };
 
-    //Добавляем в в объект изображение file
+    //Добавляем в объект изображение file
     const urlImage = (e) => {
         const { name, files } = e.target;
         setFormData({
             ...formData,
             [name]: files[0],
         });
+        base64Coding(e.target);
+
         return e.target.files;
     };
 
@@ -83,7 +84,6 @@ export function AddUserDialog({ open, setOpen }) {
             );
         }
     }
-
     return (
         <>
             <Dialog
@@ -200,6 +200,7 @@ export function AddUserDialog({ open, setOpen }) {
                                     onChange={urlImage}
                                 />
                             </div>
+                            <div id="pasteImg" className="mb-7"></div>
                         </div>
                         <div>
                             <div className="flex items-center mb-4">
