@@ -1,5 +1,5 @@
 import { ButtonGroup, Button } from "@material-tailwind/react";
-import { AddProductDialog } from "./ModalUser";
+import { AddUserDialog } from "./ModalUser";
 import React from "react";
 
 export function ButtonGroupColors({ title1, title2, title3 }) {
@@ -24,11 +24,8 @@ export function ButtonGroupColors({ title1, title2, title3 }) {
                 <Button className="hover:bg-sky-700 p-2 cursor-pointer">
                     {title2}
                 </Button>
-                <Button className="hover:bg-sky-700 p-2 cursor-pointer">
-                    {title3}
-                </Button>
             </ButtonGroup>
-            <AddProductDialog open={isOpen} setOpen={setOpen} />
+            <AddUserDialog open={isOpen} setOpen={setOpen} />
         </div>
     );
 }
