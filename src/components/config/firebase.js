@@ -78,3 +78,14 @@ export async function handleSubmitToDB(form, file) {
         console.error("Error adding document: ", e);
     }
 }
+
+/**
+ * Получает всеx сотрудников.
+ */
+export async function fetchUsers() {
+    const querySnapshot = await getDocs(collection(db, "users"));
+    return querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+}
