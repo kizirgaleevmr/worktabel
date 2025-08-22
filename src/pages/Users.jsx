@@ -1,4 +1,4 @@
-import { ButtonGroupColors } from "../components/ui/Button";
+import { ButtonGroupColors } from "../components/ui/SotrudnikiModalAll";
 
 export const Users = () => {
     return (
