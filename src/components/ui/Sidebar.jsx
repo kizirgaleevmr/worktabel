@@ -8,11 +8,6 @@ import {
     Chip,
 } from "@material-tailwind/react";
 import {
-    PresentationChartBarIcon,
-    ShoppingBagIcon,
-    UserCircleIcon,
-    Cog6ToothIcon,
-    InboxIcon,
     PowerIcon,
     BookOpenIcon,
     UserGroupIcon,
@@ -70,7 +65,7 @@ export function DefaultSidebar() {
 
     return (
         <div className="flex">
-            <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 text-2xl mr-6 border-t-amber-500 border-t-4">
+            <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 text-2xl mr-6 border-t-amber-500 border-t-4 scroll-auto">
                 <div className="mb-2 p-4">
                     <Typography variant="h5" color="blue-gray">
                         Меню
@@ -130,7 +125,7 @@ export function DefaultSidebar() {
                 </List>
             </Card>
             {MyAlert()}
-            <div className="max-w-full">
+            <div className="w-full">
                 <Outlet />
             </div>
         </div>
