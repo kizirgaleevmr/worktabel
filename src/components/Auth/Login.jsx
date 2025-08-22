@@ -1,6 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 import React, { useState } from "react";
-import { signInUser } from "../../firebase";
+import { signInUser } from "../config/firebase";
 import { startSession } from "../../storage/session";
 
 export const Login = () => {
@@ -11,14 +11,11 @@ export const Login = () => {
 
     const handleSubmit = async (event) => {
         event?.preventDefault();
-        // let navigate = useNavigate();
-
         // validate the inputs
         if (!email || !password) {
             setError("Please enter your username and password.");
             return;
         }
-
         // clear the errors
         setError("");
 
