@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import { Provider } from "@/components/ui/provider";
 import {
-    Input,
-    Option,
-    Select,
-    Button,
+    
     Dialog,
     Textarea,
     IconButton,
@@ -109,7 +106,7 @@ export function AddUserDialog({ open, setOpen }) {
                 <DialogBody className="space-y-4 pb-6 text-left">
                     <form>
                         <div>
-                            <div>
+                            <div className="mb-2 flex flex-wrap">
                                 <label
                                     htmlFor="lastName"
                                     className="block text-gray-500 mb-2"
@@ -119,10 +116,10 @@ export function AddUserDialog({ open, setOpen }) {
                                 <input
                                     type="text"
                                     name="lastName"
-                                    className="border-cyan-800 border-b-2 outline-0 w-full mb-4"
+                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1"
                                     placeholder="Иванов"
                                     onChange={handleChange}
-                                    value={formData.lastName}
+                                    required
                                 />
                                 <label
                                     htmlFor="firstName"
@@ -133,10 +130,10 @@ export function AddUserDialog({ open, setOpen }) {
                                 <input
                                     type="text"
                                     name="firstName"
-                                    className="border-cyan-800 border-b-2 outline-0 w-full mb-4"
+                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1"
                                     placeholder="Иван"
                                     onChange={handleChange}
-                                    value={formData.firstName}
+                                    required
                                 />
                                 <label
                                     htmlFor="surname"
@@ -147,14 +144,46 @@ export function AddUserDialog({ open, setOpen }) {
                                 <input
                                     type="text"
                                     name="surname"
-                                    className="border-cyan-800 border-b-2 outline-0 w-full mb-4"
+                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1 mb-4"
                                     placeholder="Иванович"
                                     onChange={handleChange}
-                                    value={formData.surname}
+                                    required
                                 />
+                                <div className="w-full flex justify-between">
+                                    <div className="w-full">
+                                        <label
+                                            htmlFor="birthday"
+                                            className="block text-gray-500 mb-2"
+                                        >
+                                            Год рождения:
+                                        </label>
+                                        <input
+                                            type="date"
+                                            name="birthday"
+                                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-60"
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            htmlFor="tabelNumber"
+                                            className="block text-gray-500 mb-2"
+                                        >
+                                            Табельный номер:
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="tabelNumber"
+                                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 mb-4 w-60"
+                                            placeholder="0000"
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                            <div className="flex justify-between flex-row">
-                                <div>
+                            <div className="flex justify-between flex-row  flex-wrap mb-4">
+                                <div className="w-60">
                                     <label
                                         htmlFor="emil"
                                         className="block text-gray-500 mb-2"
@@ -165,14 +194,14 @@ export function AddUserDialog({ open, setOpen }) {
                                         name="email"
                                         type="text"
                                         placeholder="email"
-                                        className="border-cyan-800 border-b-2 outline-0 w-full mb-4"
+                                        className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-full"
                                         onChange={handleChange}
                                     />
                                 </div>
-                                <div>
+                                <div className="w-60">
                                     <label
                                         htmlFor="phone"
-                                        className="block text-gray-500 mb-2"
+                                        className="block text-gray-500 mb-2 w-1/2"
                                     >
                                         Телефон
                                     </label>
@@ -180,7 +209,7 @@ export function AddUserDialog({ open, setOpen }) {
                                         name="phone"
                                         type="text"
                                         placeholder="phone"
-                                        className="border-cyan-800 border-b-2 outline-0 w-full mb-4"
+                                        className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-full"
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -234,16 +263,13 @@ export function AddUserDialog({ open, setOpen }) {
                                 </label>
                             </div>
                         </div>
-                        <div className="flex gap-4">
-                            <div className="w-full"></div>
-                            <div className="w-full"></div>
-                        </div>
                         <div className="mb-4">
                             <select
                                 id="underline_select"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+                                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-full"
                                 onChange={handleChange}
                                 name="dolzhnost"
+                                required
                             >
                                 <option>Выбирете должность</option>
                                 <option value="инженер">Инженер</option>
@@ -261,7 +287,7 @@ export function AddUserDialog({ open, setOpen }) {
                             <input
                                 type="date"
                                 name="userDate"
-                                id="userDate"
+                                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500"
                                 onChange={handleChange}
                             />
                         </div>
@@ -274,8 +300,7 @@ export function AddUserDialog({ open, setOpen }) {
                                 Примечание
                             </Typography>
                             <Textarea
-                                rows={7}
-                                placeholder="eg. This is a white shoes with a comfortable sole."
+                                rows={3}
                                 className="!w-full !border-[1.5px] !border-blue-gray-200/90 !border-t-blue-gray-200/90 bg-white text-gray-600 ring-4 ring-transparent focus:!border-primary focus:!border-t-blue-gray-900 group-hover:!border-primary"
                                 labelProps={{
                                     className: "hidden",
