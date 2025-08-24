@@ -73,7 +73,8 @@ export async function handleSubmitToDB(form, file) {
         const imgSrc = await uploadImage(file);
         const data = { ...form, imgSrc };
         const docRef = await addDoc(collection(db, "users"), data);
-        console.log("Document written with ID: ", docRef.id);
+        // console.log("Document written with ID: ", docRef.id);
+        return docRef.id;
     } catch (e) {
         console.error("Error adding document: ", e);
     }
@@ -88,4 +89,18 @@ export async function fetchUsers() {
         id: doc.id,
         ...doc.data(),
     }));
+}
+
+/**
+ * Удаляет сотрудника.
+ * @param {string} usersId - id сотрудника
+ */
+export async function deleteUsersFromDB(usersId) {
+    try {
+        await deleteDoc(doc(db, "users", usersId));
+        console.log("Успешное удаление");
+        return true;
+    } catch (e) {
+        console.log("Не получилось удалить", e.message);
+    }
 }
