@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 // import { Provider } from "@/components/ui/provider";
 import {
-    
     Dialog,
     Textarea,
-    IconButton,
     Typography,
     DialogBody,
     DialogHeader,
@@ -14,7 +12,8 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { handleSubmitToDB, uploadImage } from "../config/firebase";
 import { AlertWithList } from "../ui/Alert";
 import { base64Coding } from "../utils/base64";
-export function AddUserDialog({ open, setOpen }) {
+
+export function AddUserDialog({ open, setOpen, setShow, show }) {
     //для данных из формы
     const [formData, setFormData] = useState({
         firstName: "",
@@ -24,7 +23,6 @@ export function AddUserDialog({ open, setOpen }) {
         userDate: "",
         note: "",
     });
-
     //для показа алерта
     const [alertUserState, setAlertUserState] = useState(false);
     //Закрытие модального окна
@@ -50,17 +48,20 @@ export function AddUserDialog({ open, setOpen }) {
             ...formData,
             [name]: files[0],
         });
+        //Кодируем изображение в base64 и вставляем его в модальное окно
         base64Coding(e.target);
-
         return e.target.files;
     };
 
     //для отправки данных на firebase
-    const addUsers = () => {
-        handleSubmitToDB(formData, formData.file);
+    const addUsers = async () => {
+        const reject = handleSubmitToDB(formData, formData.file);
         //Закрываем модалку
         handleOpen();
-        setAlertUserState(true);
+        setShow(false);
+        setTimeout(() => {
+            setShow(true);
+        }, 1000);
     };
 
     //функция для показа алерта

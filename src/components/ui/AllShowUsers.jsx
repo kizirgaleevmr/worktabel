@@ -5,7 +5,9 @@ import React, { useState, useEffect } from "react";
 import { fetchUsers } from "../config/firebase";
 import { Pagination } from "./Pagination";
 
-export const AllShowUsers = ({ show = "true", setShow }) => {
+import { deleteUsersFromDB } from "../config/firebase";
+
+export const AllShowUsers = ({ show, setShow }) => {
     //состояние для массива карт
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -14,18 +16,47 @@ export const AllShowUsers = ({ show = "true", setShow }) => {
     //сколько карт показывать
     const [usersPerPage] = useState(4);
 
+    const [deletUsers, setDeleteUsers] = useState();
+
+    //
+    async function deletClickUsers(event) {
+        const idUSers = event.target.offsetParent.id;
+        const usersDelet = [...event.target.offsetParent.lastChild.childNodes];
+        const lastName = usersDelet[2].textContent;
+        const firstName = usersDelet[3].textContent;
+        const surname = usersDelet[4].textContent;
+        
+        //Запрос на подтверждение на удаление
+        const isDelet = confirm(
+            `Удалить сотрудника!!! ${firstName} ${lastName} ${surname}`
+        );
+        if (isDelet) {
+            // удаляем сотрудника по id
+            const dl = await deleteUsersFromDB(idUSers);
+            if (dl) {
+                setDeleteUsers(true);
+            }
+            setTimeout(() => {
+                setDeleteUsers(false);
+            }, 1000);
+            return;
+        }
+        alert("Вы отменили удаление ");
+    }
+
     useEffect(() => {
         const getUsers = async () => {
             setLoading(true);
             const response = await fetchUsers();
             setUsers(response);
-            //Делаем задержку на показ старринцы загрузки
+            // Делаем задержку на показ старринцы загрузки
             setTimeout(() => {
                 setLoading(false);
-            }, 2000);
+            }, 1000);
         };
         getUsers();
-    }, []);
+    }, [deletUsers, show]);
+
     // последний индекс в полученного массива сотрудников
     const lastUsersIndex = currentPage * usersPerPage;
     //первый индекс
@@ -60,9 +91,10 @@ export const AllShowUsers = ({ show = "true", setShow }) => {
                             const age = ageUser(birthday);
                             //получаем стаж
                             const stazh = getDateWorker(userDate);
+
                             return (
                                 <HorizontalCard
-                                    key={id}
+                                    id={id}
                                     otdel={otdel}
                                     firstName={firstName}
                                     lastName={lastName}
@@ -74,6 +106,7 @@ export const AllShowUsers = ({ show = "true", setShow }) => {
                                     src={imgSrc ? imgSrc : "none"}
                                     birthday={age}
                                     loading={loading}
+                                    deletClickUsers={deletClickUsers}
                                 />
                             );
                         }
@@ -90,7 +123,10 @@ export const AllShowUsers = ({ show = "true", setShow }) => {
 
     return (
         //меняем класс в зависимости от состояния и показываем страницу с картами
-        <div className={` ${show ? "active__show_users" : "none__show_users"}`}>
+        <div
+            className={` ${show ? "active__show_users" : "none__show_users"}`}
+            id="show__users"
+        >
             {/* показ всех ползователей в card */}
             <Cards />
             <Button

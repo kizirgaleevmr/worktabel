@@ -7,14 +7,14 @@ export function ButtonGroupColors({ title1, title2 }) {
     //для открытия модалки для добавления пользователя
     const [isOpen, setOpen] = React.useState(false);
     //состоние для показа компонента на странице с карточками
-    const [isOpenUsers, setOpenUsers] = React.useState(false);
-    //для открытия модалки с формой для сотрудников
+    const [isOpenUsers, setOpenUsers] = React.useState(true);
+
     const handleAddUsers = () => {
         setOpen(true);
     };
     //передаем состояние true для отображения компонента AllShowUsers
     const allShowUsers = () => {
-        setOpenUsers(true);
+        setOpenUsers(false);
     };
     return (
         <>
@@ -29,15 +29,14 @@ export function ButtonGroupColors({ title1, title2 }) {
                     >
                         {title1}
                     </Button>
-                    <Button
-                        className="hover:bg-sky-700 p-2 cursor-pointer"
-                        onClick={allShowUsers}
-                    >
-                        {title2}
-                    </Button>
                 </ButtonGroup>
             </div>
-            <AddUserDialog open={isOpen} setOpen={setOpen} />
+            <AddUserDialog
+                open={isOpen}
+                setOpen={setOpen}
+                show={isOpenUsers}
+                setShow={setOpenUsers}
+            />
             <AllShowUsers show={isOpenUsers} setShow={setOpenUsers} />
         </>
     );
