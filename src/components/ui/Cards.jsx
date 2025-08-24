@@ -5,7 +5,7 @@ import {
     Typography,
 } from "@material-tailwind/react";
 import { icons } from "./icons";
-
+import { nanoid } from "nanoid";
 export function HorizontalCard({
     firstName,
     lastName,
@@ -17,14 +17,16 @@ export function HorizontalCard({
     otdel,
     birthday,
     workDate,
+    deletClickUsers,
     id,
 }) {
+    const linkId = nanoid();
     return (
-        <Card className="w-[40rem] flex-row text-left rounded-lg overflow-hidden mb-6">
-            <CardHeader
-                className="m-0 w-2/5 shrink-0 rounded-r-none flex items-top justify-center mt-10 flex-col items-center"
-                key={id}
-            >
+        <Card
+            className="w-[40rem] flex-row text-left rounded-lg overflow-hidden mb-6"
+            id={id}
+        >
+            <CardHeader className="m-0 w-2/5 shrink-0 rounded-r-none flex items-top justify-center mt-10 flex-col items-center">
                 <div className="border-2 border-gray-400 overflow-hidden h-50 w-50 rounded-full flex items-center mb-5">
                     <img
                         src={src}
@@ -56,15 +58,21 @@ export function HorizontalCard({
                 <Typography variant="small" color="gray" className="mb-2">
                     Табельный №:
                 </Typography>
-                <Typography variant="h2" color="blue-gray" className="mb-2">
-                    <p className="text-2xl"> {lastName}</p>
-                </Typography>
-                <Typography variant="h2" color="blue-gray" className="mb-2">
-                    <p className="text-2xl">{firstName}</p>
-                </Typography>
-                <Typography variant="h2" color="blue-gray" className="mb-4">
-                    <p className="text-2xl">{surname}</p>
-                </Typography>
+                <div>
+                    <Typography variant="h2" color="blue-gray" className="mb-2">
+                        <p className="text-2xl"> {lastName}</p>
+                    </Typography>
+                </div>
+                <div>
+                    <Typography variant="h2" color="blue-gray" className="mb-2">
+                        <p className="text-2xl">{firstName}</p>
+                    </Typography>
+                </div>
+                <div>
+                    <Typography variant="h2" color="blue-gray" className="mb-4">
+                        <p className="text-2xl">{surname}</p>
+                    </Typography>
+                </div>
                 <div className="flex mb-4 flex-col">
                     <Typography
                         variant="h2"
@@ -96,7 +104,10 @@ export function HorizontalCard({
                             </span>
                             <span>Редактировать</span>
                         </div>
-                        <div className=" text-gray-400  flex items-center hover:text-rose-700 cursor-pointer">
+                        <div
+                            className="text-gray-400  flex items-center hover:text-rose-700 cursor-pointer"
+                            onClick={deletClickUsers}
+                        >
                             <span className="inline-block mr-2">
                                 {icons.trash}
                             </span>
