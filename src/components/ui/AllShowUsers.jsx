@@ -4,8 +4,8 @@ import { ageUser, getDateWorker } from "../utils/ageJobBirthday";
 import React, { useState, useEffect } from "react";
 import { fetchUsers } from "../config/firebase";
 import { Pagination } from "./Pagination";
-
 import { deleteUsersFromDB } from "../config/firebase";
+import { DrawerPlacement } from "../ui/Drawer";
 
 export const AllShowUsers = ({ show, setShow }) => {
     //состояние для массива карт
@@ -15,17 +15,22 @@ export const AllShowUsers = ({ show, setShow }) => {
     const [currentPage, setCurrentPage] = useState(1);
     //сколько карт показывать
     const [usersPerPage] = useState(4);
+    //состояние на удаление и обновление useEffect
+    const [deletUsers, setDeleteUsers] = useState(false);
+    //состояние на редкатирование сотрудника
+    // const [updateUsers, setUpdateUsers] = useState(false);
+    //Состояние для открытия drawer
+    const [openRight, setOpenRight] = useState(false);
 
-    const [deletUsers, setDeleteUsers] = useState();
+    const [userObject, setUserObject] = useState(false);
 
-    //
+    //Функция для удаления сотрудника
     async function deletClickUsers(event) {
         const idUSers = event.target.offsetParent.id;
         const usersDelet = [...event.target.offsetParent.lastChild.childNodes];
         const lastName = usersDelet[2].textContent;
         const firstName = usersDelet[3].textContent;
         const surname = usersDelet[4].textContent;
-        
         //Запрос на подтверждение на удаление
         const isDelet = confirm(
             `Удалить сотрудника!!! ${firstName} ${lastName} ${surname}`
@@ -44,9 +49,29 @@ export const AllShowUsers = ({ show, setShow }) => {
         alert("Вы отменили удаление ");
     }
 
+    //Функция для получения сотрудника по id для редактирования
+    function updateClickUsers(event) {
+        // Получаем id
+        const clickedId = event.target.offsetParent.id;
+        //получаем всех сотрудников
+        const response = users;
+
+        //отбираем по id сотрудника
+        const userId = response.filter((item) => {
+            if (item.id == clickedId) {
+                return true;
+            }
+        });
+        //передаем объект по которому кликнилу
+        setUserObject(userId[0]);
+
+        // Открываем drower с формой для редактирования
+        setOpenRight(true);
+    }
+
     useEffect(() => {
         const getUsers = async () => {
-            setLoading(true);
+            // setLoading(true);
             const response = await fetchUsers();
             setUsers(response);
             // Делаем задержку на показ старринцы загрузки
@@ -107,6 +132,8 @@ export const AllShowUsers = ({ show, setShow }) => {
                                     birthday={age}
                                     loading={loading}
                                     deletClickUsers={deletClickUsers}
+                                    updateClickUsers={updateClickUsers}
+                                    key={id}
                                 />
                             );
                         }
@@ -138,6 +165,16 @@ export const AllShowUsers = ({ show, setShow }) => {
             >
                 Закрыть
             </Button>
+            {userObject ? (
+                <DrawerPlacement
+                    openRight={openRight}
+                    setOpenRight={setOpenRight}
+                    userObject={userObject}
+                    setUserObject={setUserObject}
+                />
+            ) : (
+                ""
+            )}
         </div>
     );
 };
