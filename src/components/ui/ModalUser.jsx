@@ -13,7 +13,7 @@ import { handleSubmitToDB, uploadImage } from "../config/firebase";
 import { AlertWithList } from "../ui/Alert";
 import { base64Coding } from "../utils/base64";
 
-export function AddUserDialog({ open, setOpen, setShow, show }) {
+export function AddUserDialog({ open, setOpen, setShow }) {
     //для данных из формы
     const [formData, setFormData] = useState({
         firstName: "",
@@ -38,7 +38,6 @@ export function AddUserDialog({ open, setOpen, setShow, show }) {
             ...formData,
             [name]: value,
         });
-        console.log(formData);
     };
 
     //Добавляем в объект изображение file
@@ -50,6 +49,7 @@ export function AddUserDialog({ open, setOpen, setShow, show }) {
         });
         //Кодируем изображение в base64 и вставляем его в модальное окно
         base64Coding(e.target);
+
         return e.target.files;
     };
 
@@ -273,9 +273,15 @@ export function AddUserDialog({ open, setOpen, setShow, show }) {
                                 required
                             >
                                 <option>Выбирете должность</option>
-                                <option value="инженер">Инженер</option>
-                                <option value="техник">Техник</option>
-                                <option value="водитель">Водитель</option>
+                                <option value="Инженер оп АСУП 1 категории">
+                                    Инженер по АСУП 1 категории
+                                </option>
+                                <option value="Инженер по АСУП 2 категории">
+                                    Инженер по АСУП 2 категории
+                                </option>
+                                <option value="Инженер">Инженер</option>
+                                <option value="Техник">Техник</option>
+                                <option value="Водитель">Водитель</option>
                             </select>
                         </div>
                         <div className="mb-4">
