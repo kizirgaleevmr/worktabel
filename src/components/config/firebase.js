@@ -104,3 +104,16 @@ export async function deleteUsersFromDB(usersId) {
         console.log("Не получилось удалить", e.message);
     }
 }
+
+/**
+ * Обновляет продукт.
+ * @param {Object} form - Данные сотрудника
+ * @param {File} file - Файл изображения
+ */
+export async function updateUsersInDB(form, file) {
+    const imgSrc = file ? await uploadImage(file) : form.imgSrc;
+    //удаляем свойство file
+    delete form.file;
+    await updateDoc(doc(db, "users", form.id), { ...form, imgSrc: imgSrc });
+    return { ...form, id: form.id };
+}
