@@ -3,3 +3,40 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.alert__active {
+  transform: scale(1);
+}
+
+.alert {
+  transform: scale(0);
+}
+
+#pasteImg img {
+  width: 200px;
+}
+
+.active__show_users {
+  display: block;
+}
+
+.none__show_users {
+  display: none;
+}
+
+.drower {
+  position: absolute;
+  background: white;
+  right: 0;
+  left: 0;
+  width: 100%;
+  transition: all ease 0.9s;
+}
+
+.drower__close {
+  transform: scale(0);
+}
+
+.drower__open {
+  transform: scale(1);
+}
