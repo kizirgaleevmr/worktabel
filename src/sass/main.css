@@ -1,6 +1,5 @@
 body {
   background-image: url("/src/assets/image.jpg");
-  background-repeat: no-repeat;
   background-size: cover;
 }
 
@@ -39,4 +38,12 @@ body {
 
 .drower__open {
   transform: scale(1);
+}
+
+table {
+  font-size: 12px;
+}
+
+.day {
+  width: 400px;
 }
