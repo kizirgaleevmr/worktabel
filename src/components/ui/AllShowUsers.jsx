@@ -6,6 +6,7 @@ import { fetchUsers } from "../config/firebase";
 import { Pagination } from "./Pagination";
 import { deleteUsersFromDB } from "../config/firebase";
 import { DrawerPlacement } from "../ui/Drawer";
+import { useSteps } from "@chakra-ui/react";
 
 export const AllShowUsers = ({ show, setShow }) => {
     //состояние для массива карт
@@ -17,8 +18,7 @@ export const AllShowUsers = ({ show, setShow }) => {
     const [usersPerPage] = useState(4);
     //состояние на удаление и обновление useEffect
     const [deletUsers, setDeleteUsers] = useState(false);
-    //состояние на редкатирование сотрудника
-    // const [updateUsers, setUpdateUsers] = useState(false);
+
     //Состояние для открытия drawer
     const [openRight, setOpenRight] = useState(false);
 
@@ -171,6 +171,9 @@ export const AllShowUsers = ({ show, setShow }) => {
                     setOpenRight={setOpenRight}
                     userObject={userObject}
                     setUserObject={setUserObject}
+                    setUsers={setUsers}
+                    setShow={setShow}
+                    show={show}
                 />
             ) : (
                 ""
