@@ -1,7 +1,6 @@
-export const base64Coding = (image) => {
+export const base64Coding = async (image, onSuccess) => {
     const file = image.files[0];
     const reader = new FileReader();
-    let p = "";
     reader.addEventListener("load", () => {
         const base = reader.result;
         const image = document.getElementById("pasteImg");
@@ -9,8 +8,14 @@ export const base64Coding = (image) => {
         image.textContent = "";
         img.src = `${base}`;
         img.alt = "photo";
+        img.id = "imageBase";
+        image.insertAdjacentHTML("afterbegin", "<h3>Фото</h3>");
         image.append(img);
-        return (p = reader.result);
+
+        reader.onloadend = function () {
+            // console.log(reader.result);
+            // return reader.result;
+        };
     });
     reader.readAsDataURL(file);
 };
