@@ -8,14 +8,6 @@ import { Users } from "../../pages/Users";
 import { Message } from "../../pages/Messaeg";
 import { Profile } from "../../pages/Profile";
 
-/** Массив роутов приложения */
-const routes = [
-    { path: "/home", element: <Home /> },
-    { path: "/", element: <Navigate to="login" /> },
-    { path: "/login", element: <Login /> },
-    { path: "/register", element: <Register /> },
-];
-
 /**Приватный роутинг */
 function PrivateRoute() {
     const token = sessionStorage.accessToken;
