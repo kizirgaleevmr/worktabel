@@ -14,7 +14,7 @@ import {
     PhoneArrowDownLeftIcon,
     UserIcon,
 } from "@heroicons/react/24/solid";
-import { Link, Outlet, Navigate, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { AlertWithList } from "./Alert";
 
@@ -126,6 +126,7 @@ export function DefaultSidebar() {
             </Card>
             {MyAlert()}
             <div className="w-full">
+                <h1>Здесь будет слайдер с открытыми заявками</h1>
                 <Outlet />
             </div>
         </div>
