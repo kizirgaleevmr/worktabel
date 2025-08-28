@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Button, Typography, Textarea } from "@material-tailwind/react";
 import { base64Coding } from "../utils/base64";
-import { uploadImage, updateUsersInDB } from "../config/firebase";
+import { updateUsersInDB } from "../config/firebase";
+import { AlertWithList } from "./Alert";
 export function DrawerPlacement({
     openRight,
     setOpenRight,
     userObject,
     setUserObject,
+    show,
+    setShow,
 }) {
+    //сосотяние для алерта
+    const [alertUserState, setAlertUserSate] = useState(false);
     //состояние для radio мужской женский
     const isMan = userObject["default-radio"] === "Мужской";
     const isWoman = userObject["default-radio"] === "Женский";
@@ -44,9 +49,20 @@ export function DrawerPlacement({
         base64Coding(e.target);
         return e.target.files;
     };
+
     // Обновляем в БД
     function updateUsersClick() {
         updateUsersInDB(userObject, userObject.file);
+        setAlertUserSate(true);
+
+        setTimeout(() => {
+            setAlertUserSate(false);
+            setOpenRight(false);
+            setShow(false);
+            setTimeout(() => {
+                setShow(true);
+            }, 1000);
+        }, 1000);
     }
 
     const Radio = () => {
@@ -312,6 +328,11 @@ export function DrawerPlacement({
                     Сохранить
                 </Button>
             </div>
+            <AlertWithList
+                title="Данные обновлены"
+                text={`${userObject.firstName} ${userObject.lastName}`}
+                showAlert={alertUserState}
+            />
         </div>
     );
 }
