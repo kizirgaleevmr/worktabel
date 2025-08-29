@@ -3,7 +3,7 @@ import { daysWeek, nameMonth } from "../components/utils/date";
 import { fetchUsers } from "../components/config/firebase";
 import { format, getDaysInMonth, getDay } from "date-fns";
 import { PaginationTabel, PaginationWeek } from "../components/ui/Pagination";
-
+import { addClass } from "../components/utils/addclass";
 const today =
     `${nameMonth(new Date().getMonth())}` +
     " " +
@@ -39,9 +39,6 @@ export const Tabel = () => {
     const firstDataIndex = lastDataIndex - monthPerPage;
     //сколько месяцев отображать
     const currentData = data.slice(firstDataIndex, lastDataIndex);
-
-    //массив дней в месяце
-    const [week, setWeek] = useState(month);
 
     //начальная страница недели
     const [currentWeekPage, setWeekCurrentPage] = useState(
@@ -159,12 +156,12 @@ export const Tabel = () => {
                     {currentData.map((item, monthInd) => {
                         return (
                             <div key={monthInd} className="text-left m-">
-                                <h2 className="uppercase text-3xl mb-4 text-cyan-900">
+                                <h2 className="uppercase l mb-4 text-cyan-900">
                                     {nameMonth(item)} {new Date().getFullYear()}
                                 </h2>
                                 <select
                                     id="day__week_month"
-                                    className="text-2xl border-2 border-gray-400 rounded-2xl mb-2 p-2 px-4 outline-0"
+                                    className="l border-2 border-gray-400 rounded-2xl mb-2 p-2 px-4 outline-0"
                                     value={selectedWeek}
                                     onChange={handleWeekChange}
                                 >
@@ -179,8 +176,8 @@ export const Tabel = () => {
                                         paginateWeek={paginateWeek}
                                     />
                                 </div>
-                                <table className="mb-8 border-separate border-spacing-1 border  text-white border-gray-400 dark:border-gray-500 bg-slate-600 rounded-2xl p-4">
-                                    <thead className="bg-slate-800">
+                                <table className="mb-8 border-separate border-spacing-3    bg-white rounded-2xl p-4">
+                                    <thead className="bg-slate-800 text-white ">
                                         <tr>
                                             <th></th>
                                             {howMonthDay(item)
@@ -195,9 +192,51 @@ export const Tabel = () => {
                                                                 dayInd +
                                                                 monthInd
                                                             }
-                                                            className="border border-gray-400 dark:border-gray-500 p-2 px-5 text-center text-2xl"
+                                                            data-color-th="false"
+                                                            className="border border-gray-400 dark:border-gray-500 px-4 py-2 text-center"
                                                         >
-                                                            <p>
+                                                            <p
+                                                                className={`mb-3 text-2xl ${
+                                                                    daysWeek(
+                                                                        new Date(
+                                                                            new Date().getFullYear(),
+                                                                            item,
+                                                                            day
+                                                                        ).getDay()
+                                                                    ) === "Вс"
+                                                                        ? "red"
+                                                                        : daysWeek(
+                                                                              new Date(
+                                                                                  new Date().getFullYear(),
+                                                                                  item,
+                                                                                  day
+                                                                              ).getDay()
+                                                                          ) ===
+                                                                          "Сб"
+                                                                        ? "red"
+                                                                        : ""
+                                                                } ${
+                                                                    format(
+                                                                        new Date(
+                                                                            new Date().getFullYear(),
+                                                                            item,
+                                                                            day
+                                                                        ),
+                                                                        "dd"
+                                                                    ) ===
+                                                                    format(
+                                                                        new Date(
+                                                                            new Date().getFullYear(),
+                                                                            new Date().getMonth() +
+                                                                                1,
+                                                                            new Date().getDate()
+                                                                        ),
+                                                                        "dd"
+                                                                    )
+                                                                        ? "bg-gray"
+                                                                        : "bg"
+                                                                }`}
+                                                            >
                                                                 {`${format(
                                                                     new Date(
                                                                         new Date().getFullYear(),
@@ -207,7 +246,28 @@ export const Tabel = () => {
                                                                     "dd"
                                                                 )}`}
                                                             </p>
-                                                            <p>
+                                                            <p
+                                                                className={`${
+                                                                    daysWeek(
+                                                                        new Date(
+                                                                            new Date().getFullYear(),
+                                                                            item,
+                                                                            day
+                                                                        ).getDay()
+                                                                    ) === "Вс"
+                                                                        ? "red"
+                                                                        : daysWeek(
+                                                                              new Date(
+                                                                                  new Date().getFullYear(),
+                                                                                  item,
+                                                                                  day
+                                                                              ).getDay()
+                                                                          ) ===
+                                                                          "Сб"
+                                                                        ? "red"
+                                                                        : ""
+                                                                }`}
+                                                            >
                                                                 {`${daysWeek(
                                                                     new Date(
                                                                         new Date().getFullYear(),
@@ -221,14 +281,14 @@ export const Tabel = () => {
                                                 })}
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody className="text-gray-800">
                                         {dataUsers.map((user, ind) => {
                                             return (
                                                 <tr key={ind}>
                                                     <td
                                                         id={user.id}
                                                         key={user.id}
-                                                        className={`text-2xl border-separate  border border-gray-400 dark:border-gray-500 p-2 px-4 w-60 ${cellClass} w-150`}
+                                                        className={`l border-separate  border border-gray-400 dark:border-gray-500 p-2 px-4`}
                                                     >
                                                         {user.lastName}{" "}
                                                         {user.firstName}{" "}
@@ -249,7 +309,7 @@ export const Tabel = () => {
                                                                         user.id +
                                                                         ind
                                                                     }
-                                                                    className={`border-separate  border border-gray-400 dark:border-gray-500 p-2 px-4 w-60 ${cellClass}`}
+                                                                    className={`border-separate  border border-gray-400 dark:border-gray-500 p-4 text-center`}
                                                                 >
                                                                     {el}
                                                                 </td>
