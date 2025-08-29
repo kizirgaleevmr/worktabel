@@ -20,15 +20,16 @@ export function HorizontalCard({
     deletClickUsers,
     id,
     updateClickUsers,
+    tabelNumber,
 }) {
     return (
         <>
             <Card
-                className="w-[40rem] flex-row text-left rounded-lg overflow-hidden mb-6"
+                className="w-[38rem] flex-row text-left rounded-lg overflow-hidden mb-6 p-6"
                 id={id}
             >
                 <CardHeader className="m-0 w-2/5 shrink-0 rounded-r-none flex items-top justify-center mt-10 flex-col items-center">
-                    <div className="border-2 border-gray-400 overflow-hidden h-50 w-50 rounded-full flex items-center mb-5">
+                    <div className="border-2 border-gray-400 overflow-hidden h-40 w-40 rounded-full flex items-center mb-5">
                         <img
                             src={src}
                             alt="card-image"
@@ -43,7 +44,7 @@ export function HorizontalCard({
                                 </span>
                                 <a href={`tel: ${phone}`}>{phone}</a>
                             </div>
-                            <div className="flex items-center h-2">
+                            <div className="flex items-center h-2 mb-4">
                                 <span className="inline-block mr-3">
                                     {icons.email}
                                 </span>
@@ -53,19 +54,20 @@ export function HorizontalCard({
                     </div>
                 </CardHeader>
                 <CardBody className="w-full">
-                    <Typography variant="small" color="gray" className="mb-2">
-                        Отдел: {otdel}
-                    </Typography>
-                    <Typography variant="small" color="gray" className="mb-2">
-                        Табельный №:
-                    </Typography>
-                    <div>
+                    <div className="flex text-left justify-between">
                         <Typography
-                            variant="h2"
-                            color="blue-gray"
+                            variant="small"
+                            color="gray"
                             className="mb-2"
                         >
-                            <p className="text-2xl"> {lastName}</p>
+                            Отдел: <span className="gray">{otdel}</span>
+                        </Typography>
+                        <Typography
+                            variant="small"
+                            color="gray"
+                            className="mb-2"
+                        >
+                            Таб. №: <span className="gray">{tabelNumber}</span>
                         </Typography>
                     </div>
                     <div>
@@ -74,37 +76,48 @@ export function HorizontalCard({
                             color="blue-gray"
                             className="mb-2"
                         >
-                            <p className="text-2xl">{firstName}</p>
+                            <p className="gray"> {lastName}</p>
                         </Typography>
                     </div>
-                    <div>
+                    <div className="flex gap-2">
+                        <Typography
+                            variant="h2"
+                            color="blue-gray"
+                            className="mb-2"
+                        >
+                            <p className="gray">{firstName}</p>
+                        </Typography>
                         <Typography
                             variant="h2"
                             color="blue-gray"
                             className="mb-4"
                         >
-                            <p className="text-2xl">{surname}</p>
+                            <p className="gray">{surname}</p>
                         </Typography>
                     </div>
-                    <div className="flex mb-4 flex-col">
+                    <div></div>
+                    <div className="flex mb-2 flex-row flex-wrap gap-2">
                         <Typography
                             variant="h2"
                             color="blue-gray"
-                            className="mb-2 w-1/2"
+                            className="w-1/2"
                         >
-                            Должность: {dolzhnost}
+                            Должность:
+                        </Typography>
+                        <Typography className="w-1/2 gray">
+                            {dolzhnost}
                         </Typography>
                         <Typography
                             variant="h2"
                             color="blue-gray"
-                            className="mb-2 w-1/2"
+                            className="w-1/2"
                         >
                             Возраст: {birthday}
                         </Typography>
                         <Typography
                             variant="h2"
                             color="blue-gray"
-                            className="mb-2 w-1/2"
+                            className="w-1/2"
                         >
                             Стаж: {workDate}
                         </Typography>
