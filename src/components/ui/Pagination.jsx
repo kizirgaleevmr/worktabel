@@ -16,7 +16,7 @@ export const Pagination = ({ usersPerPage, totalUsers, paginate }) => {
                             onClick={() => paginate(number)}
                             key={number}
                         >
-                            <li className="border-2 border-gray-300 px-3 rounded-full hover:bg-emerald-400 text-white bg-sky-500">
+                            <li className="border-2 border-gray-300 px-3 py-2 rounded-full hover:bg-emerald-400 text-white bg-sky-500">
                                 {number}
                             </li>
                         </a>
@@ -43,7 +43,7 @@ export const PaginationTabel = ({ monthPerPage, totalMonth, paginate }) => {
                             onClick={() => paginate(number)}
                             key={number}
                         >
-                            <li className="border-2 border-gray-300 px-6 rounded-full hover:bg-emerald-400 text-white bg-sky-500">
+                            <li className="border-2 border-gray-300 px-6 py-3 rounded-full hover:bg-emerald-400 text-white bg-sky-500">
                                 {number}
                             </li>
                         </a>
@@ -72,7 +72,7 @@ export const PaginationWeek = ({ weekPerPage, totalWeek, paginateWeek }) => {
                             onClick={() => paginateWeek(number)}
                             key={number}
                         >
-                            <li className="border-2 border-gray-300 px-3 rounded-full hover:bg-emerald-400 text-white bg-sky-500">
+                            <li className="border-2 border-gray-300 px-3  py-2 rounded-full hover:bg-emerald-400 text-white bg-sky-500">
                                 {number}
                             </li>
                         </a>
