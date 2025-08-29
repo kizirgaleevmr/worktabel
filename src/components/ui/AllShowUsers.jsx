@@ -111,6 +111,7 @@ export const AllShowUsers = ({ show, setShow }) => {
                             imgSrc,
                             userDate,
                             birthday,
+                            tabelNumber,
                         }) => {
                             //получаем возраст
                             const age = ageUser(birthday);
@@ -134,6 +135,7 @@ export const AllShowUsers = ({ show, setShow }) => {
                                     deletClickUsers={deletClickUsers}
                                     updateClickUsers={updateClickUsers}
                                     key={id}
+                                    tabelNumber={tabelNumber}
                                 />
                             );
                         }
