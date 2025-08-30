@@ -1,7 +1,7 @@
 import { ButtonGroup, Button } from "@material-tailwind/react";
 import { AddUserDialog } from "./ModalUser";
 import { AllShowUsers } from "./AllShowUsers";
-import React, { useState } from "react";
+import React from "react";
 
 export function ButtonGroupColors({ title1 }) {
     //для открытия модалки для добавления пользователя
