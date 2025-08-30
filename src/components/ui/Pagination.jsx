@@ -60,8 +60,7 @@ export const PaginationWeek = ({ weekPerPage, totalWeek, paginateWeek }) => {
     for (let i = 1; i <= Math.ceil(totalWeek / weekPerPage); i++) {
         pageNumber.push(i);
     }
-    console.log("total", totalWeek);
-    console.log("weekPerPage", weekPerPage);
+
     return (
         <div className="mb-4">
             <ul className="flex gap-2">
