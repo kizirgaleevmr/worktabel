@@ -65,7 +65,7 @@ export function DefaultSidebar() {
 
     return (
         <div className="flex">
-            <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 text-2xl mr-6 border-t-amber-500 border-t-4 scroll-auto">
+            <Card className="h-100 w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 l mr-6 border-t-amber-500 border-t-4 scroll-auto">
                 <div className="mb-2 p-4">
                     <Typography variant="h5" color="blue-gray">
                         Меню
@@ -125,7 +125,7 @@ export function DefaultSidebar() {
                 </List>
             </Card>
             {MyAlert()}
-            <div className="w-full">
+            <div className="w-full h-auto">
                 <h1>Здесь будет слайдер с открытыми заявками</h1>
                 <Outlet />
             </div>
