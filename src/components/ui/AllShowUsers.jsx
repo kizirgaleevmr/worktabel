@@ -6,7 +6,6 @@ import { fetchUsers } from "../config/firebase";
 import { Pagination } from "./Pagination";
 import { deleteUsersFromDB } from "../config/firebase";
 import { DrawerPlacement } from "../ui/Drawer";
-import { useSteps } from "@chakra-ui/react";
 
 export const AllShowUsers = ({ show, setShow }) => {
     //состояние для массива карт
