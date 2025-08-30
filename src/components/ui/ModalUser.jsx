@@ -83,12 +83,12 @@ export function AddUserDialog({ open, setOpen, setShow }) {
         }
     }
     return (
-        <>
+        <div>
             <Dialog
                 size="sm"
                 open={open}
                 handler={handleOpen}
-                className="p-4 max-w-xl mx-auto mt-20 ml-95"
+                className="p-4 max-w-xl mt-9 ml-95 shadow-slate-700 shadow-lg overflow-y-scroll max-h-screen"
             >
                 <DialogHeader className="relative m-0 block">
                     <Typography variant="h4" color="blue-gray">
@@ -337,6 +337,6 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                 </DialogFooter>
             </Dialog>
             {showAlert()}
-        </>
+        </div>
     );
 }
