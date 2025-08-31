@@ -56,13 +56,13 @@ table {
   color: gray;
 }
 
-.bg-gray {
-  padding: 3px;
+.bg-green {
+  padding: 4px;
   background-color: green;
 }
 
 .bg {
-  padding: 3px;
+  padding: 4px;
 }
 
 .sticky-column {
@@ -72,4 +72,8 @@ table {
   width: 250px;
   background-color: #2F4F4F;
   z-index: 1;
+}
+
+.static_text {
+  font-size: 16px;
 }
