@@ -5,6 +5,8 @@ import { format, getDaysInMonth, getDay } from "date-fns";
 import { PaginationTabel, PaginationWeek } from "../components/ui/Pagination";
 import { ModalTabelCell } from "../components/ui/ModalTabelCell";
 import { fetchTabel } from "../components/config/firebase";
+import { countDayTime } from "../components/utils/countDayTime";
+
 const today =
     `${nameMonth(new Date().getMonth())}` +
     " " +
@@ -15,10 +17,10 @@ const today =
 const countMonth = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 export const Tabel = () => {
+    //состояение для норма дней
+    const [dayNorma, setDayNorma] = useState(21);
     //состоягние для норма дней
-    const [dayNorma, setDayNorma] = useState(0);
-    //состоягние для норма дней
-    const [timeNorma, setTimeNorma] = useState(0);
+    const [timeNorma, setTimeNorma] = useState(dayNorma * 8);
 
     //состяния для указания года
     const [years, setYears] = useState(new Date().getFullYear());
@@ -125,6 +127,7 @@ export const Tabel = () => {
             const res = await fetchTabel();
             setDataCell(res);
         };
+
         // проверям селект учли месяц то 31 если неделя то 7
         setTimeout(() => {
             setLoading(false);
@@ -146,10 +149,10 @@ export const Tabel = () => {
                 setWeekPerPage(1);
                 setWeekCurrentPage(new Date().getDate());
             }
-        }, 1000);
+        }, 10);
         resCellData();
         allUsers();
-    }, [currentPage, selectedWeek]);
+    }, [currentPage, selectedWeek, isOpen]);
 
     if (loading) {
         return <h2>LOADING...</h2>;
@@ -160,7 +163,7 @@ export const Tabel = () => {
      * @param {number} numberMonth - индкекс месяца
      * @returns
      */
-    function howMonthDay(year, numberMonth) {
+    function howMonthDay(years, numberMonth) {
         const resultDay = getDaysInMonth(new Date(years, numberMonth));
 
         const month = [];
@@ -182,7 +185,7 @@ export const Tabel = () => {
     if (dataUsers.length !== 0) {
         return (
             <>
-                <h2>Табель</h2>
+                <h2 className="mb-4">Табель</h2>
                 <button
                     onClick={handleClickYears}
                     type="button"
@@ -207,20 +210,31 @@ export const Tabel = () => {
                 <div className="overflow-x-auto">
                     {currentData.map((item, monthInd) => {
                         return (
-                            <div key={monthInd} className="text-left m-">
+                            <div key={monthInd} className="text-left">
                                 <h2 className="uppercase l mb-4 text-cyan-900">
                                     {nameMonth(item)} {years}
                                 </h2>
-                                <select
-                                    id="day__week_month"
-                                    className="border-2 border-gray-400 rounded-2xl mb-2 p-2 px-4 outline-0 mr-5"
-                                    value={selectedWeek}
-                                    onChange={handleWeekChange}
-                                >
-                                    <option value="день">день</option>
-                                    <option value="неделя">неделя</option>
-                                    <option value="месяц">месяц</option>
-                                </select>
+                                <div className="flex items-center">
+                                    <select
+                                        id="day__week_month"
+                                        className="border-2 border-gray-400 rounded-2xl mb-2 p-2 px-4 outline-0 mr-5"
+                                        value={selectedWeek}
+                                        onChange={handleWeekChange}
+                                    >
+                                        <option value="день">день</option>
+                                        <option value="неделя">неделя</option>
+                                        <option value="месяц">месяц</option>
+                                    </select>
+                                    <div className="mr-8">
+                                        <PaginationWeek
+                                            weekPerPage={weekPerPage}
+                                            totalWeek={
+                                                howMonthDay(years, item).length
+                                            }
+                                            paginateWeek={paginateWeek}
+                                        />
+                                    </div>
+                                </div>
                                 <div className="flex justify-center">
                                     <div className="mr-8">
                                         <h2 className="mb-6">Норма дней:</h2>
@@ -241,16 +255,6 @@ export const Tabel = () => {
                                             className="border-2 border-gray-400 rounded-2xl mb-2 p-2 px-2 outline-0 w-15 bg-gray-100 text-fuchsia-800"
                                         />
                                     </div>
-                                </div>
-
-                                <div>
-                                    <PaginationWeek
-                                        weekPerPage={weekPerPage}
-                                        totalWeek={
-                                            howMonthDay(years, item).length
-                                        }
-                                        paginateWeek={paginateWeek}
-                                    />
                                 </div>
                                 <table className="mb-8 border-separate border-spacing-3    bg-white rounded-2xl p-4">
                                     <thead className="bg-slate-800 text-white ">
@@ -303,13 +307,12 @@ export const Tabel = () => {
                                                                     format(
                                                                         new Date(
                                                                             years,
-                                                                            new Date().getMonth() +
-                                                                                1,
+                                                                            new Date().getMonth(),
                                                                             new Date().getDate()
                                                                         ),
                                                                         "dd"
                                                                     )
-                                                                        ? "bg-gray"
+                                                                        ? "bg-green"
                                                                         : "bg"
                                                                 }`}
                                                             >
@@ -375,7 +378,7 @@ export const Tabel = () => {
                                                             firstWeekIndex,
                                                             lastWeekIndex
                                                         )
-                                                        .map((el, ind) => {
+                                                        .map((day, ind) => {
                                                             return (
                                                                 <td
                                                                     data-user-id={
@@ -385,13 +388,13 @@ export const Tabel = () => {
                                                                         new Date(
                                                                             years,
                                                                             item,
-                                                                            el
+                                                                            day
                                                                         )
                                                                     }
                                                                     onDoubleClick={
                                                                         handleDoubleClick
                                                                     }
-                                                                    id={`${user.id}-${years}-${item}-${el}`}
+                                                                    id={`${user.id}-${years}-${item}-${day}`}
                                                                     key={
                                                                         user.id +
                                                                         ind
@@ -400,78 +403,80 @@ export const Tabel = () => {
                                                                 >
                                                                     {dataCell.map(
                                                                         (
-                                                                            it
+                                                                            cellData
                                                                         ) => {
-                                                                            return it.id ===
+                                                                            return cellData.id ===
                                                                                 user.id +
                                                                                     "-" +
                                                                                     years +
                                                                                     "-" +
                                                                                     item +
                                                                                     "-" +
-                                                                                    el
-                                                                                ? it.jobStatus
-                                                                                : "";
+                                                                                    day ? (
+                                                                                <div
+                                                                                    key={
+                                                                                        item +
+                                                                                        day
+                                                                                    }
+                                                                                >
+                                                                                    <p
+                                                                                        className={`text-teal-600 text-2xl mb-2 ${
+                                                                                            cellData.jobStatus ===
+                                                                                            "Рабочий выходной"
+                                                                                                ? "red"
+                                                                                                : ""
+                                                                                        } `}
+                                                                                    >
+                                                                                        {
+                                                                                            cellData.jobStatus
+                                                                                        }{" "}
+                                                                                    </p>
+                                                                                    <p className="text-2xl">
+                                                                                        {" " +
+                                                                                            cellData.time}
+                                                                                    </p>
+                                                                                </div>
+                                                                            ) : (
+                                                                                ""
+                                                                            );
                                                                         }
                                                                     )}
                                                                 </td>
                                                             );
                                                         })}
-                                                    <td className="w-40">
-                                                        <ul>
-                                                            <li className="flex justify-between mb-1 red">
-                                                                <p>
-                                                                    Норма дней:
-                                                                </p>
-                                                                <p>21</p>
-                                                            </li>
-                                                            <li className="flex justify-between mb-1">
-                                                                <p>
-                                                                    Всего дней:
-                                                                </p>
-                                                                <p>25</p>
-                                                            </li>
-                                                            <li className="flex justify-between mb-1">
-                                                                <p>
-                                                                    Дней в
-                                                                    командировке:
-                                                                </p>
-                                                                <p>8</p>
-                                                            </li>
-                                                            <li className="flex justify-between mb-1">
-                                                                <p>
-                                                                    Рабочий
-                                                                    выходной:
-                                                                </p>
-                                                                <p>0</p>
-                                                            </li>
-                                                            <li className="flex justify-between mb-1 red">
-                                                                <p>
-                                                                    Норма часов:
-                                                                </p>
-                                                                <p>169</p>
-                                                            </li>
-                                                            <li className="flex justify-between mb-1">
-                                                                <p>
-                                                                    Всего часов:
-                                                                </p>
-                                                                <p>200</p>
-                                                            </li>
-                                                            <li className="flex justify-between mb-1">
-                                                                <p>
-                                                                    Больничный:
-                                                                </p>
-                                                                <p>0</p>
-                                                            </li>
-                                                            <li className="flex justify-between mb-1">
-                                                                <p>Отпуск:</p>
-                                                                <p>0</p>
-                                                            </li>
-                                                            <li className="flex justify-between mb-1">
-                                                                <p>Отгул:</p>
-                                                                <p>0</p>
-                                                            </li>
-                                                        </ul>
+                                                    <td key={years + user.id}>
+                                                        {countDayTime(
+                                                            dataCell,
+                                                            new Date(
+                                                                years,
+                                                                item
+                                                            ),
+                                                            user.id,
+                                                            dayNorma,
+                                                            howMonthDay(
+                                                                years,
+                                                                item
+                                                            )
+                                                        ).map(
+                                                            (
+                                                                userStatistika,
+                                                                ind
+                                                            ) => {
+                                                                return (
+                                                                    <div
+                                                                        className="static_text w-60 mb-1"
+                                                                        key={
+                                                                            user.id +
+                                                                            ind
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            userStatistika
+                                                                        }
+                                                                    </div>
+                                                                );
+                                                            }
+                                                        )}
                                                     </td>
                                                 </tr>
                                             );
