@@ -14,6 +14,7 @@ import {
     getDocs,
     addDoc,
     updateDoc,
+    setDoc,
     doc,
     deleteDoc,
 } from "firebase/firestore";
@@ -116,4 +117,34 @@ export async function updateUsersInDB(form, file) {
     delete form.file;
     await updateDoc(doc(db, "users", form.id), { ...form, imgSrc: imgSrc });
     return { ...form, id: form.id };
+}
+
+/**
+ * Добавляет данные с таблицы.
+ * @param {Object} form - Данные сотрудника
+ * @param {File} file - Файл изображения
+ */
+export async function handleSubmitTabelToDB(data, cellId) {
+    //
+    try {
+        const myCollection = collection(db, `Tabel`);
+        const myDocRef = doc(myCollection, cellId);
+        await setDoc(myDocRef, data);
+    } catch (e) {
+        console.log("произошла ошибка", e.message);
+    }
+}
+
+/**
+ *
+ * @param {number} years - передаем год для поиска в БД document
+ * @param {*} userId - передаем collection userId
+ * @returns
+ */
+export async function fetchTabel(years, userId) {
+    const querySnapshot = await getDocs(collection(db, "Tabel"));
+    return querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
 }
