@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { format } from "date-fns";
 import {
     Dialog,
-    
     Typography,
     DialogBody,
     DialogHeader,
-    DialogFooter,
 } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { handleSubmitTabelToDB, fetchTabel } from "../config/firebase";
+import { handleSubmitTabelToDB } from "../config/firebase";
 export const ModalTabelCell = ({
     isOpen,
     setIsOpen,
@@ -41,7 +39,7 @@ export const ModalTabelCell = ({
         const k = LS.key(1);
         const val = LS.getItem(k);
         console.log(resultToSendDB);
-        handleSubmitTabelToDB(resultToSendDB, years, userId, cellId);
+        handleSubmitTabelToDB(resultToSendDB, cellId);
         setIsOpen(!isOpen);
         // LS.clear();
     };
@@ -66,45 +64,47 @@ export const ModalTabelCell = ({
             </DialogHeader>
             <DialogBody className="space-y-4 pb-6 text-left">
                 <form onSubmit={handleSubmit}>
-                    <input
-                        type="time"
-                        id="jobTime"
-                        name="jobTime"
-                        className="border border-gray-500 rounded-2xl p-2 mr-10"
-                        // onChange={(e) =>
-                        //     setInputValue({
-                        //         ...inputValue,
-                        //         [e.target.id]: e.target.value,
-                        //     })
-                        // }
-                    />
-                    <select
-                        className="border border-gray-500 rounded-2xl p-2"
-                        name="jobStatus"
-                        id="jobStatus"
-                        // onChange={(e) => setInputValue(e.target.value)}
-                    >
-                        <option>Выберите статус</option>
-                        <option>Рабочий день</option>
-                        <option>Рабочий выходной</option>
-                        <option>Командировка</option>
-                        <option>Больничный</option>
-                        <option>Отпуск</option>
-                        <option>Отгул</option>
-                    </select>
-                    <button
-                        type="button"
-                        onClick={handleIsOpen}
-                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-                    >
-                        Отмена
-                    </button>
-                    <button
-                        type="submit"
-                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-                    >
-                        Добавить
-                    </button>
+                    <div className="mb-5 flex items-center">
+                        <input
+                            type="time"
+                            id="jobTime"
+                            name="jobTime"
+                            value="08:00"
+                            className="border border-gray-500 rounded-md p-2 mr-10"
+                        />
+                        <select
+                            className="border border-gray-500 rounded-md  p-2 h-8"
+                            name="jobStatus"
+                            id="jobStatus"
+                            // onChange={(e) => setInputValue(e.target.value)}
+                        >
+                            <option>Выберите статус</option>
+                            <option selected value="РД">
+                                Рабочий день
+                            </option>
+                            <option value="РВ">Рабочий выходной</option>
+                            <option value="К">Командировка</option>
+                            <option value="КВ">Командировка выходной</option>
+                            <option value="Б">Больничный</option>
+                            <option value="Отпуск">Отпуск</option>
+                            <option value="Отгул">Отгул</option>
+                        </select>
+                    </div>
+                    <div className="flex justify-between">
+                        <button
+                            type="button"
+                            onClick={handleIsOpen}
+                            className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                        >
+                            Отмена
+                        </button>
+                        <button
+                            type="submit"
+                            className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                        >
+                            Добавить
+                        </button>
+                    </div>
                 </form>
             </DialogBody>
         </Dialog>
