@@ -1,5 +1,5 @@
 import React from "react";
-
+//для сотрудников
 export const Pagination = ({ usersPerPage, totalUsers, paginate }) => {
     const pageNumber = [];
 
@@ -26,7 +26,7 @@ export const Pagination = ({ usersPerPage, totalUsers, paginate }) => {
         </div>
     );
 };
-
+//для месяцев переключает месяцы
 export const PaginationTabel = ({ monthPerPage, totalMonth, paginate }) => {
     const pageNumber = [];
 
@@ -53,7 +53,7 @@ export const PaginationTabel = ({ monthPerPage, totalMonth, paginate }) => {
         </div>
     );
 };
-
+//для недели дней и месяца перключает или день или неделю или показывает месяц целиком
 export const PaginationWeek = ({ weekPerPage, totalWeek, paginateWeek }) => {
     const pageNumber = [];
 
