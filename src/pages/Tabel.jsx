@@ -7,13 +7,6 @@ import { ModalTabelCell } from "../components/ui/ModalTabelCell";
 import { fetchTabel } from "../components/config/firebase";
 import { countDayTime } from "../components/utils/countDayTime";
 
-const today =
-    `${nameMonth(new Date().getMonth())}` +
-    " " +
-    `${daysWeek(new Date().getDay())}` +
-    " " +
-    `${new Date().getFullYear()}`;
-
 const countMonth = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 export const Tabel = () => {
@@ -34,9 +27,6 @@ export const Tabel = () => {
 
     //состяние для массива по ячейкам
     const [dataCell, setDataCell] = useState([]);
-
-    //состояние для показа дней недели месяца number
-    const [month, setMonth] = useState(0);
 
     //начальная страница месца
     const [currentPage, setCurrentPage] = useState(new Date().getMonth() + 1);
@@ -71,7 +61,7 @@ export const Tabel = () => {
         setWeekCurrentPage(pageNumber);
     };
     //
-    const [selectedWeek, setSelectedWeek] = useState("неделя"); // Default selected fruit
+    const [selectedWeek, setSelectedWeek] = useState("неделя");
     //получем id ячеки
     const [cellId, setCellId] = useState();
     //получаем id сотрудника
@@ -93,25 +83,8 @@ export const Tabel = () => {
     };
 
     const paginate = (pageNumber) => {
-        setMonth(pageNumber);
         setCurrentPage(pageNumber);
     };
-
-    /**
-     *функция возращает сколько дней в месяце
-     * @param {number} numberMonth - индкекс месяца
-     * @returns
-     */
-    function howMonthDay(numberMonth) {
-        const resultDay = getDaysInMonth(new Date(years, numberMonth));
-
-        const month = [];
-
-        for (let i = 1; i <= resultDay; i++) {
-            month.push(i);
-        }
-        return month;
-    }
 
     useEffect(() => {
         setLoading(true);
@@ -135,9 +108,11 @@ export const Tabel = () => {
                 // setCellClass("week");
                 setWeekCurrentPage(
                     getDay(
-                        years,
-                        new Date().getMonth() + 1,
-                        new Date().getDate()
+                        new Date(
+                            years,
+                            new Date().getMonth(),
+                            new Date().getDate()
+                        )
                     )
                 );
                 setWeekPerPage(7);
@@ -147,7 +122,9 @@ export const Tabel = () => {
                 setWeekPerPage(31);
             } else if (selectedWeek === "день") {
                 setWeekPerPage(1);
-                setWeekCurrentPage(new Date().getDate());
+                setWeekCurrentPage(
+                    new Date(years, new Date().getMonth()).getDate()
+                );
             }
         }, 10);
         resCellData();
