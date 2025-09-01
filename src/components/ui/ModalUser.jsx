@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // import { Provider } from "@/components/ui/provider";
 import {
     Dialog,
@@ -6,12 +6,14 @@ import {
     Typography,
     DialogBody,
     DialogHeader,
-    DialogFooter,
 } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { handleSubmitToDB, uploadImage } from "../config/firebase";
 import { AlertWithList } from "../ui/Alert";
 import { base64Coding } from "../utils/base64";
+import { userSchema } from "../utils/yup";
+import { number } from "yup";
+import SelectOption from "@material-tailwind/react/components/Select/SelectOption";
 
 export function AddUserDialog({ open, setOpen, setShow }) {
     //для данных из формы
@@ -23,6 +25,37 @@ export function AddUserDialog({ open, setOpen, setShow }) {
         userDate: "",
         note: "",
     });
+    //состояние для радио кнопки
+    const [selectedOption, setSelectedOption] = useState("Мужской");
+
+    function selectRadio(e) {
+        if (e.target.value === "Мужской") {
+            setSelectedOption("Мужской");
+        }
+        if (e.target.value === "Женский") {
+            setSelectedOption("Женский");
+        }
+    }
+    const [errors, setErrors] = useState({});
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        try {
+            userSchema.validateSync(formData, { abortEarly: false }); // Validate all fields
+            setErrors({}); // Clear errors if validation passes
+            // alert("Form submitted successfully!");
+            addUsers();
+            setFormData({});
+        } catch (validationErrors) {
+            console.log(validationErrors.inner);
+            const newErrors = {};
+            validationErrors.inner.forEach((error) => {
+                console.log(error.validationError);
+                newErrors[error.path] = error.message;
+            });
+            setErrors(newErrors);
+        }
+    };
     //для показа алерта
     const [alertUserState, setAlertUserState] = useState(false);
     //Закрытие модального окна
@@ -33,11 +66,26 @@ export function AddUserDialog({ open, setOpen, setShow }) {
     //Формирвание объекта с данными из формы
     const handleChange = (e) => {
         const { name, value } = e.target;
-
         setFormData({
             ...formData,
             [name]: value,
         });
+
+        try {
+            //преобразуем тип для номер табеля
+            // formData.tabelNumber = number(formData.tabelNumber);
+            console.log(number(formData));
+            userSchema.validateSync(formData, { abortEarly: false }); // Validate all fields
+            setErrors({}); // Clear errors if validation passes
+            // alert("Form submitted successfully!");
+        } catch (validationErrors) {
+            console.log(validationErrors.inner);
+            const newErrors = {};
+            validationErrors.inner.forEach((error) => {
+                newErrors[error.path] = error.message;
+            });
+            setErrors("newErrors");
+        }
     };
 
     //Добавляем в объект изображение file
@@ -85,12 +133,13 @@ export function AddUserDialog({ open, setOpen, setShow }) {
     return (
         <div>
             <Dialog
-                size="sm"
+                // size="sm"
                 open={open}
                 handler={handleOpen}
-                className="p-4 max-w-xl mt-9 ml-95 shadow-slate-700 shadow-lg overflow-y-scroll max-h-screen"
+                className=" w-150 shadow-slate-700 shadow-lg  mt-20 left-[35%]"
             >
-                <DialogHeader className="relative m-0 block">
+                <div className="bg-gray-800 w-1280 h-700 absolute -top-20 -left-300 opacity-80  z-[-1]"></div>
+                <DialogHeader className="relative block">
                     <Typography variant="h4" color="blue-gray">
                         Анкета сотрудника
                     </Typography>
@@ -105,9 +154,9 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                     </button>
                 </DialogHeader>
                 <DialogBody className="space-y-4 pb-6 text-left">
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div>
-                            <div className="mb-2 flex flex-wrap">
+                            <div className="mb-2 flex flex-wrap flex-col">
                                 <label
                                     htmlFor="lastName"
                                     className="block text-gray-500 mb-2"
@@ -117,11 +166,20 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                 <input
                                     type="text"
                                     name="lastName"
-                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1"
+                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1 mb-1"
                                     placeholder="Иванов"
                                     onChange={handleChange}
-                                    required
                                 />
+                                {errors.lastName && (
+                                    <p
+                                        className="mb-2"
+                                        style={{
+                                            color: "red",
+                                        }}
+                                    >
+                                        {errors.lastName}
+                                    </p>
+                                )}
                                 <label
                                     htmlFor="firstName"
                                     className="block text-gray-500 mb-2"
@@ -131,11 +189,20 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                 <input
                                     type="text"
                                     name="firstName"
-                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1"
+                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1 mb-1"
                                     placeholder="Иван"
                                     onChange={handleChange}
-                                    required
                                 />
+                                {errors.firstName && (
+                                    <p
+                                        className="mb-2"
+                                        style={{
+                                            color: "red",
+                                        }}
+                                    >
+                                        {errors.firstName}
+                                    </p>
+                                )}
                                 <label
                                     htmlFor="surname"
                                     className="block text-gray-500 mb-2"
@@ -145,11 +212,20 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                 <input
                                     type="text"
                                     name="surname"
-                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1 mb-4"
+                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1 mb-1"
                                     placeholder="Иванович"
                                     onChange={handleChange}
-                                    required
                                 />
+                                {errors.surname && (
+                                    <p
+                                        className="mb-2"
+                                        style={{
+                                            color: "red",
+                                        }}
+                                    >
+                                        {errors.surname}
+                                    </p>
+                                )}
                                 <div className="w-full flex justify-between">
                                     <div className="w-full">
                                         <label
@@ -164,6 +240,16 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                             className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-60"
                                             onChange={handleChange}
                                         />
+                                        {errors.birthday && (
+                                            <p
+                                                className="mb-2"
+                                                style={{
+                                                    color: "red",
+                                                }}
+                                            >
+                                                {errors.birthday}
+                                            </p>
+                                        )}
                                     </div>
                                     <div>
                                         <label
@@ -175,11 +261,20 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                         <input
                                             type="text"
                                             name="tabelNumber"
-                                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 mb-4 w-60"
+                                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-60"
                                             placeholder="0000"
                                             onChange={handleChange}
-                                            required
                                         />
+                                        {errors.tabelNumber && (
+                                            <p
+                                                className="mb-2"
+                                                style={{
+                                                    color: "red",
+                                                }}
+                                            >
+                                                {errors.tabelNumber}
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -198,6 +293,16 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                         className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-full"
                                         onChange={handleChange}
                                     />
+                                    {errors.email && (
+                                        <p
+                                            className="mb-2"
+                                            style={{
+                                                color: "red",
+                                            }}
+                                        >
+                                            {errors.email}
+                                        </p>
+                                    )}
                                 </div>
                                 <div className="w-60">
                                     <label
@@ -213,6 +318,16 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                         className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-full"
                                         onChange={handleChange}
                                     />
+                                    {errors.phone && (
+                                        <p
+                                            className="mb-2"
+                                            style={{
+                                                color: "red",
+                                            }}
+                                        >
+                                            {errors.phone}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                             <div>
@@ -235,12 +350,14 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                         <div>
                             <div className="flex items-center mb-4">
                                 <input
+                                    checked={selectedOption === "Мужской"}
                                     id="default-radio-1"
                                     type="radio"
                                     value="Мужской"
                                     name="default-radio"
                                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-600  dark:bg-gray-700 dark:border-gray-600 outline-0"
                                     onChange={handleChange}
+                                    onClick={selectRadio}
                                 />
                                 <label
                                     htmlFor="default-radio-1"
@@ -249,12 +366,14 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                     Мужской
                                 </label>
                                 <input
+                                    checked={selectedOption === "Женский"}
                                     id="default-radio-2"
                                     type="radio"
                                     value="Женский"
                                     name="default-radio"
                                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-600  dark:bg-gray-700 dark:border-gray-600 outline-0"
                                     onChange={handleChange}
+                                    onClick={selectRadio}
                                 />
                                 <label
                                     htmlFor="default-radio-2"
@@ -297,6 +416,16 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                 className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500"
                                 onChange={handleChange}
                             />
+                            {errors.userDate && (
+                                <p
+                                    className="mb-2"
+                                    style={{
+                                        color: "red",
+                                    }}
+                                >
+                                    {errors.userDate}
+                                </p>
+                            )}
                         </div>
                         <div>
                             <Typography
@@ -308,7 +437,7 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                             </Typography>
                             <Textarea
                                 rows={3}
-                                className="!w-full !border-[1.5px] !border-blue-gray-200/90 !border-t-blue-gray-200/90 bg-white text-gray-600 ring-4 ring-transparent focus:!border-primary focus:!border-t-blue-gray-900 group-hover:!border-primary"
+                                className="!w-full !border-[1.5px] !border-blue-gray-200/90 !border-t-blue-gray-200/90 bg-white text-gray-600 ring-4 ring-transparent focus:!border-primary focus:!border-t-blue-gray-900 group-hover:!border-primary mb-5"
                                 labelProps={{
                                     className: "hidden",
                                 }}
@@ -317,24 +446,24 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                 value={formData.note}
                             />
                         </div>
+                        <div className="flex justify-center">
+                            <button
+                                type="button"
+                                onClick={handleOpen}
+                                className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                            >
+                                Отмена
+                            </button>
+                            <button
+                                type="submit"
+                                className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                                // onClick={addUsers}
+                            >
+                                Добавить
+                            </button>
+                        </div>
                     </form>
                 </DialogBody>
-                <DialogFooter className="flex justify-between">
-                    <button
-                        type="button"
-                        onClick={handleOpen}
-                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-                    >
-                        Отмена
-                    </button>
-                    <button
-                        type="submit"
-                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-                        onClick={addUsers}
-                    >
-                        Добавить
-                    </button>
-                </DialogFooter>
             </Dialog>
             {showAlert()}
         </div>
