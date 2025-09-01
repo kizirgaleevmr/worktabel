@@ -43,12 +43,12 @@ export const Login = () => {
                             action="#"
                             onSubmit={handleSubmit}
                         >
-                            <div>
+                            <div className="text-left">
                                 <label
                                     htmlFor="email"
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                 >
-                                    email
+                                    почта
                                 </label>
                                 <input
                                     type="email"
@@ -60,12 +60,12 @@ export const Login = () => {
                                     required=""
                                 />
                             </div>
-                            <div>
+                            <div className="text-left">
                                 <label
                                     htmlFor="password"
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                 >
-                                    Password
+                                    пароль
                                 </label>
                                 <input
                                     type="password"
