@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { daysWeek, nameMonth } from "../components/utils/date";
 import { fetchUsers } from "../components/config/firebase";
-import { format, getDaysInMonth, getDay } from "date-fns";
+import { format, getDaysInMonth, getDay, getWeekOfMonth } from "date-fns";
 import { PaginationTabel, PaginationWeek } from "../components/ui/Pagination";
 import { ModalTabelCell } from "../components/ui/ModalTabelCell";
 import { fetchTabel } from "../components/config/firebase";
@@ -47,7 +47,9 @@ export const Tabel = () => {
 
     //начальная страница недели
     const [currentWeekPage, setWeekCurrentPage] = useState(
-        getDay(years, new Date().getMonth() + 1, new Date().getDate())
+        getWeekOfMonth(
+            new Date(years, new Date().getMonth(), new Date().getDate())
+        )
     );
 
     //сколько дней показывать
@@ -105,9 +107,8 @@ export const Tabel = () => {
         setTimeout(() => {
             setLoading(false);
             if (selectedWeek === "неделя") {
-                // setCellClass("week");
                 setWeekCurrentPage(
-                    getDay(
+                    getWeekOfMonth(
                         new Date(
                             years,
                             new Date().getMonth(),
@@ -115,9 +116,9 @@ export const Tabel = () => {
                         )
                     )
                 );
+
                 setWeekPerPage(7);
             } else if (selectedWeek === "месяц") {
-                // setCellClass("month");
                 setWeekCurrentPage(1);
                 setWeekPerPage(31);
             } else if (selectedWeek === "день") {
