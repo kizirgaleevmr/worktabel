@@ -45,7 +45,7 @@ export const Tabel = () => {
     //сколько месяцев отображать
     const currentData = data.slice(firstDataIndex, lastDataIndex);
 
-    //начальная страница недели
+    //начальная страница недели месяца
     const [currentWeekPage, setWeekCurrentPage] = useState(
         getWeekOfMonth(
             new Date(years, new Date().getMonth(), new Date().getDate())
