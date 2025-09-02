@@ -63,7 +63,7 @@ export const PaginationWeek = ({ weekPerPage, totalWeek, paginateWeek }) => {
 
     return (
         <div className="mb-4">
-            <ul className="flex gap-2">
+            <ul className="flex gap-2 flex-wrap flex-row w-full">
                 {pageNumber.map((number) => {
                     return (
                         <a
