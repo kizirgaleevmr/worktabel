@@ -14,10 +14,23 @@ export const ModalTabelCell = ({
     cellId,
     userId,
     cellDate,
-    years,
     dayNorma,
     timeNorma,
+
+    setAddCellValue,
+    addCellValue,
 }) => {
+    //состояние для select
+    const [selectedValue, setSelectedValue] = useState("РД");
+    function handleChange(e) {
+        setSelectedValue(e.target.value);
+    }
+    //состояние для времени
+    const [timeValue, setTimeValue] = useState("08:00");
+
+    function handleTimeChange(e) {
+        setTimeValue(e.target.value);
+    }
     const handleIsOpen = () => {
         setIsOpen(!isOpen);
     };
@@ -25,7 +38,7 @@ export const ModalTabelCell = ({
     const handleSubmit = (event) => {
         event.preventDefault(); // Prevent default form submission
         const resultToSendDB = {};
-        const LS = localStorage;
+        // const LS = localStorage;
         const date = format(new Date(cellDate), "yyyy-MM-dd");
         resultToSendDB.cellID = cellId;
         resultToSendDB.userID = userId;
@@ -34,14 +47,18 @@ export const ModalTabelCell = ({
         resultToSendDB.timeNorma = timeNorma;
         resultToSendDB.time = event.target.jobTime.value;
         resultToSendDB.jobStatus = event.target.jobStatus.value;
-        LS.setItem(JSON.stringify(userId), JSON.stringify(resultToSendDB));
 
-        const k = LS.key(1);
-        const val = LS.getItem(k);
-        console.log(resultToSendDB);
+        // LS.setItem(JSON.stringify(userId), JSON.stringify(resultToSendDB));
+        // const k = LS.key(1);
+        // const val = LS.getItem(k);
+
         handleSubmitTabelToDB(resultToSendDB, cellId);
         setIsOpen(!isOpen);
         // LS.clear();
+        setAddCellValue(addCellValue + 1);
+        // setTimeout(() => {
+        //     setSelectedWeek(true);
+        // }, 100);
     };
 
     return (
@@ -69,19 +86,19 @@ export const ModalTabelCell = ({
                             type="time"
                             id="jobTime"
                             name="jobTime"
-                            value="08:00"
+                            onChange={handleTimeChange}
+                            value={timeValue}
                             className="border border-gray-500 rounded-md p-2 mr-10"
                         />
                         <select
                             className="border border-gray-500 rounded-md  p-2 h-8"
                             name="jobStatus"
                             id="jobStatus"
-                            // onChange={(e) => setInputValue(e.target.value)}
+                            value={selectedValue}
+                            onChange={handleChange}
                         >
                             <option>Выберите статус</option>
-                            <option selected value="РД">
-                                Рабочий день
-                            </option>
+                            <option value="РД">Рабочий день</option>
                             <option value="РВ">Рабочий выходной</option>
                             <option value="К">Командировка</option>
                             <option value="КВ">Командировка выходной</option>
