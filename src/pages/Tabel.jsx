@@ -6,7 +6,8 @@ import { PaginationTabel, PaginationWeek } from "../components/ui/Pagination";
 import { ModalTabelCell } from "../components/ui/ModalTabelCell";
 import { fetchTabel } from "../components/config/firebase";
 import { countDayTime } from "../components/utils/countDayTime";
-
+import { icons } from "../components/ui/icons";
+import { deleteCellFromDB } from "../components/config/firebase";
 const countMonth = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 export const Tabel = () => {
@@ -125,7 +126,6 @@ export const Tabel = () => {
                           )
                         : localStorage.getItem("paginate")
                 );
-                console.log(localStorage.getItem("paginate") == null);
 
                 setWeekPerPage(7);
             } else if (selectedWeek === "месяц") {
@@ -133,12 +133,24 @@ export const Tabel = () => {
                 setWeekPerPage(31);
             } else if (selectedWeek === "день") {
                 setWeekPerPage(1);
+                // setWeekCurrentPage(
+                //     new Date(
+                //         years,
+                //         new Date().getMonth(),
+                //         new Date().getDate()
+                //     ).getDate()
+                // );
                 setWeekCurrentPage(
-                    new Date(
-                        years,
-                        new Date().getMonth(),
-                        new Date().getDate()
-                    ).getDate()
+                    //
+                    localStorage.getItem("paginate") == null
+                        ? getWeekOfMonth(
+                              new Date(
+                                  years,
+                                  new Date().getMonth(),
+                                  new Date().getDate()
+                              )
+                          )
+                        : localStorage.getItem("paginate")
                 );
             }
             // localStorage.clear();
@@ -177,6 +189,16 @@ export const Tabel = () => {
         setIsOpen(true);
     }
 
+    //Функция на удаления
+    function deletCell(e) {
+        const elementParent =
+            e.target.parentElement.parentElement.parentElement.parentElement.id;
+        const isDelete = confirm("Удалить данные?");
+        if (!isDelete) alert("Вы отменили действые");
+        deleteCellFromDB(elementParent);
+        setAddCellValue(addCellValue - 1);
+    }
+
     if (dataUsers.length !== 0) {
         return (
             <>
@@ -210,10 +232,10 @@ export const Tabel = () => {
                                     {nameMonth(item)} {years}
                                 </h2>
                                 <div className="flex items-center">
-                                    <div className="mr-10">
+                                    <div className="mr-10 text-black">
                                         <select
                                             id="day__week_month"
-                                            className="border-2 border-gray-400 rounded-2xl h-10 w-30 mb-2 outline-0 bg-white p-18"
+                                            className="border-2 border-gray-400 rounded-2xl w-30 mb-2 outline-0 text-black bg-white px-5  py-2"
                                             value={selectedWeek}
                                             onChange={handleWeekChange}
                                         >
@@ -402,7 +424,7 @@ export const Tabel = () => {
                                                                         user.id +
                                                                         ind
                                                                     }
-                                                                    className={`border-separate  border border-gray-400 dark:border-gray-500 p-4 text-center`}
+                                                                    className={`border-separate  border border-gray-400 dark:border-gray-500 p-4 text-center relative`}
                                                                 >
                                                                     {dataCell.map(
                                                                         (
@@ -422,6 +444,16 @@ export const Tabel = () => {
                                                                                         day
                                                                                     }
                                                                                 >
+                                                                                    <button
+                                                                                        className="!absolute right-0 top-2 hover:text-rose-700"
+                                                                                        onClick={
+                                                                                            deletCell
+                                                                                        }
+                                                                                    >
+                                                                                        {
+                                                                                            icons?.trash
+                                                                                        }
+                                                                                    </button>
                                                                                     <p
                                                                                         className={`text-teal-600 text-2xl mb-2 ${
                                                                                             cellData.jobStatus ===
