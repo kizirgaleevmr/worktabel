@@ -10,6 +10,8 @@ import { countDayTime } from "../components/utils/countDayTime";
 const countMonth = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 export const Tabel = () => {
+    // состояние для обновления после внесени данных в ячейку
+    const [addCellValue, setAddCellValue] = useState(0);
     //состояение для норма дней
     const [dayNorma, setDayNorma] = useState(21);
     //состоягние для норма дней
@@ -19,7 +21,7 @@ export const Tabel = () => {
     const [years, setYears] = useState(new Date().getFullYear());
 
     const [isOpen, setIsOpen] = React.useState(false);
-    //состояние для массива c данными по дням
+    //состояние для массива сколько месяцев
     const [data, setData] = useState([]);
 
     //состяние для массива по сотрудникам
@@ -61,7 +63,6 @@ export const Tabel = () => {
     // пагинация по неделям дням
     const paginateWeek = (pageNumber) => {
         setWeekCurrentPage(pageNumber);
-        console.log(pageNumber);
     };
     //
     const [selectedWeek, setSelectedWeek] = useState("неделя");
@@ -98,7 +99,7 @@ export const Tabel = () => {
             setDataUsers(users);
         };
 
-        //получаем всех сотрудников  и записываем их в состояние
+        //получаем данные из firebase Tabel
         const resCellData = async () => {
             const res = await fetchTabel();
             setDataCell(res);
@@ -116,7 +117,6 @@ export const Tabel = () => {
                         )
                     )
                 );
-
                 setWeekPerPage(7);
             } else if (selectedWeek === "месяц") {
                 setWeekCurrentPage(1);
@@ -131,10 +131,11 @@ export const Tabel = () => {
                     ).getDate()
                 );
             }
-        }, 10);
+        }, 100);
         resCellData();
         allUsers();
-    }, [currentPage, selectedWeek]);
+        setAddCellValue(false);
+    }, [currentPage, selectedWeek, addCellValue]);
 
     if (loading) {
         return <h2>LOADING...</h2>;
@@ -157,6 +158,7 @@ export const Tabel = () => {
     }
 
     function handleDoubleClick(event) {
+        // console.log(event.target);
         setCellId(event.target.id);
         setUserID(event.target.dataset.userId);
         setCellDate(event.target.dataset.cellDate);
@@ -167,25 +169,25 @@ export const Tabel = () => {
     if (dataUsers.length !== 0) {
         return (
             <>
-                <h2 className="mb-4">Табель</h2>
+                <h2 className="mb-4 text-white text-2xl">Табель</h2>
                 <button
                     onClick={handleClickYears}
                     type="button"
-                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-700 dark:border-gray-700"
                 >
                     2025
                 </button>
                 <button
                     onClick={handleClickYears}
                     type="button"
-                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-700 dark:border-gray-700"
                 >
                     2026
                 </button>
                 <button
                     onClick={handleClickYears}
                     type="button"
-                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-700 dark:border-gray-700"
                 >
                     2027
                 </button>
@@ -193,7 +195,7 @@ export const Tabel = () => {
                     {currentData.map((item, monthInd) => {
                         return (
                             <div key={monthInd} className="text-left">
-                                <h2 className="uppercase l mb-4 text-cyan-900">
+                                <h2 className="uppercase l mb-4 text-white text-2xl">
                                     {nameMonth(item)} {years}
                                 </h2>
                                 <div className="flex items-center">
@@ -223,7 +225,9 @@ export const Tabel = () => {
                                 </div>
                                 <div className="flex justify-center">
                                     <div className="mr-8">
-                                        <h2 className="mb-6">Норма дней:</h2>
+                                        <h2 className="mb-6 text-white">
+                                            Норма дней:
+                                        </h2>
                                         <input
                                             type="text"
                                             id="day__week_month"
@@ -233,7 +237,9 @@ export const Tabel = () => {
                                         />
                                     </div>
                                     <div>
-                                        <h2 className="mb-6">Норма часов:</h2>
+                                        <h2 className="mb-6 text-white">
+                                            Норма часов:
+                                        </h2>
                                         <input
                                             type="text"
                                             disabled
@@ -408,14 +414,14 @@ export const Tabel = () => {
                                                                                     <p
                                                                                         className={`text-teal-600 text-2xl mb-2 ${
                                                                                             cellData.jobStatus ===
-                                                                                            "Рабочий выходной"
+                                                                                            "РВ"
                                                                                                 ? "red"
                                                                                                 : ""
                                                                                         } `}
                                                                                     >
                                                                                         {
                                                                                             cellData.jobStatus
-                                                                                        }{" "}
+                                                                                        }
                                                                                     </p>
                                                                                     <p className="text-2xl">
                                                                                         {" " +
@@ -468,7 +474,6 @@ export const Tabel = () => {
                                             );
                                         })}
                                     </tbody>
-                                    <tfoot></tfoot>
                                 </table>
                             </div>
                         );
@@ -480,6 +485,8 @@ export const Tabel = () => {
                     paginate={paginate}
                 />
                 <ModalTabelCell
+                    setAddCellValue={setAddCellValue}
+                    addCellValue={addCellValue}
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
                     cellId={cellId}
