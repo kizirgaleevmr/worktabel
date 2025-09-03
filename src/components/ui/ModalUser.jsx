@@ -151,14 +151,14 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                             <div className="mb-2 flex flex-wrap flex-col">
                                 <label
                                     htmlFor="lastName"
-                                    className="block text-gray-500 mb-2"
+                                    className="block text-gray-400 mb-2"
                                 >
                                     Фамилия:
                                 </label>
                                 <input
                                     type="text"
                                     name="lastName"
-                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1 mb-1"
+                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-1/1 mb-1"
                                     placeholder="Иванов"
                                     onChange={handleChange}
                                 />
@@ -174,14 +174,14 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                 )}
                                 <label
                                     htmlFor="firstName"
-                                    className="block text-gray-500 mb-2"
+                                    className="block text-gray-400 mb-2"
                                 >
                                     Имя:
                                 </label>
                                 <input
                                     type="text"
                                     name="firstName"
-                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1 mb-1"
+                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-1/1 mb-1"
                                     placeholder="Иван"
                                     onChange={handleChange}
                                 />
@@ -197,14 +197,14 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                 )}
                                 <label
                                     htmlFor="surname"
-                                    className="block text-gray-500 mb-2"
+                                    className="block text-gray-400 mb-2"
                                 >
                                     Отчество:
                                 </label>
                                 <input
                                     type="text"
                                     name="surname"
-                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1 mb-1"
+                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-1/1 mb-1"
                                     placeholder="Иванович"
                                     onChange={handleChange}
                                 />
@@ -222,14 +222,14 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                     <div className="w-full">
                                         <label
                                             htmlFor="birthday"
-                                            className="block text-gray-500 mb-2"
+                                            className="block text-gray-400 mb-2"
                                         >
                                             Год рождения:
                                         </label>
                                         <input
                                             type="date"
                                             name="birthday"
-                                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-60"
+                                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-60"
                                             onChange={handleChange}
                                         />
                                         {errors.birthday && (
@@ -246,14 +246,14 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                     <div>
                                         <label
                                             htmlFor="tabelNumber"
-                                            className="block text-gray-500 mb-2"
+                                            className="block text-gray-400 mb-2"
                                         >
                                             Табельный номер:
                                         </label>
                                         <input
                                             type="text"
                                             name="tabelNumber"
-                                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-60"
+                                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-60"
                                             placeholder="0000"
                                             onChange={handleChange}
                                         />
@@ -274,7 +274,7 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                 <div className="w-60">
                                     <label
                                         htmlFor="emil"
-                                        className="block text-gray-500 mb-2"
+                                        className="block text-gray-400 mb-2"
                                     >
                                         email
                                     </label>
@@ -282,7 +282,7 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                         name="email"
                                         type="text"
                                         placeholder="email"
-                                        className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-full"
+                                        className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-full"
                                         onChange={handleChange}
                                     />
                                     {errors.email && (
@@ -299,7 +299,7 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                 <div className="w-60">
                                     <label
                                         htmlFor="phone"
-                                        className="block text-gray-500 mb-2 w-1/2"
+                                        className="block text-gray-400 mb-2 w-1/2"
                                     >
                                         Телефон
                                     </label>
@@ -307,7 +307,7 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                         name="phone"
                                         type="text"
                                         placeholder="phone"
-                                        className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-full"
+                                        className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-full"
                                         onChange={handleChange}
                                     />
                                     {errors.phone && (
@@ -353,7 +353,7 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                 />
                                 <label
                                     htmlFor="default-radio-1"
-                                    className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-500 mr-4"
+                                    className="ms-2 text-sm font-medium text-gray-800 dark:text-gray-500 mr-4"
                                 >
                                     Мужской
                                 </label>
@@ -369,7 +369,7 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                                 />
                                 <label
                                     htmlFor="default-radio-2"
-                                    className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-500"
+                                    className="ms-2 text-sm font-medium text-gray-800 dark:text-gray-500"
                                 >
                                     Женский
                                 </label>
@@ -378,7 +378,7 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                         <div className="mb-4">
                             <select
                                 id="underline_select"
-                                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-full"
+                                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-full"
                                 onChange={handleChange}
                                 name="dolzhnost"
                                 required
@@ -398,14 +398,14 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                         <div className="mb-4">
                             <label
                                 htmlFor="useDate"
-                                className="block mb-2 text-sm font-medium text-gray-500"
+                                className="block mb-2 text-sm font-medium text-gray-400"
                             >
                                 Дата устройства:
                             </label>
                             <input
                                 type="date"
                                 name="userDate"
-                                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500"
+                                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800"
                                 onChange={handleChange}
                             />
                             {errors.userDate && (
@@ -423,7 +423,7 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                             <Typography
                                 variant="small"
                                 color="blue-gray"
-                                className="mb-2 text-left font-medium"
+                                className="mb-2 text-left font-medium text-gray-400"
                             >
                                 Примечание
                             </Typography>
