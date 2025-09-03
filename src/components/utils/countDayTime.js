@@ -121,12 +121,22 @@ export function countDayTime(
         Отпуск: resultObj.vacation,
         Больничный: resultObj.hospital,
     };
+
+    console.log(resultObjRuss);
+    //Убираем с объекта свойства равное нулю
+    const filterResultObjRuss = {};
+
+    for (let item in resultObjRuss) {
+        if (resultObjRuss[item] !== 0) {
+            filterResultObjRuss[item] = resultObjRuss[item];
+        }
+    }
     //преобразуем объект в массив
-    let b = Object.entries(resultObjRuss).map((a) => {
+    let dataArray = Object.entries(filterResultObjRuss).map((a) => {
         return `${a[0]} : ${a[1]}`;
     });
 
-    return b;
+    return dataArray;
 }
 
 // cellDate;
