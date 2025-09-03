@@ -28,7 +28,7 @@ export function HorizontalCard({
                 className="w-[38rem] flex-row text-left rounded-lg overflow-hidden mb-6 p-6"
                 id={id}
             >
-                <CardHeader className="m-0 w-2/5 shrink-0 rounded-r-none flex items-top justify-center mt-10 flex-col items-center px-2">
+                <CardHeader className="m-0 w-55 shrink-0 rounded-r-none flex items-top justify-center mt-10 flex-col items-center px-2">
                     <div className="border-2 border-gray-400 overflow-hidden h-40 w-40 rounded-full flex items-center mb-5">
                         <img
                             src={src}
@@ -48,7 +48,11 @@ export function HorizontalCard({
                                 <span className="inline-block mr-3">
                                     {icons.email}
                                 </span>
-                                <a href={`mailto:${email}`}>{email}</a>
+                                <div className="text-wrap">
+                                    <a href={`mailto:${email}`}>
+                                        <a href={`mailto:${email}`}>{email}</a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -58,14 +62,14 @@ export function HorizontalCard({
                         <Typography
                             variant="small"
                             color="gray"
-                            className="mb-2 gray"
+                            className="gray"
                         >
                             Отдел: <span className="text-black">{otdel}</span>
                         </Typography>
                         <Typography
                             variant="small"
                             color="gray"
-                            className="mb-2 gray"
+                            className="gray"
                         >
                             Таб. №:{" "}
                             <span className="text-black">{tabelNumber}</span>
@@ -75,28 +79,20 @@ export function HorizontalCard({
                         <Typography
                             variant="h2"
                             color="blue-gray"
-                            className="mb-2"
+                            className="mb-1"
                         >
                             <p className="text-black"> {lastName}</p>
                         </Typography>
                     </div>
-                    <div className="flex gap-2">
-                        <Typography
-                            variant="h2"
-                            color="blue-gray"
-                            className="mb-2"
-                        >
+                    <div className="flex gap-2 mb-4">
+                        <Typography variant="h2" color="blue-gray">
                             <p className="text-black">{firstName}</p>
                         </Typography>
-                        <Typography
-                            variant="h2"
-                            color="blue-gray"
-                            className="mb-4"
-                        >
-                            <p className="tetx-black">{surname}</p>
+                        <Typography variant="h2" color="blue-gray">
+                            <p className="tetx-black mb-2">{surname}</p>
                         </Typography>
                     </div>
-                    <div className="mb-2"></div>
+
                     <div className="flex mb-2 flex-row flex-wrap gap-2">
                         <Typography
                             variant="h2"
@@ -111,7 +107,7 @@ export function HorizontalCard({
                         <Typography
                             variant="h2"
                             color="blue-gray"
-                            className="w-1/2 gray"
+                            className="w-1/2 gray mb-1"
                         >
                             Возраст:{" "}
                             <span className="text-black">{birthday}</span>
@@ -119,7 +115,7 @@ export function HorizontalCard({
                         <Typography
                             variant="h2"
                             color="blue-gray"
-                            className="w-1/2 gray mb-8"
+                            className="w-1/2 gray mb-4"
                         >
                             Стаж: <span className="text-black">{workDate}</span>
                         </Typography>
