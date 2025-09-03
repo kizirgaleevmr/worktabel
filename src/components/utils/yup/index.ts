@@ -19,6 +19,7 @@ export const userSchema = yup
             .max(30, "макс 30 символов")
             .required("Введите отчество"),
         birthday: yup.date().required("Выберите дату"),
+        userDate: yup.date().required("Выберите дату"),
         tabelNumber: yup
             .string()
             .min(4, "мин 4 символа")
@@ -29,6 +30,5 @@ export const userSchema = yup
             .email("Invalid email address")
             .required("Email is required"),
         phone: yup.number().required("введите номер телефона"),
-        userDate: yup.date().required("Выберите дату"),
     })
     .required();
