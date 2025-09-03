@@ -107,7 +107,7 @@ export async function deleteUsersFromDB(usersId) {
 }
 
 /**
- * Обновляет продукт.
+ * Обновляет сотрудника.
  * @param {Object} form - Данные сотрудника
  * @param {File} file - Файл изображения
  */
@@ -136,7 +136,7 @@ export async function handleSubmitTabelToDB(data, cellId) {
 }
 
 /**
- *
+ *функция получает данные с firebase Tabel
  * @param {number} years - передаем год для поиска в БД document
  * @param {*} userId - передаем collection userId
  * @returns
@@ -147,4 +147,18 @@ export async function fetchTabel(years, userId) {
         id: doc.id,
         ...doc.data(),
     }));
+}
+
+/**
+ * Удаляет по id данные с firebase Tabel.
+ * @param {string} cellId - id сотрудника
+ */
+export async function deleteCellFromDB(cellId) {
+    try {
+        await deleteDoc(doc(db, "Tabel", cellId));
+        console.log("Успешное удаление");
+        return true;
+    } catch (e) {
+        console.log("Не получилось удалить", e.message);
+    }
 }

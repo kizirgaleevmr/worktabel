@@ -6,8 +6,10 @@ import {
     DialogBody,
     DialogHeader,
 } from "@material-tailwind/react";
+
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { handleSubmitTabelToDB } from "../config/firebase";
+
 export const ModalTabelCell = ({
     isOpen,
     setIsOpen,
@@ -16,10 +18,11 @@ export const ModalTabelCell = ({
     cellDate,
     dayNorma,
     timeNorma,
-
     setAddCellValue,
     addCellValue,
 }) => {
+    //состояние для id для удаления
+    const [idCellToDelet, setIdCellToDelet] = useState();
     //состояние для select
     const [selectedValue, setSelectedValue] = useState("РД");
     function handleChange(e) {
@@ -48,17 +51,10 @@ export const ModalTabelCell = ({
         resultToSendDB.time = event.target.jobTime.value;
         resultToSendDB.jobStatus = event.target.jobStatus.value;
 
-        // LS.setItem(JSON.stringify(userId), JSON.stringify(resultToSendDB));
-        // const k = LS.key(1);
-        // const val = LS.getItem(k);
-
         handleSubmitTabelToDB(resultToSendDB, cellId);
         setIsOpen(!isOpen);
-        // LS.clear();
         setAddCellValue(addCellValue + 1);
-        // setTimeout(() => {
-        //     setSelectedWeek(true);
-        // }, 100);
+        setIdCellToDelet(resultToSendDB.cellID);
     };
 
     return (
@@ -66,8 +62,9 @@ export const ModalTabelCell = ({
             size="sm"
             open={isOpen}
             handler={handleIsOpen}
-            className="p-4 mt-9 ml-95 shadow-slate-700 shadow-lg w-100"
+            className="p-4 mt-50 shadow-slate-700 shadow-lg w-max left-[35%]"
         >
+            <div className="bg-gray-800 w-1280 h-700 absolute -top-50 -left-300 opacity-80  z-[-1]"></div>
             <DialogHeader className="relative m-0 block">
                 <Typography variant="h4" color="blue-gray">
                     Учет времени
@@ -81,7 +78,7 @@ export const ModalTabelCell = ({
             </DialogHeader>
             <DialogBody className="space-y-4 pb-6 text-left">
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-5 flex items-center">
+                    <div className="mb-5 flex items-center p-2">
                         <input
                             type="time"
                             id="jobTime"
@@ -91,7 +88,7 @@ export const ModalTabelCell = ({
                             className="border border-gray-500 rounded-md p-2 mr-10"
                         />
                         <select
-                            className="border border-gray-500 rounded-md  p-2 h-8"
+                            className="border border-gray-500 rounded-md  p-2"
                             name="jobStatus"
                             id="jobStatus"
                             value={selectedValue}
@@ -107,7 +104,7 @@ export const ModalTabelCell = ({
                             <option value="Отгул">Отгул</option>
                         </select>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between items-center">
                         <button
                             type="button"
                             onClick={handleIsOpen}
