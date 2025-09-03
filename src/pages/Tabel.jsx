@@ -224,7 +224,7 @@ export const Tabel = () => {
                 >
                     2027
                 </button>
-                <div className="overflow-x-auto">
+                <div>
                     {currentData.map((item, monthInd) => {
                         return (
                             <div key={monthInd} className="text-left">
@@ -281,249 +281,260 @@ export const Tabel = () => {
                                         />
                                     </div>
                                 </div>
-                                <table className="mb-8 border-separate border-spacing-1    bg-white rounded-2xl p-4">
-                                    <thead className="bg-slate-800 text-white ">
-                                        <tr>
-                                            <th></th>
-                                            {howMonthDay(years, item)
-                                                .slice(
-                                                    firstWeekIndex,
-                                                    lastWeekIndex
-                                                )
-                                                .map((day, dayInd) => {
-                                                    return (
-                                                        <th
-                                                            key={
-                                                                dayInd +
-                                                                monthInd
-                                                            }
-                                                            data-color-th="false"
-                                                            className="border border-gray-400 dark:border-gray-500 px-4 py-2 text-center"
-                                                        >
-                                                            <p
-                                                                className={`mb-3 text-2xl ${
-                                                                    daysWeek(
+                                <div className="overflow-x-auto w-500">
+                                    <table className="mb-8 border-separate border-spacing-1    bg-white rounded-2xl p-4">
+                                        <thead className="bg-slate-800 text-white ">
+                                            <tr>
+                                                <th></th>
+                                                {howMonthDay(years, item)
+                                                    .slice(
+                                                        firstWeekIndex,
+                                                        lastWeekIndex
+                                                    )
+                                                    .map((day, dayInd) => {
+                                                        return (
+                                                            <th
+                                                                key={
+                                                                    dayInd +
+                                                                    monthInd
+                                                                }
+                                                                data-color-th="false"
+                                                                className="border border-gray-400 dark:border-gray-500 px-4 py-2 text-center"
+                                                            >
+                                                                <p
+                                                                    className={`mb-3 text-2xl ${
+                                                                        daysWeek(
+                                                                            new Date(
+                                                                                years,
+                                                                                item,
+                                                                                day
+                                                                            ).getDay()
+                                                                        ) ===
+                                                                        "Вс"
+                                                                            ? "red"
+                                                                            : daysWeek(
+                                                                                  new Date(
+                                                                                      years,
+                                                                                      item,
+                                                                                      day
+                                                                                  ).getDay()
+                                                                              ) ===
+                                                                              "Сб"
+                                                                            ? "red"
+                                                                            : ""
+                                                                    } ${
+                                                                        format(
+                                                                            new Date(
+                                                                                years,
+                                                                                item,
+                                                                                day
+                                                                            ),
+                                                                            "dd"
+                                                                        ) ===
+                                                                            format(
+                                                                                new Date(
+                                                                                    years,
+                                                                                    new Date().getMonth(),
+                                                                                    new Date().getDate()
+                                                                                ),
+                                                                                "dd"
+                                                                            ) &&
                                                                         new Date(
                                                                             years,
                                                                             item,
                                                                             day
-                                                                        ).getDay()
-                                                                    ) === "Вс"
-                                                                        ? "red"
-                                                                        : daysWeek(
-                                                                              new Date(
-                                                                                  years,
-                                                                                  item,
-                                                                                  day
-                                                                              ).getDay()
-                                                                          ) ===
-                                                                          "Сб"
-                                                                        ? "red"
-                                                                        : ""
-                                                                } ${
-                                                                    format(
+                                                                        ).getMonth() ===
+                                                                            new Date().getMonth()
+                                                                            ? "bg-green"
+                                                                            : "bg"
+                                                                    }`}
+                                                                >
+                                                                    {`${format(
                                                                         new Date(
                                                                             years,
                                                                             item,
                                                                             day
                                                                         ),
                                                                         "dd"
-                                                                    ) ===
-                                                                        format(
+                                                                    )}`}
+                                                                </p>
+                                                                <p
+                                                                    className={`${
+                                                                        daysWeek(
                                                                             new Date(
                                                                                 years,
-                                                                                new Date().getMonth(),
-                                                                                new Date().getDate()
-                                                                            ),
-                                                                            "dd"
-                                                                        ) &&
-                                                                    new Date(
-                                                                        years,
-                                                                        item,
-                                                                        day
-                                                                    ).getMonth() ===
-                                                                        new Date().getMonth()
-                                                                        ? "bg-green"
-                                                                        : "bg"
-                                                                }`}
-                                                            >
-                                                                {`${format(
-                                                                    new Date(
-                                                                        years,
-                                                                        item,
-                                                                        day
-                                                                    ),
-                                                                    "dd"
-                                                                )}`}
-                                                            </p>
-                                                            <p
-                                                                className={`${
-                                                                    daysWeek(
+                                                                                item,
+                                                                                day
+                                                                            ).getDay()
+                                                                        ) ===
+                                                                        "Вс"
+                                                                            ? "red"
+                                                                            : daysWeek(
+                                                                                  new Date(
+                                                                                      years,
+                                                                                      item,
+                                                                                      day
+                                                                                  ).getDay()
+                                                                              ) ===
+                                                                              "Сб"
+                                                                            ? "red"
+                                                                            : ""
+                                                                    }`}
+                                                                >
+                                                                    {`${daysWeek(
                                                                         new Date(
                                                                             years,
                                                                             item,
                                                                             day
                                                                         ).getDay()
-                                                                    ) === "Вс"
-                                                                        ? "red"
-                                                                        : daysWeek(
-                                                                              new Date(
-                                                                                  years,
-                                                                                  item,
-                                                                                  day
-                                                                              ).getDay()
-                                                                          ) ===
-                                                                          "Сб"
-                                                                        ? "red"
-                                                                        : ""
-                                                                }`}
-                                                            >
-                                                                {`${daysWeek(
-                                                                    new Date(
-                                                                        years,
-                                                                        item,
-                                                                        day
-                                                                    ).getDay()
-                                                                )}`}
-                                                            </p>
-                                                        </th>
-                                                    );
-                                                })}
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-gray-800">
-                                        {dataUsers.map((user, ind) => {
-                                            return (
-                                                <tr key={ind}>
-                                                    <td
-                                                        id={user.id}
-                                                        key={user.id}
-                                                        className={`sticky-column border-separate border border-gray-400 dark:border-gray-500 p-2 px-4 text-2xl`}
-                                                    >
-                                                        {user.lastName}{" "}
-                                                        {user.firstName}{" "}
-                                                        {user.surname}
-                                                    </td>
-                                                    {howMonthDay(years, item)
-                                                        .slice(
-                                                            firstWeekIndex,
-                                                            lastWeekIndex
+                                                                    )}`}
+                                                                </p>
+                                                            </th>
+                                                        );
+                                                    })}
+                                            </tr>
+                                        </thead>
+                                        <tbody className="text-gray-800">
+                                            {dataUsers.map((user, ind) => {
+                                                return (
+                                                    <tr key={ind}>
+                                                        <td
+                                                            id={user.id}
+                                                            key={user.id}
+                                                            className={`sticky-column border-separate border border-gray-400 dark:border-gray-500 p-2 px-4 text-2xl`}
+                                                        >
+                                                            {user.lastName}{" "}
+                                                            {user.firstName}{" "}
+                                                            {user.surname}
+                                                        </td>
+                                                        {howMonthDay(
+                                                            years,
+                                                            item
                                                         )
-                                                        .map((day, ind) => {
-                                                            return (
-                                                                <td
-                                                                    data-user-id={
-                                                                        user.id
-                                                                    }
-                                                                    data-cell-date={
-                                                                        new Date(
-                                                                            years,
-                                                                            item,
-                                                                            day
-                                                                        )
-                                                                    }
-                                                                    onDoubleClick={
-                                                                        handleDoubleClick
-                                                                    }
-                                                                    id={`${user.id}-${years}-${item}-${day}`}
-                                                                    key={
-                                                                        user.id +
-                                                                        ind
-                                                                    }
-                                                                    className={`border-separate  border border-gray-400 dark:border-gray-500 p-4 text-center relative`}
-                                                                >
-                                                                    {dataCell.map(
-                                                                        (
-                                                                            cellData
-                                                                        ) => {
-                                                                            return cellData.id ===
-                                                                                user.id +
-                                                                                    "-" +
-                                                                                    years +
-                                                                                    "-" +
-                                                                                    item +
-                                                                                    "-" +
-                                                                                    day ? (
-                                                                                <div
-                                                                                    key={
-                                                                                        item +
-                                                                                        day
-                                                                                    }
-                                                                                >
-                                                                                    <button
-                                                                                        className="!absolute right-0 top-2 hover:text-rose-700"
-                                                                                        onClick={
-                                                                                            deletCell
-                                                                                        }
-                                                                                    >
-                                                                                        {
-                                                                                            icons?.trash
-                                                                                        }
-                                                                                    </button>
-                                                                                    <p
-                                                                                        className={`text-teal-600 mb-2 ${
-                                                                                            cellData.jobStatus ===
-                                                                                            "РВ"
-                                                                                                ? "red"
-                                                                                                : ""
-                                                                                        } `}
-                                                                                    >
-                                                                                        {
-                                                                                            cellData.jobStatus
-                                                                                        }
-                                                                                    </p>
-                                                                                    <p>
-                                                                                        {" " +
-                                                                                            cellData.time}
-                                                                                    </p>
-                                                                                </div>
-                                                                            ) : (
-                                                                                ""
-                                                                            );
-                                                                        }
-                                                                    )}
-                                                                </td>
-                                                            );
-                                                        })}
-                                                    <td key={years + user.id}>
-                                                        {countDayTime(
-                                                            dataCell,
-                                                            new Date(
-                                                                years,
-                                                                item
-                                                            ),
-                                                            user.id,
-                                                            dayNorma,
-                                                            howMonthDay(
-                                                                years,
-                                                                item
+                                                            .slice(
+                                                                firstWeekIndex,
+                                                                lastWeekIndex
                                                             )
-                                                        ).map(
-                                                            (
-                                                                userStatistika,
-                                                                ind
-                                                            ) => {
+                                                            .map((day, ind) => {
                                                                 return (
-                                                                    <div
-                                                                        className="static_text w-60 mb-1"
+                                                                    <td
+                                                                        data-user-id={
+                                                                            user.id
+                                                                        }
+                                                                        data-cell-date={
+                                                                            new Date(
+                                                                                years,
+                                                                                item,
+                                                                                day
+                                                                            )
+                                                                        }
+                                                                        onDoubleClick={
+                                                                            handleDoubleClick
+                                                                        }
+                                                                        id={`${user.id}-${years}-${item}-${day}`}
                                                                         key={
                                                                             user.id +
                                                                             ind
                                                                         }
+                                                                        className={`border-separate  border border-gray-400 dark:border-gray-500 p-4 text-center relative`}
                                                                     >
-                                                                        {
-                                                                            userStatistika
-                                                                        }
-                                                                    </div>
+                                                                        {dataCell.map(
+                                                                            (
+                                                                                cellData
+                                                                            ) => {
+                                                                                return cellData.id ===
+                                                                                    user.id +
+                                                                                        "-" +
+                                                                                        years +
+                                                                                        "-" +
+                                                                                        item +
+                                                                                        "-" +
+                                                                                        day ? (
+                                                                                    <div
+                                                                                        key={
+                                                                                            item +
+                                                                                            day
+                                                                                        }
+                                                                                    >
+                                                                                        <button
+                                                                                            className="!absolute right-0 top-2 hover:text-rose-700"
+                                                                                            onClick={
+                                                                                                deletCell
+                                                                                            }
+                                                                                        >
+                                                                                            {
+                                                                                                icons?.trash
+                                                                                            }
+                                                                                        </button>
+                                                                                        <p
+                                                                                            className={`text-teal-600 mb-2 ${
+                                                                                                cellData.jobStatus ===
+                                                                                                "РВ"
+                                                                                                    ? "red"
+                                                                                                    : ""
+                                                                                            } `}
+                                                                                        >
+                                                                                            {
+                                                                                                cellData.jobStatus
+                                                                                            }
+                                                                                        </p>
+                                                                                        <p>
+                                                                                            {" " +
+                                                                                                cellData.time}
+                                                                                        </p>
+                                                                                    </div>
+                                                                                ) : (
+                                                                                    ""
+                                                                                );
+                                                                            }
+                                                                        )}
+                                                                    </td>
                                                                 );
+                                                            })}
+                                                        <td
+                                                            key={
+                                                                years + user.id
                                                             }
-                                                        )}
-                                                    </td>
-                                                </tr>
-                                            );
-                                        })}
-                                    </tbody>
-                                </table>
+                                                        >
+                                                            {countDayTime(
+                                                                dataCell,
+                                                                new Date(
+                                                                    years,
+                                                                    item
+                                                                ),
+                                                                user.id,
+                                                                dayNorma,
+                                                                howMonthDay(
+                                                                    years,
+                                                                    item
+                                                                )
+                                                            ).map(
+                                                                (
+                                                                    userStatistika,
+                                                                    ind
+                                                                ) => {
+                                                                    return (
+                                                                        <div
+                                                                            className="static_text w-60 mb-1"
+                                                                            key={
+                                                                                user.id +
+                                                                                ind
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                userStatistika
+                                                                            }
+                                                                        </div>
+                                                                    );
+                                                                }
+                                                            )}
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         );
                     })}
