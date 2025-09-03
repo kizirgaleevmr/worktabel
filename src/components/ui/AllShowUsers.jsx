@@ -70,13 +70,13 @@ export const AllShowUsers = ({ show, setShow }) => {
 
     useEffect(() => {
         const getUsers = async () => {
-            // setLoading(true);
+            setLoading(true);
             const response = await fetchUsers();
             setUsers(response);
             // Делаем задержку на показ старринцы загрузки
             setTimeout(() => {
                 setLoading(false);
-            }, 1000);
+            }, 2000);
         };
         getUsers();
     }, [deletUsers, show]);
@@ -92,7 +92,7 @@ export const AllShowUsers = ({ show, setShow }) => {
     // для генерации карт с сотрудниками
     const Cards = () => {
         if (loading) {
-            return <h2>Loading...</h2>;
+            return <h2 className="text-white text-2xl">Loading...</h2>;
         }
         return (
             <div>
