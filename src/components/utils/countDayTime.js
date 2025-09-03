@@ -122,7 +122,6 @@ export function countDayTime(
         Больничный: resultObj.hospital,
     };
 
-    console.log(resultObjRuss);
     //Убираем с объекта свойства равное нулю
     const filterResultObjRuss = {};
 
