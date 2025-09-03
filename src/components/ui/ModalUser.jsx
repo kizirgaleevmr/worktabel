@@ -12,8 +12,6 @@ import { handleSubmitToDB, uploadImage } from "../config/firebase";
 import { AlertWithList } from "../ui/Alert";
 import { base64Coding } from "../utils/base64";
 import { userSchema } from "../utils/yup";
-import { number } from "yup";
-import SelectOption from "@material-tailwind/react/components/Select/SelectOption";
 
 export function AddUserDialog({ open, setOpen, setShow }) {
     //для данных из формы
@@ -47,10 +45,8 @@ export function AddUserDialog({ open, setOpen, setShow }) {
             addUsers();
             setFormData({});
         } catch (validationErrors) {
-            console.log(validationErrors.inner);
             const newErrors = {};
             validationErrors.inner.forEach((error) => {
-                console.log(error.validationError);
                 newErrors[error.path] = error.message;
             });
             setErrors(newErrors);
@@ -72,19 +68,15 @@ export function AddUserDialog({ open, setOpen, setShow }) {
         });
 
         try {
-            //преобразуем тип для номер табеля
-            // formData.tabelNumber = number(formData.tabelNumber);
-            console.log(number(formData));
             userSchema.validateSync(formData, { abortEarly: false }); // Validate all fields
             setErrors({}); // Clear errors if validation passes
             // alert("Form submitted successfully!");
         } catch (validationErrors) {
-            console.log(validationErrors.inner);
             const newErrors = {};
             validationErrors.inner.forEach((error) => {
                 newErrors[error.path] = error.message;
             });
-            setErrors("newErrors");
+            setErrors(newErrors);
         }
     };
 
@@ -457,7 +449,6 @@ export function AddUserDialog({ open, setOpen, setShow }) {
                             <button
                                 type="submit"
                                 className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-                                // onClick={addUsers}
                             >
                                 Добавить
                             </button>
