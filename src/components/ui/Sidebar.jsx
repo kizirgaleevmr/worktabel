@@ -126,7 +126,7 @@ export function DefaultSidebar() {
             </Card>
             {MyAlert()}
             <div className="w-full h-auto">
-                <h1>Здесь будет слайдер с открытыми заявками</h1>
+                {/* <h1>Здесь будет слайдер с открытыми заявками</h1> */}
                 <Outlet />
             </div>
         </div>
