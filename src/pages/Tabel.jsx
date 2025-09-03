@@ -206,21 +206,21 @@ export const Tabel = () => {
                 <button
                     onClick={handleClickYears}
                     type="button"
-                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-700 dark:border-gray-700"
+                    className="text-white bg-amber-800 hover:bg-amber-600focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-400 dark:border-gray-700"
                 >
                     2025
                 </button>
                 <button
                     onClick={handleClickYears}
                     type="button"
-                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-700 dark:border-gray-700"
+                    className="text-white bg-amber-800 hover:bg-amber-600focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-400 dark:border-gray-700"
                 >
                     2026
                 </button>
                 <button
                     onClick={handleClickYears}
                     type="button"
-                    className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-700 dark:border-gray-700"
+                    className="text-white bg-amber-800 hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-400 dark:border-gray-700"
                 >
                     2027
                 </button>
@@ -235,7 +235,7 @@ export const Tabel = () => {
                                     <div className="mr-10 text-black">
                                         <select
                                             id="day__week_month"
-                                            className="border-2 border-gray-400 rounded-2xl w-30 mb-2 outline-0 text-black bg-white px-5  py-2"
+                                            className="border-2 border-gray-400 rounded-2xl w-auto mb-2 outline-0 text-black bg-white px-5  py-2"
                                             value={selectedWeek}
                                             onChange={handleWeekChange}
                                         >
@@ -281,7 +281,7 @@ export const Tabel = () => {
                                         />
                                     </div>
                                 </div>
-                                <table className="mb-8 border-separate border-spacing-3    bg-white rounded-2xl p-4">
+                                <table className="mb-8 border-separate border-spacing-1    bg-white rounded-2xl p-4">
                                     <thead className="bg-slate-800 text-white ">
                                         <tr>
                                             <th></th>
@@ -329,14 +329,20 @@ export const Tabel = () => {
                                                                         ),
                                                                         "dd"
                                                                     ) ===
-                                                                    format(
-                                                                        new Date(
-                                                                            years,
-                                                                            new Date().getMonth(),
-                                                                            new Date().getDate()
-                                                                        ),
-                                                                        "dd"
-                                                                    )
+                                                                        format(
+                                                                            new Date(
+                                                                                years,
+                                                                                new Date().getMonth(),
+                                                                                new Date().getDate()
+                                                                            ),
+                                                                            "dd"
+                                                                        ) &&
+                                                                    new Date(
+                                                                        years,
+                                                                        item,
+                                                                        day
+                                                                    ).getMonth() ===
+                                                                        new Date().getMonth()
                                                                         ? "bg-green"
                                                                         : "bg"
                                                                 }`}
@@ -455,7 +461,7 @@ export const Tabel = () => {
                                                                                         }
                                                                                     </button>
                                                                                     <p
-                                                                                        className={`text-teal-600 text-2xl mb-2 ${
+                                                                                        className={`text-teal-600 mb-2 ${
                                                                                             cellData.jobStatus ===
                                                                                             "РВ"
                                                                                                 ? "red"
@@ -466,7 +472,7 @@ export const Tabel = () => {
                                                                                             cellData.jobStatus
                                                                                         }
                                                                                     </p>
-                                                                                    <p className="text-2xl">
+                                                                                    <p>
                                                                                         {" " +
                                                                                             cellData.time}
                                                                                     </p>
