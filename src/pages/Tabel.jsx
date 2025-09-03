@@ -49,9 +49,11 @@ export const Tabel = () => {
 
     //начальная страница недели месяца
     const [currentWeekPage, setWeekCurrentPage] = useState(
-        getWeekOfMonth(
-            new Date(years, new Date().getMonth(), new Date().getDate())
-        )
+        localStorage.getItem("paginate") !== null
+            ? localStorage.getItem("paginate")
+            : getWeekOfMonth(
+                  new Date(years, new Date().getMonth(), new Date().getDate())
+              )
     );
 
     //сколько дней показывать
@@ -62,6 +64,9 @@ export const Tabel = () => {
     const firstWeekIndex = lastWeekIndex - weekPerPage;
     // пагинация по неделям дням
     const paginateWeek = (pageNumber) => {
+        //localStorage для сохранения страницы в днях
+        const LS = localStorage;
+        LS.setItem("paginate", pageNumber);
         setWeekCurrentPage(pageNumber);
     };
     //
@@ -104,19 +109,24 @@ export const Tabel = () => {
             const res = await fetchTabel();
             setDataCell(res);
         };
-        // проверям селект учли месяц то 31 если неделя то 7
+        // проверям селект если месяц то 31 если неделя то 7 вывод пагинации
         setTimeout(() => {
             setLoading(false);
             if (selectedWeek === "неделя") {
                 setWeekCurrentPage(
-                    getWeekOfMonth(
-                        new Date(
-                            years,
-                            new Date().getMonth(),
-                            new Date().getDate()
-                        )
-                    )
+                    //
+                    localStorage.getItem("paginate") == null
+                        ? getWeekOfMonth(
+                              new Date(
+                                  years,
+                                  new Date().getMonth(),
+                                  new Date().getDate()
+                              )
+                          )
+                        : localStorage.getItem("paginate")
                 );
+                console.log(localStorage.getItem("paginate") == null);
+
                 setWeekPerPage(7);
             } else if (selectedWeek === "месяц") {
                 setWeekCurrentPage(1);
@@ -131,6 +141,7 @@ export const Tabel = () => {
                     ).getDate()
                 );
             }
+            // localStorage.clear();
         }, 100);
         resCellData();
         allUsers();
