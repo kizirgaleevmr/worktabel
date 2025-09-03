@@ -61,6 +61,7 @@ export const Tabel = () => {
     // пагинация по неделям дням
     const paginateWeek = (pageNumber) => {
         setWeekCurrentPage(pageNumber);
+        console.log(pageNumber);
     };
     //
     const [selectedWeek, setSelectedWeek] = useState("неделя");
@@ -102,7 +103,6 @@ export const Tabel = () => {
             const res = await fetchTabel();
             setDataCell(res);
         };
-
         // проверям селект учли месяц то 31 если неделя то 7
         setTimeout(() => {
             setLoading(false);
@@ -124,13 +124,17 @@ export const Tabel = () => {
             } else if (selectedWeek === "день") {
                 setWeekPerPage(1);
                 setWeekCurrentPage(
-                    new Date(years, new Date().getMonth()).getDate()
+                    new Date(
+                        years,
+                        new Date().getMonth(),
+                        new Date().getDate()
+                    ).getDate()
                 );
             }
         }, 10);
         resCellData();
         allUsers();
-    }, [currentPage, selectedWeek, isOpen]);
+    }, [currentPage, selectedWeek]);
 
     if (loading) {
         return <h2>LOADING...</h2>;
@@ -193,16 +197,20 @@ export const Tabel = () => {
                                     {nameMonth(item)} {years}
                                 </h2>
                                 <div className="flex items-center">
-                                    <select
-                                        id="day__week_month"
-                                        className="border-2 border-gray-400 rounded-2xl mb-2 p-2 px-4 outline-0 mr-5"
-                                        value={selectedWeek}
-                                        onChange={handleWeekChange}
-                                    >
-                                        <option value="день">день</option>
-                                        <option value="неделя">неделя</option>
-                                        <option value="месяц">месяц</option>
-                                    </select>
+                                    <div className="mr-10">
+                                        <select
+                                            id="day__week_month"
+                                            className="border-2 border-gray-400 rounded-2xl h-10 w-30 mb-2 outline-0 bg-white p-18"
+                                            value={selectedWeek}
+                                            onChange={handleWeekChange}
+                                        >
+                                            <option value="день">день</option>
+                                            <option value="неделя">
+                                                неделя
+                                            </option>
+                                            <option value="месяц">месяц</option>
+                                        </select>
+                                    </div>
                                     <div className="mr-8">
                                         <PaginationWeek
                                             weekPerPage={weekPerPage}
