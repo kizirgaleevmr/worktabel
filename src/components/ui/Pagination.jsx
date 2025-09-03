@@ -71,7 +71,7 @@ export const PaginationWeek = ({ weekPerPage, totalWeek, paginateWeek }) => {
                             onClick={() => paginateWeek(number)}
                             key={number}
                         >
-                            <li className="border-2 border-gray-300 px-5  py-2 rounded-full hover:bg-emerald-400 text-white dark:bg-amber-800 dark:hover:bg-amber-600">
+                            <li className="border-2 border-gray-300 px-5  py-2 rounded-full text-white dark:bg-amber-800 dark:hover:bg-amber-600">
                                 {number}
                             </li>
                         </a>
