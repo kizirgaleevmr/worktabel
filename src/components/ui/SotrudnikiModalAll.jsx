@@ -15,12 +15,9 @@ export function ButtonGroupColors({ title1 }) {
     return (
         <>
             <div className="flex w-max flex-col gap-4 mb-4">
-                <ButtonGroup
-                    color="green"
-                    className="bg-green-500 text-white border-radius-3xl gap-x-6"
-                >
+                <ButtonGroup color="green">
                     <Button
-                        className="hover:bg-sky-700 p-2 cursor-pointer"
+                        className="text-white bg-gray-800 hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-700 dark:border-gray-700"
                         onClick={handleAddUsers}
                     >
                         {title1}
