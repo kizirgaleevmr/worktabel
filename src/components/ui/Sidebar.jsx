@@ -64,7 +64,7 @@ export function DefaultSidebar() {
     }
 
     return (
-        <div className="flex">
+        <div className="flex w-full">
             <Card className="h-100 w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 l mr-6 border-t-amber-500 border-t-4 scroll-auto">
                 <div className="mb-2 p-4">
                     <Typography variant="h5" color="blue-gray">
