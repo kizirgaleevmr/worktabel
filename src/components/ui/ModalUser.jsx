@@ -8,7 +8,7 @@ import {
     DialogHeader,
 } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { handleSubmitToDB, uploadImage } from "../config/firebase";
+import { handleSubmitToDB } from "../config/firebase";
 import { AlertWithList } from "../ui/Alert";
 import { base64Coding } from "../utils/base64";
 import { userSchema } from "../utils/yup";
