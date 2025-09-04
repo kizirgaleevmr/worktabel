@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { fetchUsers } from "../config/firebase";
 import { Pagination } from "./Pagination";
 import { deleteUsersFromDB } from "../config/firebase";
-import { DrawerPlacement } from "../ui/Drawer";
+import { DrawerPlacement } from "../ui/DrawerAddUser";
 
 export const AllShowUsers = ({ show, setShow }) => {
     //состояние для массива карт
