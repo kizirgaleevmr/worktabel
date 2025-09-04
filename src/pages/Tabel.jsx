@@ -159,8 +159,9 @@ export const Tabel = () => {
         resCellData();
         allUsers();
         setAddCellValue(false);
-    }, [currentPage, selectedWeek, addCellValue]);
+    }, [selectedWeek, addCellValue]);
 
+    React.useEffect(() => {}, [currentPage]);
     if (loading) {
         return <h2>LOADING...</h2>;
     }
@@ -204,9 +205,21 @@ export const Tabel = () => {
         return (
             <>
                 <h2 className="mb-4 text-white text-2xl">Табель</h2>
-                <ButtonOrange subText="2025" click={handleClickYears} />
-                <ButtonOrange subText="2026" click={handleClickYears} />
-                <ButtonOrange subText="2027" click={handleClickYears} />
+                <ButtonOrange
+                    subText="2025"
+                    click={handleClickYears}
+                    type="button"
+                />
+                <ButtonOrange
+                    subText="2026"
+                    click={handleClickYears}
+                    type="button"
+                />
+                <ButtonOrange
+                    subText="2027"
+                    click={handleClickYears}
+                    type="button"
+                />
                 <div>
                     {currentData.map((item, monthInd) => {
                         return (
