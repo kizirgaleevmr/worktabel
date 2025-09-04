@@ -49,9 +49,7 @@ export function HorizontalCard({
                                     {icons.email}
                                 </span>
                                 <div className="text-wrap">
-                                    <a href={`mailto:${email}`}>
-                                        <a href={`mailto:${email}`}>{email}</a>
-                                    </a>
+                                    <a href={`mailto:${email}`}>{email}</a>
                                 </div>
                             </div>
                         </div>
