@@ -3,6 +3,7 @@ import { Button, Typography, Textarea } from "@material-tailwind/react";
 import { base64Coding } from "../utils/base64";
 import { updateUsersInDB } from "../config/firebase";
 import { AlertWithList } from "./Alert";
+import { ButtonBlack } from "./Button/Button";
 export function DrawerPlacement({
     openRight,
     setOpenRight,
@@ -107,7 +108,7 @@ export function DrawerPlacement({
                 openRight ? "drower__open" : "drower__close"
             }`}
         >
-            <form>
+            <form className="mb-4 text-black">
                 <div>
                     <div className="mb-2 flex flex-wrap text-left gap-8">
                         <div className="flex flex-wrap justify-between gap-8">
@@ -122,7 +123,7 @@ export function DrawerPlacement({
                                     id="lastName"
                                     type="text"
                                     name="lastName"
-                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1"
+                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-1/1"
                                     value={userObject.lastName}
                                     placeholder="Иванов"
                                     onChange={handleChange}
@@ -139,7 +140,7 @@ export function DrawerPlacement({
                                     id="firstName"
                                     type="text"
                                     name="firstName"
-                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1"
+                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-1/1"
                                     value={userObject.firstName}
                                     placeholder="Иван"
                                     onChange={handleChange}
@@ -157,7 +158,7 @@ export function DrawerPlacement({
                                     id="surname"
                                     type="text"
                                     name="surname"
-                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-1/1 mb-4"
+                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-1/1 mb-4"
                                     value={userObject.surname}
                                     placeholder="Иванович"
                                     onChange={handleChange}
@@ -176,7 +177,7 @@ export function DrawerPlacement({
                                     id="bithday"
                                     type="date"
                                     name="birthday"
-                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-60"
+                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-60"
                                     value={userObject.birthday}
                                     onChange={handleChange}
                                 />
@@ -192,7 +193,7 @@ export function DrawerPlacement({
                                     id="tabelNumber"
                                     type="text"
                                     name="tabelNumber"
-                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 mb-4 w-60"
+                                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 mb-4 w-60"
                                     value={userObject.tabelNumber}
                                     placeholder="0000"
                                     onChange={handleChange}
@@ -204,7 +205,7 @@ export function DrawerPlacement({
                         <div>
                             <label
                                 htmlFor="emil"
-                                className="block text-gray-500 mb-2"
+                                className="block text-gray-800 mb-2"
                             >
                                 email
                             </label>
@@ -213,7 +214,7 @@ export function DrawerPlacement({
                                 name="email"
                                 type="text"
                                 placeholder="email"
-                                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-full"
+                                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-full"
                                 value={userObject.email}
                                 onChange={handleChange}
                             />
@@ -221,7 +222,7 @@ export function DrawerPlacement({
                         <div>
                             <label
                                 htmlFor="phone"
-                                className="block text-gray-500 mb-2 w-1/2"
+                                className="block text-gray-800 mb-2 w-1/2"
                             >
                                 Телефон
                             </label>
@@ -230,7 +231,7 @@ export function DrawerPlacement({
                                 name="phone"
                                 type="text"
                                 placeholder="phone"
-                                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-full"
+                                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-full"
                                 value={userObject.phone}
                                 onChange={handleChange}
                             />
@@ -239,13 +240,13 @@ export function DrawerPlacement({
                     <div className="flex flex-row gap-8">
                         <div>
                             <label
-                                className="block mb-2 text-sm font-medium text-gray-500"
+                                className="block mb-2 text-sm font-medium text-gray-800"
                                 htmlFor="file"
                             >
                                 Загрузить файл
                             </label>
                             <input
-                                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 p-3 mb-2"
+                                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-800 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 p-3 mb-2"
                                 id="file"
                                 name="file"
                                 type="file"
@@ -264,7 +265,7 @@ export function DrawerPlacement({
                     <div className="mb-4">
                         <select
                             id="underline_select"
-                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500"
+                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800"
                             onChange={handleChange}
                             name="dolzhnost"
                         >
@@ -286,7 +287,7 @@ export function DrawerPlacement({
                     <div className="mb-4 text-left">
                         <label
                             htmlFor="useDate"
-                            className="block mb-2 text-sm font-medium text-gray-500"
+                            className="block mb-2 text-sm font-medium text-gray-800"
                         >
                             Дата устройства:
                         </label>
@@ -294,7 +295,7 @@ export function DrawerPlacement({
                             id="user__date"
                             type="date"
                             name="userDate"
-                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500 w-full"
+                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 w-full"
                             onChange={handleChange}
                             value={userObject.userDate}
                         />
@@ -310,7 +311,7 @@ export function DrawerPlacement({
                     </Typography>
                     <Textarea
                         rows={3}
-                        className="!w-full !border-[1.5px] !border-blue-gray-200/90 !border-t-blue-gray-200/90 bg-white text-gray-600 ring-4 ring-transparent focus:!border-primary focus:!border-t-blue-gray-900 group-hover:!border-primary"
+                        className="!w-full !border-[1.5px] !border-blue-gray-200/90 !border-t-blue-gray-200/90 bg-white text-gray-800 ring-4 ring-transparent focus:!border-primary focus:!border-t-blue-gray-900 group-hover:!border-primary"
                         labelProps={{
                             className: "hidden",
                         }}
@@ -321,12 +322,16 @@ export function DrawerPlacement({
                 </div>
             </form>
             <div className="flex flex-wrap gap-4">
-                <Button variant="outlined" onClick={closeDrawerRight}>
-                    Закрыть
-                </Button>
-                <Button variant="outlined" onClick={updateUsersClick}>
-                    Сохранить
-                </Button>
+                <ButtonBlack
+                    subText="Отмена"
+                    click={closeDrawerRight}
+                    type="button"
+                />
+                <ButtonBlack
+                    subText="Сохранить"
+                    click={updateUsersClick}
+                    type="button"
+                />
             </div>
             <AlertWithList
                 title="Данные обновлены"
