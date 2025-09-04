@@ -8,6 +8,7 @@ import { fetchTabel } from "../components/config/firebase";
 import { countDayTime } from "../components/utils/countDayTime";
 import { icons } from "../components/ui/icons";
 import { deleteCellFromDB } from "../components/config/firebase";
+import { ButtonBlack, ButtonOrange } from "../components/ui/Button/Button";
 const countMonth = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 export const Tabel = () => {
@@ -203,27 +204,9 @@ export const Tabel = () => {
         return (
             <>
                 <h2 className="mb-4 text-white text-2xl">Табель</h2>
-                <button
-                    onClick={handleClickYears}
-                    type="button"
-                    className="text-white bg-amber-800 hover:bg-amber-600focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-400 dark:border-gray-700"
-                >
-                    2025
-                </button>
-                <button
-                    onClick={handleClickYears}
-                    type="button"
-                    className="text-white bg-amber-800 hover:bg-amber-600focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-400 dark:border-gray-700"
-                >
-                    2026
-                </button>
-                <button
-                    onClick={handleClickYears}
-                    type="button"
-                    className="text-white bg-amber-800 hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-400 dark:border-gray-700"
-                >
-                    2027
-                </button>
+                <ButtonOrange subText="2025" click={handleClickYears} />
+                <ButtonOrange subText="2026" click={handleClickYears} />
+                <ButtonOrange subText="2027" click={handleClickYears} />
                 <div>
                     {currentData.map((item, monthInd) => {
                         return (
