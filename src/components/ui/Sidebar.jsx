@@ -34,6 +34,7 @@ export function DefaultSidebar() {
 
     const handClick = () => {
         setState(true);
+        sessionStorage.clear();
     };
 
     //Показываем алерт при входе в систему что какой пользовател вошел
