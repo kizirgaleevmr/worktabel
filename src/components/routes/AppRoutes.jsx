@@ -5,7 +5,7 @@ import { Login } from "../Auth/Login";
 import { Home } from "../../pages/Home";
 import { Tabel } from "../../pages/Tabel";
 import { Users } from "../../pages/Users";
-import { Message } from "../../pages/Messaeg";
+import { Message } from "../../pages/Message";
 import { Profile } from "../../pages/Profile";
 
 /**Приватный роутинг */
