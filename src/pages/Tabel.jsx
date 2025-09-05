@@ -453,7 +453,7 @@ export const Tabel = () => {
                                                                                         }
                                                                                     >
                                                                                         <button
-                                                                                            className="!absolute right-0 top-2 hover:text-rose-700"
+                                                                                            className="!absolute right-0 top-2 hover:text-rose-700 cursor-pointer"
                                                                                             onClick={
                                                                                                 deletCell
                                                                                             }
