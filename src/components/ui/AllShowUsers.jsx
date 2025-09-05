@@ -94,68 +94,73 @@ export const AllShowUsers = ({ show, setShow }) => {
         if (loading) {
             return <h2 className="text-white text-2xl mb-10">Loading...</h2>;
         }
-        return (
-            <div>
-                <div className="mt-5 content__users flex flex-row gap-8 flex-wrap w-full">
-                    {currentUsers.map(
-                        ({
-                            id,
-                            otdel = "ДКИС",
-                            firstName,
-                            lastName,
-                            surname,
-                            phone,
-                            email,
-                            dolzhnost,
-                            imgSrc,
-                            userDate,
-                            birthday,
-                            tabelNumber,
-                        }) => {
-                            //получаем возраст
-                            const age = ageUser(birthday);
-                            //получаем стаж
-                            const stazh = getDateWorker(userDate);
 
-                            return (
-                                <HorizontalCard
-                                    id={id}
-                                    otdel={otdel}
-                                    firstName={firstName}
-                                    lastName={lastName}
-                                    surname={surname}
-                                    phone={phone}
-                                    dolzhnost={dolzhnost}
-                                    email={email}
-                                    workDate={stazh}
-                                    src={imgSrc ? imgSrc : "none"}
-                                    birthday={age}
-                                    loading={loading}
-                                    deletClickUsers={deletClickUsers}
-                                    updateClickUsers={updateClickUsers}
-                                    key={id}
-                                    tabelNumber={tabelNumber}
-                                />
-                            );
-                        }
-                    )}
+        if (users.length) {
+            return (
+                <div>
+                    <div className="mt-5 content__users flex flex-row gap-8 flex-wrap w-full">
+                        {currentUsers.map(
+                            ({
+                                id,
+                                otdel = "ДКИС",
+                                firstName,
+                                lastName,
+                                surname,
+                                phone,
+                                email,
+                                dolzhnost,
+                                imgSrc,
+                                userDate,
+                                birthday,
+                                tabelNumber,
+                            }) => {
+                                //получаем возраст
+                                const age = ageUser(birthday);
+                                //получаем стаж
+                                const stazh = getDateWorker(userDate);
+
+                                return (
+                                    <HorizontalCard
+                                        id={id}
+                                        otdel={otdel}
+                                        firstName={firstName}
+                                        lastName={lastName}
+                                        surname={surname}
+                                        phone={phone}
+                                        dolzhnost={dolzhnost}
+                                        email={email}
+                                        workDate={stazh}
+                                        src={imgSrc ? imgSrc : "none"}
+                                        birthday={age}
+                                        loading={loading}
+                                        deletClickUsers={deletClickUsers}
+                                        updateClickUsers={updateClickUsers}
+                                        key={id}
+                                        tabelNumber={tabelNumber}
+                                    />
+                                );
+                            }
+                        )}
+                    </div>
+                    <Pagination
+                        usersPerPage={usersPerPage}
+                        totalUsers={users.length}
+                        paginate={paginate}
+                    />
+                    <Button
+                        variant="outlined"
+                        className="text-white bg-amber-800 hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-700 dark:border-gray-700"
+                        onClick={() => {
+                            setShow(false);
+                        }}
+                    >
+                        Закрыть
+                    </Button>
                 </div>
-                <Pagination
-                    usersPerPage={usersPerPage}
-                    totalUsers={users.length}
-                    paginate={paginate}
-                />
-                <Button
-                    variant="outlined"
-                    className="text-white bg-amber-800 hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-amber-800 dark:hover:bg-amber-600 dark:focus:ring-gray-700 dark:border-gray-700"
-                    onClick={() => {
-                        setShow(false);
-                    }}
-                >
-                    Закрыть
-                </Button>
-            </div>
-        );
+            );
+        }
+
+        return <p className="text-5xl text-white">Нет данных</p>;
     };
 
     return (
