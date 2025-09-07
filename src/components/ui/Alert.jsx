@@ -41,7 +41,7 @@ export function AlertWithList({ showAlert, text, title }) {
         <Alert
             variant="gradient"
             icon={<IconOutlined />}
-            className={`bg-neutral-700 p-6 text-left h-30 w-120 absolute bottom-4 ${
+            className={`bg-neutral-700 p-6 text-left h-30 w-120 z-30 absolute bottom-4 ${
                 showAlert ? "alert__active" : "alert"
             }`}
         >
