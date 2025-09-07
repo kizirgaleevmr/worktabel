@@ -4,6 +4,8 @@ import { ButtonBlack } from "../Button/Button";
 import { icons } from "../icons";
 import { fecthQeuinpment } from "../../config/server-json";
 import { tsModel, typeQeuinpment } from "../../../BD/data";
+import { nanoid } from "nanoid";
+
 export const FormAddMessage = ({ children, title, user }) => {
     const [reg] = useState(region);
     const [ksa] = useState(KSA.KSA);
@@ -109,7 +111,7 @@ export const FormAddMessage = ({ children, title, user }) => {
                 {icons["document-plus"]}
             </button>
             {isActiveSection && (
-                <section className="w-full mb-4 text-left bg-white px-6 py-5 transition-all duration-300 ease-in-out">
+                <section className="w-300 mb-4 text-left bg-white px-6 py-5 transition-all duration-300 ease-in-out shadow-md sm:rounded-lg">
                     <form className="max-w-full">
                         <div className="mb-5 flex gap-8">
                             <div>
@@ -118,12 +120,26 @@ export const FormAddMessage = ({ children, title, user }) => {
                                         <p className="mb-2 text-base font-medium text-gray-900">
                                             Пользователь:
                                         </p>
-                                        <p className="mt-2 text-lg font-medium text-green-800 dark:text-green-800">
+                                        <p className="mt-2 text-lg font-medium text-green-800 dark:text-green-800 mb-10">
                                             <span className="">
                                                 {user?.lastName}{" "}
                                                 {user?.firstName}
                                             </span>
                                         </p>
+                                        <div className="flex flex-col w-1/1">
+                                            <ButtonBlack
+                                                subText="Отмена"
+                                                type="button"
+                                                click={() =>
+                                                    setIsActiveSection(false)
+                                                }
+                                            />
+                                            <ButtonBlack
+                                                subText="Сброс"
+                                                type="reset"
+                                                click={resetForm}
+                                            />
+                                        </div>
                                     </>
                                 )}
                             </div>
@@ -279,128 +295,121 @@ export const FormAddMessage = ({ children, title, user }) => {
                                         {checkSelectNumber &&
                                             checkSelectNumber.map((elem, i) => {
                                                 return (
-                                                    <>
-                                                        <div
-                                                            key={
-                                                                i +
-                                                                new Date().getFullYear()
-                                                            }
-                                                            className="flex flex-col bg-cyan-950 p-5 rounded-md text-white"
-                                                        >
-                                                            <div
-                                                                key={i + i * i}
-                                                            >
-                                                                <div>
-                                                                    <label className="text-base font-medium ">
-                                                                        Тип:
-                                                                    </label>
-                                                                    {elem?.type_id &&
-                                                                        typeQeuinpmentTS
-                                                                            .filter(
-                                                                                (
-                                                                                    el
-                                                                                ) => {
-                                                                                    return (
-                                                                                        el?.id_type ===
-                                                                                        elem?.type_id
-                                                                                    );
-                                                                                }
-                                                                            )
-                                                                            .map(
-                                                                                (
-                                                                                    e,
-                                                                                    index
-                                                                                ) => {
-                                                                                    return (
-                                                                                        <p
-                                                                                            key={
-                                                                                                index +
-                                                                                                "type"
-                                                                                            }
-                                                                                            className="text-sm font-normal  mb-2"
-                                                                                        >
-                                                                                            {
-                                                                                                e.type
-                                                                                            }
-                                                                                        </p>
-                                                                                    );
-                                                                                }
-                                                                            )}
-                                                                </div>
-                                                                <div>
-                                                                    <label className="text-base font-medium ">
-                                                                        Модель:
-                                                                    </label>
-                                                                    {elem?.ts_naimenovanie_id &&
-                                                                        model
-                                                                            .filter(
-                                                                                (
-                                                                                    el
-                                                                                ) => {
-                                                                                    return (
-                                                                                        el?.id_naimenovanie ===
-                                                                                        elem?.ts_naimenovanie_id
-                                                                                    );
-                                                                                }
-                                                                            )
-                                                                            .map(
-                                                                                (
-                                                                                    e,
-                                                                                    index
-                                                                                ) => {
-                                                                                    return (
-                                                                                        <p
-                                                                                            key={
-                                                                                                index *
-                                                                                                3
-                                                                                            }
-                                                                                            className="text-sm font-normal  mb-2"
-                                                                                        >
-                                                                                            {
-                                                                                                e.ts_naimenovanie
-                                                                                            }
-                                                                                        </p>
-                                                                                    );
-                                                                                }
-                                                                            )}
-                                                                </div>
-                                                                <div>
-                                                                    <label className="text-base font-medium ">
-                                                                        Серийный
-                                                                        номер:
-                                                                    </label>
-                                                                    <p className="text-sm font-normal  mb-2">
-                                                                        {
-                                                                            elem?.serial_number
-                                                                        }
-                                                                    </p>
-                                                                </div>
+                                                    <div
+                                                        key={nanoid()}
+                                                        className="flex flex-col bg-cyan-950 p-5 rounded-md text-white"
+                                                    >
+                                                        <div key={i + i * i}>
+                                                            <div>
+                                                                <label className="text-base font-medium ">
+                                                                    Тип:
+                                                                </label>
+                                                                {elem?.type_id &&
+                                                                    typeQeuinpmentTS
+                                                                        .filter(
+                                                                            (
+                                                                                el
+                                                                            ) => {
+                                                                                return (
+                                                                                    el?.id_type ===
+                                                                                    elem?.type_id
+                                                                                );
+                                                                            }
+                                                                        )
+                                                                        .map(
+                                                                            (
+                                                                                e,
+                                                                                index
+                                                                            ) => {
+                                                                                return (
+                                                                                    <p
+                                                                                        key={
+                                                                                            index +
+                                                                                            "type"
+                                                                                        }
+                                                                                        className="text-sm font-normal  mb-2"
+                                                                                    >
+                                                                                        {
+                                                                                            e.type
+                                                                                        }
+                                                                                    </p>
+                                                                                );
+                                                                            }
+                                                                        )}
+                                                            </div>
+                                                            <div>
+                                                                <label className="text-base font-medium ">
+                                                                    Модель:
+                                                                </label>
+                                                                {elem?.ts_naimenovanie_id &&
+                                                                    model
+                                                                        .filter(
+                                                                            (
+                                                                                el
+                                                                            ) => {
+                                                                                return (
+                                                                                    el?.id_naimenovanie ===
+                                                                                    elem?.ts_naimenovanie_id
+                                                                                );
+                                                                            }
+                                                                        )
+                                                                        .map(
+                                                                            (
+                                                                                e,
+                                                                                index
+                                                                            ) => {
+                                                                                return (
+                                                                                    <p
+                                                                                        key={
+                                                                                            index *
+                                                                                            3
+                                                                                        }
+                                                                                        className="text-sm font-normal  mb-2"
+                                                                                    >
+                                                                                        {
+                                                                                            e.ts_naimenovanie
+                                                                                        }
+                                                                                    </p>
+                                                                                );
+                                                                            }
+                                                                        )}
+                                                            </div>
+                                                            <div>
+                                                                <label className="text-base font-medium ">
+                                                                    Серийный
+                                                                    номер:
+                                                                </label>
+                                                                <p className="text-sm font-normal  mb-2">
+                                                                    {
+                                                                        elem?.serial_number
+                                                                    }
+                                                                </p>
+                                                            </div>
 
-                                                                <div>
-                                                                    <label className="text-base font-medium ">
-                                                                        Инвентарный
-                                                                        номер:
-                                                                    </label>
-                                                                    <p className="text-sm font-normal  mb-2">
-                                                                        {
-                                                                            elem?.inv_number
-                                                                        }
-                                                                    </p>
-                                                                </div>
-                                                                <div>
-                                                                    <label className="text-base font-medium ">
-                                                                        Цена:
-                                                                    </label>
-                                                                    <p className="text-sm font-normal mb-2">
-                                                                        {
-                                                                            elem?.price
-                                                                        }{" "}
-                                                                        руб.
-                                                                    </p>
-                                                                </div>
+                                                            <div>
+                                                                <label className="text-base font-medium ">
+                                                                    Инвентарный
+                                                                    номер:
+                                                                </label>
+                                                                <p className="text-sm font-normal  mb-2">
+                                                                    {
+                                                                        elem?.inv_number
+                                                                    }
+                                                                </p>
+                                                            </div>
+                                                            <div>
+                                                                <label className="text-base font-medium ">
+                                                                    Цена:
+                                                                </label>
+                                                                <p className="text-sm font-normal mb-2">
+                                                                    {
+                                                                        elem?.price
+                                                                    }{" "}
+                                                                    руб.
+                                                                </p>
                                                             </div>
                                                         </div>
-                                                    </>
+                                                    </div>
                                                 );
                                             })}
                                     </div>
@@ -442,18 +451,6 @@ export const FormAddMessage = ({ children, title, user }) => {
                             placeholder="Bonnie Green"
                         />
                     </div> */}
-                        <div className="flex flex-col w-1/12">
-                            <ButtonBlack
-                                subText="Отмена"
-                                type="button"
-                                click={() => setIsActiveSection(false)}
-                            />
-                            <ButtonBlack
-                                subText="Сброс"
-                                type="reset"
-                                click={resetForm}
-                            />
-                        </div>
                     </form>
                 </section>
             )}
