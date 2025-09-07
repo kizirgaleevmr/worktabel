@@ -13,6 +13,7 @@ import {
     UserGroupIcon,
     PhoneArrowDownLeftIcon,
     UserIcon,
+    HomeModernIcon,
 } from "@heroicons/react/24/solid";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -65,14 +66,22 @@ export function DefaultSidebar() {
     }
 
     return (
-        <div className="flex w-full">
-            <Card className="h-100 w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 l mr-6 border-t-amber-500 border-t-4 scroll-auto">
+        <div className="flex fixed top-10 z-100">
+            <Card className="h-120 w-100 max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 l mr-6 border-t-amber-500 border-t-4 scroll-auto">
                 <div className="mb-2 p-4">
                     <Typography variant="h5" color="blue-gray">
                         Меню
                     </Typography>
                 </div>
                 <List>
+                    <Link to="/home">
+                        <ListItem className="mb-3 cursor-pointer">
+                            <ListItemPrefix>
+                                <HomeModernIcon className="h-5 w-5 mr-4" />
+                            </ListItemPrefix>
+                            Главаня
+                        </ListItem>
+                    </Link>
                     <Link to="tabel">
                         <ListItem className="mb-3 cursor-pointer">
                             <ListItemPrefix>
@@ -126,7 +135,7 @@ export function DefaultSidebar() {
                 </List>
             </Card>
             {MyAlert()}
-            <div className="w-full h-auto">
+            <div className="w-full pr-20 mx-auto">
                 {/* <h1>Здесь будет слайдер с открытыми заявками</h1> */}
                 <Outlet />
             </div>
