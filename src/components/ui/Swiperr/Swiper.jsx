@@ -14,9 +14,9 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 export default () => {
     return (
-        <div className="mx-auto">
+        <div className="ml-100">
             <Swiper
-                className="w-300"
+                className=""
                 modules={[Navigation, Scrollbar, A11y, Autoplay]}
                 autoplay={{
                     delay: 2500, // Time in ms between slides

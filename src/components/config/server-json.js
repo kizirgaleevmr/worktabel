@@ -5,7 +5,7 @@ export const fecthQeuinpment = async (property, value) => {
             property === "serial-number" ? "serial_number" : "inv_number";
 
         const response = await fetch(
-            `http://localhost:4100/equipment?${endpoint}`
+            `http://localhost:4400/equipment?${endpoint}`
         );
 
         const data = await response.json();

@@ -1,6 +1,6 @@
 export const Table = () => {
     return (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg max-w-full">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-max">
             <div className=" bg-white dark:bg-gray-900 p-6">
                 <label htmlFor="table-search" className="sr-only">
                     Search
@@ -31,38 +31,46 @@ export const Table = () => {
                     />
                 </div>
             </div>
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <table className="w-md text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" className="p-4">
-                            <div className="flex items-center">
-                                <input
-                                    id="checkbox-all-search"
-                                    type="checkbox"
-                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                />
-                                <label
-                                    htmlFor="checkbox-all-search"
-                                    className="sr-only"
-                                >
-                                    checkbox
-                                </label>
-                            </div>
+                        <th scope="col" className="p-4"></th>
+                        <th scope="col" className="px-6 py-3">
+                            Дата
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Product name
+                            Номер заявки
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Color
+                            КСА
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Category
+                            Кто завел
+                        </th>
+
+                        <th scope="col" className="px-6 py-3">
+                            Тип
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Price
+                            Наименование
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Action
+                            Серийный номер
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Инвентарный номер
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Описание проблемы
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Дата устранения
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Кто закрыл
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Редактирование
                         </th>
                     </tr>
                 </thead>
@@ -89,179 +97,18 @@ export const Table = () => {
                         >
                             Apple MacBook Pro 17"
                         </th>
-                        <td className="px-6 py-4">Silver</td>
+                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            Silver
+                        </td>
+                        <td className="px-6 py-4">Laptop</td>
+                        <td className="px-6 py-4">Laptop</td>
+                        <td className="px-6 py-4">Laptop</td>
+                        <td className="px-6 py-4">Laptop</td>
+                        <td className="px-6 py-4">Laptop</td>
+                        <td className="px-6 py-4">Laptop</td>
+                        <td className="px-6 py-4">Laptop</td>
                         <td className="px-6 py-4">Laptop</td>
                         <td className="px-6 py-4">$2999</td>
-                        <td className="px-6 py-4">
-                            <a
-                                href="#"
-                                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                            >
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td className="w-4 p-4">
-                            <div className="flex items-center">
-                                <input
-                                    id="checkbox-table-search-2"
-                                    type="checkbox"
-                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                />
-                                <label
-                                    htmlFor="checkbox-table-search-2"
-                                    className="sr-only"
-                                >
-                                    checkbox
-                                </label>
-                            </div>
-                        </td>
-                        <th
-                            scope="row"
-                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
-                            Microsoft Surface Pro
-                        </th>
-                        <td className="px-6 py-4">White</td>
-                        <td className="px-6 py-4">Laptop PC</td>
-                        <td className="px-6 py-4">$1999</td>
-                        <td className="px-6 py-4">
-                            <a
-                                href="#"
-                                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                            >
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td className="w-4 p-4">
-                            <div className="flex items-center">
-                                <input
-                                    id="checkbox-table-search-3"
-                                    type="checkbox"
-                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                />
-                                <label
-                                    htmlFor="checkbox-table-search-3"
-                                    className="sr-only"
-                                >
-                                    checkbox
-                                </label>
-                            </div>
-                        </td>
-                        <th
-                            scope="row"
-                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
-                            Magic Mouse 2
-                        </th>
-                        <td className="px-6 py-4">Black</td>
-                        <td className="px-6 py-4">Accessories</td>
-                        <td className="px-6 py-4">$99</td>
-                        <td className="px-6 py-4">
-                            <a
-                                href="#"
-                                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                            >
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td className="w-4 p-4">
-                            <div className="flex items-center">
-                                <input
-                                    id="checkbox-table-3"
-                                    type="checkbox"
-                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                />
-                                <label
-                                    htmlFor="checkbox-table-3"
-                                    className="sr-only"
-                                >
-                                    checkbox
-                                </label>
-                            </div>
-                        </td>
-                        <th
-                            scope="row"
-                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
-                            Apple Watch
-                        </th>
-                        <td className="px-6 py-4">Silver</td>
-                        <td className="px-6 py-4">Accessories</td>
-                        <td className="px-6 py-4">$179</td>
-                        <td className="px-6 py-4">
-                            <a
-                                href="#"
-                                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                            >
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td className="w-4 p-4">
-                            <div className="flex items-center">
-                                <input
-                                    id="checkbox-table-3"
-                                    type="checkbox"
-                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                />
-                                <label
-                                    htmlFor="checkbox-table-3"
-                                    className="sr-only"
-                                >
-                                    checkbox
-                                </label>
-                            </div>
-                        </td>
-                        <th
-                            scope="row"
-                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
-                            iPad
-                        </th>
-                        <td className="px-6 py-4">Gold</td>
-                        <td className="px-6 py-4">Tablet</td>
-                        <td className="px-6 py-4">$699</td>
-                        <td className="px-6 py-4">
-                            <a
-                                href="#"
-                                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                            >
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-                    <tr className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td className="w-4 p-4">
-                            <div className="flex items-center">
-                                <input
-                                    id="checkbox-table-3"
-                                    type="checkbox"
-                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                />
-                                <label
-                                    htmlFor="checkbox-table-3"
-                                    className="sr-only"
-                                >
-                                    checkbox
-                                </label>
-                            </div>
-                        </td>
-                        <th
-                            scope="row"
-                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
-                            Apple iMac 27"
-                        </th>
-                        <td className="px-6 py-4">Silver</td>
-                        <td className="px-6 py-4">PC Desktop</td>
-                        <td className="px-6 py-4">$3999</td>
                         <td className="px-6 py-4">
                             <a
                                 href="#"

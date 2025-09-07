@@ -29,9 +29,14 @@ export const nameQueipment = [
     {
         ts_name: [
             {
+                id_naimenovanie: "test",
+                type_id: "test",
+                name: 'Acer B226HQLymdr 21.5"',
+            },
+            {
                 id_naimenovanie: "1",
                 type_id: "1",
-                ts_naimenovanie: 'Acer B226HQLymdr 21.5"',
+                hghgh: 'Acer B226HQLymdr 21.5"',
             },
             {
                 id_naimenovanie: "2",
@@ -1984,7 +1989,7 @@ export const tsModel = {
         {
             id_naimenovanie: "1",
             type_id: "1",
-            s: 'Acer B226HQLymdr 21.5"',
+            ts_naimenovanie: 'Acer B226HQLymdr 21.5"',
         },
         {
             id_naimenovanie: "2",

@@ -15,7 +15,7 @@ export const Home = () => {
         }
     }, [currentPath]);
     return (
-        <section id="home" className="relative">
+        <section id="home" className="relative border-2 border-amber-400 h-dvh">
             {pathState && <MySlider />}
             <DefaultSidebar />
         </section>

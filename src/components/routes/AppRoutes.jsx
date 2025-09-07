@@ -7,6 +7,7 @@ import { Tabel } from "../../pages/Tabel";
 import { Users } from "../../pages/Users";
 import { Message } from "../../pages/Message";
 import { Profile } from "../../pages/Profile";
+import { ErrorPage } from "../../pages/error404";
 
 /**Приватный роутинг */
 function PrivateRoute() {
@@ -29,6 +30,7 @@ export const AppRoutes = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/*" element={<ErrorPage />} />
         </Routes>
     );
 };

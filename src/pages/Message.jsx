@@ -23,7 +23,7 @@ export const Message = () => {
     }, [users]);
 
     return (
-        <div className="">
+        <div className="max-w-full">
             <header className="mb-6">
                 <section id="createMessage" className="mb-4 text-left">
                     <FormAddMessage title="Создать заявку" user={user} />
@@ -37,15 +37,7 @@ export const Message = () => {
                     ЗДесь будет таблица с заявками
                 </h3>
                 <Table />
-                <hr />
-                <p className="text-white text-3xl">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Dolorum vero suscipit dignissimos harum illo. Repellat eos
-                    praesentium iusto rerum, in saepe inventore laudantium,
-                    fugit, necessitatibus nulla accusamus esse omnis expedita!
-                </p>
             </main>
-            {/* <MyComp /> */}
         </div>
     );
 };
