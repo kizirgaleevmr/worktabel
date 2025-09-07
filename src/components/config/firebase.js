@@ -6,7 +6,7 @@ import {
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
@@ -27,7 +27,7 @@ const firebaseConfig = {
     messagingSenderId: "704223310557",
     appId: "1:704223310557:web:60353f38a7f97d15752134",
 };
-
+import { startSession } from "../../storage/session";
 // Инициализация Firebase
 const app = initializeApp(firebaseConfig);
 
@@ -48,7 +48,7 @@ export const createUser = async (email, password) => {
 export const signInUser = async (email, password) => {
     return signInWithEmailAndPassword(getAuth(app), email, password);
 };
-
+export const provider = new GoogleAuthProvider();
 /**
  * Загружает изображение продукта в Firebase и возвращает URL.
  * @param {File} file - Файл изображения
