@@ -277,8 +277,8 @@ export const Tabel = () => {
                                         />
                                     </div>
                                 </div>
-                                <div className="overflow-x-auto w-500">
-                                    <table className="mb-8 border-separate border-spacing-1    bg-white rounded-2xl p-4">
+                                <div className="overflow-x-auto w-500 mx-auto mb-8">
+                                    <table className="mb-8 border-separate border-spacing-1 mx-auto bg-white rounded-2xl p-4">
                                         <thead className="bg-slate-800 text-white ">
                                             <tr>
                                                 <th></th>
@@ -488,6 +488,7 @@ export const Tabel = () => {
                                                                 );
                                                             })}
                                                         <td
+                                                            className="sticky sticky-column right-0 border-separate border border-gray-400 dark:border-gray-500 p-2 px-4 text-2xl`"
                                                             key={
                                                                 years + user.id
                                                             }
