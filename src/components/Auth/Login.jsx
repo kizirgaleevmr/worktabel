@@ -2,6 +2,7 @@ import { useNavigate, Link } from "react-router-dom";
 import React, { useState } from "react";
 import { signInUser } from "../config/firebase";
 import { startSession } from "../../storage/session";
+import { Register } from "../Auth/Register";
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -94,6 +95,7 @@ export const Login = () => {
                                 </Link>
                             </div>
                         </form>
+                        <Register />
                     </div>
                 </div>
             </div>
