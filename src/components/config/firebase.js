@@ -150,15 +150,37 @@ export async function fetchTabel(years, userId) {
 }
 
 /**
+ *функция получает данные с firebase Zayavki
+ * @returns массив с объектами
+ */
+export async function fetchZayavki(years) {
+    const querySnapshot = await getDocs(collection(db, "zayavki"));
+    return querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+}
+//функция добавляет данные по заявкам
+export async function handleSubmitZayavkiToDB(data) {
+    //
+    try {
+        const docRef = await addDoc(collection(db, "zayavki"), data);
+        return docRef.id;
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
+}
+/**
  * Удаляет по id данные с firebase Tabel.
  * @param {string} cellId - id сотрудника
  */
-export async function deleteCellFromDB(cellId) {
+export async function deleteCellFromDB(edpoint,cellId) {
     try {
-        await deleteDoc(doc(db, "Tabel", cellId));
+        await deleteDoc(doc(db, edpoint, cellId));
         console.log("Успешное удаление");
         return true;
     } catch (e) {
         console.log("Не получилось удалить", e.message);
     }
 }
+

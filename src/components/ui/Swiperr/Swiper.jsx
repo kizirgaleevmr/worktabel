@@ -14,7 +14,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 export default () => {
     return (
-        <div className="ml-100">
+        <div className="ml-100 w-470">
             <Swiper
                 className=""
                 modules={[Navigation, Scrollbar, A11y, Autoplay]}

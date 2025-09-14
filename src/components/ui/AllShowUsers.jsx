@@ -10,6 +10,7 @@ import { DrawerPlacement } from "../ui/DrawerAddUser";
 export const AllShowUsers = ({ show, setShow }) => {
     //состояние для массива карт
     const [users, setUsers] = useState([]);
+    //показывает loading пока идет загрузка
     const [loading, setLoading] = useState(false);
     //начальная страница
     const [currentPage, setCurrentPage] = useState(1);
@@ -143,8 +144,8 @@ export const AllShowUsers = ({ show, setShow }) => {
                         )}
                     </div>
                     <Pagination
-                        usersPerPage={usersPerPage}
-                        totalUsers={users.length}
+                        perPage={usersPerPage}
+                        total={users.length}
                         paginate={paginate}
                     />
                     <Button

@@ -31,7 +31,6 @@ export function DefaultSidebar() {
 
     function handleMenu() {
         setIsOpen(!isOpen);
-        console.log(isOpen);
     }
     //открываем меню или закрываем
     // React.useEffect(() => {}, [isOpen]);
@@ -89,7 +88,7 @@ export function DefaultSidebar() {
                 </button>
             )}
             <div
-                className={`h-120 w-80 flex-1/5 p-4 bg-amber-50 shadow-xl shadow-blue-gray-900/5 l mr-6 border-t-amber-500 border-t-4 scroll-auto relative ${
+                className={`h-120 w-80 shrink-0 p-4 bg-amber-50 shadow-xl shadow-blue-gray-900/5 l mr-6 border-t-amber-500 border-t-4 scroll-auto relative ${
                     isOpen ? "sidebar__menu_open" : "sidebar__menu_close"
                 }`}
             >

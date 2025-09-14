@@ -5,8 +5,17 @@ import { icons } from "../icons";
 import { fecthQeuinpment } from "../../config/server-json";
 import { tsModel, typeQeuinpment } from "../../../BD/data";
 import { nanoid } from "nanoid";
-
-export const FormAddMessage = ({ children, title, user }) => {
+import { format } from "date-fns";
+import { fetchZayavki, handleSubmitZayavkiToDB } from "../../config/firebase";
+import { saveToQueipmentDB } from "../../config/server-json";
+export const FormAddMessage = ({
+    children,
+    title,
+    user,
+    setSaveIsZayavki,
+    saveIsZayavki,
+    countZayavki
+}) => {
     const [reg] = useState(region);
     const [ksa] = useState(KSA.KSA);
     const [model] = useState(tsModel.ts_name);
@@ -14,6 +23,7 @@ export const FormAddMessage = ({ children, title, user }) => {
     const [selectReg, setSelectReg] = useState("");
     const [selectKsa, setSelectKsa] = useState("");
     const [selectNumber, setSelectNumber] = useState("");
+    const [selectUrgency, setSelectUrgency] = useState("");
     const [checkSelectNumber, setCheckSelectNumber] = useState(null);
     const [adress, setAdress] = useState(null);
     const [regId, setRegId] = useState(null);
@@ -21,10 +31,13 @@ export const FormAddMessage = ({ children, title, user }) => {
     const [isActiveSection, setIsActiveSection] = useState(false);
     const [searchProperty, setSearchProperty] = useState("");
     const [valueNumber, setValueNumber] = useState("");
-
+    const [zayavkaNumber, setZayzvkaNumber] = useState(0);
+    const [dataZayavki, setDataZayavki] = useState([]);
     const [nameQeuinpment, setNameQeuinpment] = useState([]);
     //оборудование
     const [dataQeuinoment, setDataQeuinpment] = useState([]);
+
+    const today = new Date();
 
     React.useEffect(() => {
         const found = reg.find((e) => e.reg === selectReg);
@@ -34,6 +47,7 @@ export const FormAddMessage = ({ children, title, user }) => {
             setRegId(null);
         }
     }, [selectReg, reg]);
+
     //выводим список КСА
     const filteKsa = ksa.filter((e) => e.reg_id === regId);
     React.useEffect(() => {
@@ -55,6 +69,18 @@ export const FormAddMessage = ({ children, title, user }) => {
                 phone: work_phone,
             });
         }
+        setZayzvkaNumber("");
+        setZayzvkaNumber(
+            selectKsa + "_" + format(today, "yy-MM-dd") + "_" + countZayavki
+        );
+        //Получаем все заявки
+        const getAllZayzvki = async () => {
+            const response = await fetchZayavki();
+            //сохраняем все заявки в состоянии
+            // setDataZayavki(response);
+            // setCountZayavki(1 + response.length);
+        };
+        // getAllZayzvki();
     }, [selectKsa]);
 
     //сбрасываем форму при закрытие
@@ -70,6 +96,8 @@ export const FormAddMessage = ({ children, title, user }) => {
         setAdress(null);
         setRegId(null);
     }
+
+    //получаем значения с интпута сериал или инвентарный
     function changeSerialAndInvent(e) {
         const searchValue = e.target.value;
 
@@ -82,7 +110,7 @@ export const FormAddMessage = ({ children, title, user }) => {
             setValueNumber(searchValue);
         }
     }
-
+    //поиск по серийнику или инвентарнику
     React.useEffect(() => {
         //поиск по серийнику или инвентарнику
         async function search() {
@@ -91,8 +119,8 @@ export const FormAddMessage = ({ children, title, user }) => {
         }
         search();
     }, [searchProperty, valueNumber]);
-    //отбираем по выбранному серийнику у select
 
+    //отбираем по выбранному серийнику у select
     React.useEffect(() => {
         const result = dataQeuinoment.filter((qeuin) => {
             return qeuin.serial_number === selectNumber;
@@ -100,11 +128,66 @@ export const FormAddMessage = ({ children, title, user }) => {
         setCheckSelectNumber(result);
     }, [selectNumber]);
 
+    //TODO! не забыть передать props для обновления данных в таблице
+    //Изменяем состояние после сохранения данных
+    React.useEffect(() => {}, []);
+
+    //функция для сбора данных с формы и отправки в БД
     function sendToFormDB(e) {
         e.preventDefault();
+        //TODOсобираем данные для отправки
+        const showModalObject = { message: "", dateClose: "", useClose: "" };
         const form = document.getElementById("form_add_tech");
-        const formData = new FormData(form);
+        const formData = new FormData();
+
+        for (let elem of form.elements) {
+            if (
+                elem.value !== "" &&
+                elem.id !== "serial-number" &&
+                elem.id !== "queinpment"
+            ) {
+                formData.append([elem.id], [elem.value]);
+            }
+        }
+
+        formData.append(
+            "number-zayavki",
+            selectKsa + "_" + format(today, "yy-MM-dd") + "_" + countZayavki
+        );
+
+        formData.append("user", `${user.lastName} ${user.firstName}`);
+        formData.append("date", format(today, "yy-MM-dd"));
+        for (let [key, value] of formData) {
+            showModalObject[key] = value;
+        }
+        // TODO: добавить статус заявки или оставить по дате закрыта или нет
+        //выводим данные для проверки
+        const div = document.createElement("div");
+        div.classList.add("qeuinpment_modal");
+        const paragraph = document.createElement("p");
+
+        const isSave = confirm("данные верны?");
+        
+        async function sendToDB(){
+             //TODO:отправляем данные в БД
+           await handleSubmitZayavkiToDB(showModalObject);
+            //отправка в json server
+           await saveToQueipmentDB(showModalObject);
+            //меняем состояния для обновление таблицы
+            setSaveIsZayavki(!saveIsZayavki);
+             //сбрасываем форму
+        resetForm();
+           }
+
+        if (!isSave) {
+            console.log("исправььте данные");
+        } else {
+           sendToDB();
+        }
     }
+    //TODO: сделать модалку для проверки правильности заявки
+    //TODO? сделать проверку на есть ли заявка на такое оборудование и открыта ли она
+
     return (
         <>
             <button
@@ -112,21 +195,39 @@ export const FormAddMessage = ({ children, title, user }) => {
                     setIsActiveSection(true);
                 }}
                 type="button"
-                className="hover:text-amber-600 cursor-pointer mb-4 text-white"
+                className="hover:text-amber-600 cursor-pointer mb-4 text-black"
             >
                 {icons["document-plus"]}
             </button>
             {isActiveSection && (
-                <section className="w-full mb-4 text-left bg-white px-6 py-5 transition-all duration-300 ease-in-out shadow-md sm:rounded-lg">
+                <section className="absolute -left-96 -top-18 mb-4 text-left px-6 py-5 transition-all duration-300 ease-in-out shadow-md sm:rounded-lg w-500 h-screen bg-gray-600/40">
                     <form
                         id="form_add_tech"
-                        className="max-w-full"
+                        className="w-full p-10 rounded-2xl bg-white"
                         onSubmit={sendToFormDB}
                     >
                         <div className="mb-5 flex gap-8">
-                            <div className="grow-0">
+                            <div className="w-80">
                                 {user && (
                                     <>
+                                        <div className="relative z-0 w-full mb-5 group">
+                                            <input
+                                                type="text"
+                                                name="number-zayavki"
+                                                id="number-zayavki"
+                                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                placeholder=" "
+                                                onChange={changeSerialAndInvent}
+                                                value={zayavkaNumber}
+                                            />
+                                            <label
+                                                htmlFor="number-zayavki"
+                                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                            >
+                                                Номер заявки
+                                            </label>
+                                        </div>
+                                        <p id=""></p>
                                         <p className="mb-2 text-base font-medium text-gray-900">
                                             Пользователь:
                                         </p>
@@ -139,7 +240,7 @@ export const FormAddMessage = ({ children, title, user }) => {
                                     </>
                                 )}
                             </div>
-                            <div className="grow-1">
+                            <div className="w-120">
                                 <label
                                     htmlFor="countries"
                                     className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
@@ -191,7 +292,6 @@ export const FormAddMessage = ({ children, title, user }) => {
                                                 );
                                             })}
                                         </select>
-
                                         {adress && (
                                             <>
                                                 <div className="relative z-0 w-full mb-5 group">
@@ -200,7 +300,7 @@ export const FormAddMessage = ({ children, title, user }) => {
                                                         name="serial-number"
                                                         id="serial-number"
                                                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                        placeholder=" "
+                                                        placeholder=""
                                                         onChange={
                                                             changeSerialAndInvent
                                                         }
@@ -230,12 +330,53 @@ export const FormAddMessage = ({ children, title, user }) => {
                                                         Инвентарный номер
                                                     </label>
                                                 </div>
+
+                                                <div>
+                                                    <label
+                                                        htmlFor="ksa"
+                                                        className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+                                                    >
+                                                        Срочность:
+                                                    </label>
+                                                    <select
+                                                        onChange={(e) =>
+                                                            setSelectUrgency(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        value={selectUrgency}
+                                                        name="urgency"
+                                                        id="urgency"
+                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
+                                                    >
+                                                        <option>
+                                                            --Выбрать
+                                                            срочность--
+                                                        </option>
+                                                        <option>Срочно</option>
+                                                        <option>
+                                                            Не срочно
+                                                        </option>
+                                                    </select>
+                                                    <label
+                                                        htmlFor="message"
+                                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                    >
+                                                        Описание проблемы
+                                                    </label>
+                                                    <textarea
+                                                        id="message"
+                                                        rows="4"
+                                                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="Описание проблемы..."
+                                                    ></textarea>
+                                                </div>
                                             </>
                                         )}
                                     </>
                                 )}
                             </div>
-                            <div className="grow-3">
+                            <div className="w-1/2">
                                 {adress && (
                                     <div className="flex flex-col">
                                         <div>
@@ -268,7 +409,7 @@ export const FormAddMessage = ({ children, title, user }) => {
                                                     }
                                                     value={selectNumber}
                                                     name="queinpment"
-                                                    id="ksqueinpment"
+                                                    id="queinpment"
                                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4"
                                                 >
                                                     <option>

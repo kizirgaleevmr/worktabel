@@ -90,9 +90,12 @@ img {
 }
 
 .sidebar__menu_open {
-  transform: scale(1);
+  left: 0px;
+  transition: all ease .6s;
 }
 
 .sidebar__menu_close {
-  transform: scale(0);
+  left: -290px;
+  opacity: 0;
+  transition: all ease .6s;
 }

@@ -1,9 +1,9 @@
 import React from "react";
 //для сотрудников
-export const Pagination = ({ usersPerPage, totalUsers, paginate }) => {
+export const Pagination = ({ perPage, total, paginate }) => {
     const pageNumber = [];
 
-    for (let i = 1; i <= Math.ceil(totalUsers / usersPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(total / perPage); i++) {
         pageNumber.push(i);
     }
     return (
@@ -81,3 +81,5 @@ export const PaginationWeek = ({ weekPerPage, totalWeek, paginateWeek }) => {
         </div>
     );
 };
+
+

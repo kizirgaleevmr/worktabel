@@ -22,7 +22,6 @@ export const ButtonOrange = ({ subText, click, type }) => {
             >
                 {subText}
             </button>
-            ;
         </>
     );
 };

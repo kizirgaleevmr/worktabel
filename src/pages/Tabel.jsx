@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { daysWeek, nameMonth } from "../components/utils/date";
-import { fetchUsers } from "../components/config/firebase";
+import { auth, fetchUsers } from "../components/config/firebase";
 import { format, getDaysInMonth, getDay, getWeekOfMonth } from "date-fns";
 import { PaginationTabel, PaginationWeek } from "../components/ui/Pagination";
 import { ModalTabelCell } from "../components/ui/ModalTabelCell";
@@ -9,6 +9,8 @@ import { countDayTime } from "../components/utils/countDayTime";
 import { icons } from "../components/ui/icons";
 import { deleteCellFromDB } from "../components/config/firebase";
 import { ButtonBlack, ButtonOrange } from "../components/ui/Button/Button";
+import { jsPDF } from "jspdf";
+import { fonts } from "../font";
 const countMonth = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 export const Tabel = () => {
@@ -193,18 +195,78 @@ export const Tabel = () => {
 
     //Функция на удаления
     function deletCell(e) {
-        const elementParent =
-            e.target.parentElement.parentElement.parentElement.parentElement.id;
+        console.log(e.currentTarget.parentElement.parentElement.id);
+
+        const elementParent = e.currentTarget.parentElement.parentElement.id;
         const isDelete = confirm("Удалить данные?");
         if (!isDelete) alert("Вы отменили действые");
-        deleteCellFromDB(elementParent);
-        setAddCellValue(addCellValue - 1);
+        else {
+            deleteCellFromDB('Tabel',elementParent);
+            setAddCellValue(addCellValue - 1);
+        }
+    }
+    /**
+     * Функция для экспорта в pdf
+     * @return - pdf файл
+     */
+    function exportTableToPdf() {
+        applyPlugin(jsPDF);
+        var doc = new jsPDF("l", "mm", [300, 650]);
+        doc.addFileToVFS("Inter-Italic-VariableFont_opsz,wght.ttf", fonts);
+        doc.addFont(
+            "Inter-Italic-VariableFont_opsz,wght.ttf",
+            "Inter-Italic-VariableFont_opsz,wght",
+            "normal"
+        );
+        doc.setFont("Inter-Italic-VariableFont_opsz,wght");
+        // doc.addPage(undefined, "landscape");// добавить страницу
+        doc.setFontSize(8);
+        doc.autoTable({
+            html: "#myTable",
+            styles: {
+                overflow: "linebreak",
+                cellWidth: "wrap",
+                font: "Inter-Italic-VariableFont_opsz,wght", // Указываем шрифт для всей таблицы
+                // cellPadding: 0, // Отступ внутри ячейки
+                cellWidth: "auto",
+                // fontSize: 10,
+                // minCellHeight: 30, // Минимальная высота ячейки
+            },
+            theme: "grid",
+
+            startY: 20, // Начальная позиция Y
+            margin: { top: 20, bottom: 20 }, // Отступы сверху и снизу
+            rowPageBreak: "avoid", // Избегайте разрыва страницы внутри строки
+            // Применение темы "grid" для создания границ
+            columnStyles: {
+                // 0: {
+                //     fontStyle: "Inter-Italic-VariableFont_opsz,wght",
+                //     cellWidth: "auto",
+                // }, // Указываем шрифт для столбца 0
+                // 1: { fontStyle: "Inter-Italic-VariableFont_opsz,wght" }, // Указываем шрифт для столбца 1
+            },
+            headStyles: {
+                fontStyle: "Inter-Italic-VariableFont_opsz,wght", // Указываем шрифт для заголовков
+            },
+            body: {
+                font: "Inter-Italic-VariableFont_opsz,wght",
+                // fontSize: 10,
+                contentHeight: 20,
+            },
+        });
+
+        doc.save("table.pdf");
     }
 
     if (dataUsers.length !== 0) {
         return (
             <>
                 <h2 className="mb-4 text-white text-2xl">Табель</h2>
+                //TODO! удалить потом
+                <ButtonBlack
+                    subText="Сохранить в PDF"
+                    click={exportTableToPdf}
+                />
                 <ButtonOrange
                     subText="2025"
                     click={handleClickYears}
@@ -252,18 +314,20 @@ export const Tabel = () => {
                                         />
                                     </div>
                                 </div>
-                                <div className="flex justify-center">
-                                    <div className="mr-8">
-                                        <h2 className="mb-6 text-white">
-                                            Норма дней:
-                                        </h2>
-                                        <input
-                                            type="text"
-                                            id="day__week_month"
-                                            className="border-2 border-gray-400 rounded-2xl mb-2 p-2 px-2 outline-0 w-15 bg-gray-100 text-fuchsia-800"
-                                            value={dayNorma}
-                                            onChange={handleNormaDayChange}
-                                        />
+                                <div className="flex justify-center w-330">
+                                    <div className="">
+                                        <div className="mr-8">
+                                            <h2 className="mb-6 text-white">
+                                                Норма дней:
+                                            </h2>
+                                            <input
+                                                type="text"
+                                                id="day__week_month"
+                                                className="border-2 border-gray-400 rounded-2xl mb-2 p-2 px-2 outline-0 w-15 bg-gray-100 text-fuchsia-800"
+                                                value={dayNorma}
+                                                onChange={handleNormaDayChange}
+                                            />
+                                        </div>
                                     </div>
                                     <div>
                                         <h2 className="mb-6 text-white">
@@ -278,7 +342,10 @@ export const Tabel = () => {
                                     </div>
                                 </div>
                                 <div className="overflow-x-auto w-500 mx-auto mb-8">
-                                    <table className="mb-8 border-separate border-spacing-1 mx-auto bg-white rounded-2xl p-4">
+                                    <table
+                                        id="myTable"
+                                        className="mb-8 border-separate border-spacing-1 mx-auto bg-white rounded-2xl p-4"
+                                    >
                                         <thead className="bg-slate-800 text-white ">
                                             <tr>
                                                 <th></th>
@@ -388,6 +455,7 @@ export const Tabel = () => {
                                                             </th>
                                                         );
                                                     })}
+                                                <th>Статистика</th>
                                             </tr>
                                         </thead>
                                         <tbody className="text-gray-800">
@@ -520,6 +588,9 @@ export const Tabel = () => {
                                                                         >
                                                                             {
                                                                                 userStatistika
+                                                                            }
+                                                                            {
+                                                                                " / "
                                                                             }
                                                                         </div>
                                                                     );
